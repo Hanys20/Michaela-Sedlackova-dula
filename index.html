@@ -23,8 +23,14 @@
       <img src="PODKLADY/Logo/Logo Míša.svg" alt="Michaela Sedláčková – porodní bába">
     </a>
     <div class="nav-links">
-      <a href="#nabidka">Co nabízím</a>
-      <a href="#cenik">Ceník</a>
+      <div class="nav-dropdown">
+        <a href="#nabidka" class="nav-dropdown-trigger">Co nabízím</a>
+        <div class="nav-dropdown-menu">
+          <a href="predporodní-pece.html">Předporodní péče</a>
+          <a href="doprovod-k-porodu.html">Doprovod k porodu</a>
+          <a href="poporodní-pece.html">Poporodní péče</a>
+        </div>
+      </div>
       <a href="#o-mne">O mně</a>
       <a href="#kontakt">Kontakt</a>
       <a href="#kontakt" class="btn btn-primary btn-sm">KONZULTACE ZDARMA</a>
@@ -47,8 +53,12 @@
 </nav>
 
 <div class="mobile-menu" id="mobile-menu">
-  <a href="#nabidka">Co nabízím</a>
-  <a href="#cenik">Ceník</a>
+  <div class="mob-group">
+    <span class="mob-label">Co nabízím</span>
+    <a href="predporodní-pece.html" class="mob-sub">Předporodní péče</a>
+    <a href="doprovod-k-porodu.html" class="mob-sub">Doprovod k porodu</a>
+    <a href="poporodní-pece.html" class="mob-sub">Poporodní péče</a>
+  </div>
   <a href="#o-mne">O mně</a>
   <a href="#kontakt">Kontakt</a>
   <a href="#kontakt" class="btn btn-primary">CHCI KONZULTACI ZDARMA</a>
@@ -77,7 +87,7 @@
     <p class="hero-desc">Provázím vás od první těhotenské konzultace přes porod až po šestinedělí doma. Přirozeně, s láskou a s respektem k vaší volbě.</p>
     <div class="hero-btns">
       <a href="#nabidka" class="btn btn-primary">Co nabízím</a>
-      <a href="#kontakt" class="btn-outline-light">CHCI KONZULTACI ZDARMA<span class="btn-sub">v délce 20 min</span></a>
+      <a href="#kontakt" class="btn-outline-light">CHCI KONZULTACI ZDARMA</a>
     </div>
     <div class="social-proof">
       <div class="sp-item">
@@ -95,12 +105,11 @@
     </div>
   </div>
 
-
 </section>
 
 
 <!-- ═══════════════════════════════
-     CO NABÍZÍM – 3 PILÍŘE
+     CO NABÍZÍM – ROZCESTNÍK
 ═══════════════════════════════ -->
 <section id="nabidka">
   <div class="container">
@@ -108,308 +117,72 @@
       <p class="eyebrow">Moje služby</p>
       <h2>Co pro vás <em>mohu udělat</em></h2>
       <div class="divider"></div>
-      <p>Komplexní péče rozdělená do tří oblastí, které spolu přirozeně navazují.</p>
+      <p>Komplexní péče od prvního těhotenského trimestru až po šestinedělí. Vyberte oblast, která vás zajímá.</p>
     </header>
 
-    <div class="pillars-grid">
+    <div class="hub-grid">
 
-      <!-- PILÍŘ 1: PŘEDPORODNÍ PÉČE -->
-      <div class="pillar-card pillar-1">
-        <div class="pillar-header">
-          <div class="pillar-icon"><img src="PODKLADY/IKONY/fetus_7713517.svg" alt=""></div>
-          <div class="pillar-meta">
-            <h3 class="pillar-title">Předporodní péče</h3>
-          </div>
+      <!-- PŘEDPORODNÍ PÉČE -->
+      <a href="predporodní-pece.html" class="hub-card hub-1">
+        <div class="hub-img">
+          <img src="PODKLADY/Obrázky/konzultace-web.jpg" alt="Předporodní péče – konzultace s porodní bábou">
         </div>
-
-        <div class="service-item hl">
-          <div class="service-top">
-            <h4>Individuální konzultace</h4>
-            <span class="srv-badge">★ Oblíbené</span>
+        <div class="hub-content">
+          <div class="hub-icon">
+            <img src="PODKLADY/IKONY/fetus_7713517.svg" alt="">
           </div>
-          <p class="service-desc">Přizpůsobené setkání přímo pro vás – odpovím na vaše otázky k těhotenství, porodu nebo šestinedělí.</p>
-          <div class="service-extra" id="e1-1">
-            <p>Konzultace probíhají osobně v Ostravě nebo online. Zaměřujeme se na vaše individuální potřeby a obavy. Společně sestavíme plán porodu nebo probereme specifická témata, která vás trápí.</p>
+          <h3>Předporodní péče</h3>
+          <p>Individuální konzultace, předporodní kurzy a intenzivní příprava doma. Vše pro klidný a sebejistý vstup do porodu.</p>
+          <div class="hub-tags">
+            <span>Individuální konzultace</span>
+            <span>Předporodní kurzy</span>
+            <span>Příprava doma</span>
           </div>
-          <button class="read-more" data-target="e1-1">↓ číst více</button>
-          <span class="service-note">1. konzultace zdarma (20 min online)</span>
+          <span class="hub-link">Zjistit více →</span>
         </div>
+      </a>
 
-        <div class="service-item hl">
-          <div class="service-top">
-            <h4>Předporodní kurzy</h4>
-            <span class="srv-badge">★ Oblíbené</span>
-          </div>
-          <p class="service-desc">Skupinová příprava na porod s praktickými cvičeními, teorií i sdílením s ostatními páry.</p>
-          <div class="service-extra" id="e1-3">
-            <p>Kurzy probíhají v malých skupinkách (max. 6 párů). Naučíme se dechové a relaxační techniky, úlevové polohy, rebozo terapii i základy laktace. Partneři jsou nedílnou součástí.</p>
-          </div>
-          <button class="read-more" data-target="e1-3">↓ číst více</button>
-          <div class="service-tags">
-            <span class="stag">1× týdně · Ostrava</span>
-            <span class="stag">Víkendový intenziv</span>
-          </div>
-          <a href="#kontakt" class="btn-reserve">Rezervovat místo →</a>
+      <!-- DOPROVOD K PORODU -->
+      <a href="doprovod-k-porodu.html" class="hub-card hub-2">
+        <div class="hub-img">
+          <img src="PODKLADY/Obrázky/doprovod-hub-web.jpg" alt="Doprovod k porodu – příprava s porodní bábou">
         </div>
-
-        <div class="service-item">
-          <div class="service-top">
-            <h4>Intenzivní příprava doma</h4>
+        <div class="hub-content">
+          <div class="hub-icon">
+            <img src="PODKLADY/IKONY/care_4410386.svg" alt="">
           </div>
-          <p class="service-desc">Tříhodinové setkání ve vašem domě – projdeme vše od fyziologie porodu po praktické věci do porodnice.</p>
-          <div class="service-extra" id="e1-2">
-            <p>Navštívím vás doma, aby vám prostředí bylo blízké. Probereme průběh porodu, úlevové techniky, dechová cvičení i praktické věci jako balení do porodnice. Partner nebo doprovod vítáni.</p>
+          <h3>Doprovod k porodu</h3>
+          <p>Jsem s vámi od začátku porodní činnosti až po první přiložení miminka – v porodnici i doma. Nejste na to sama.</p>
+          <div class="hub-tags">
+            <span>Porodnice</span>
+            <span>Domácí porod</span>
+            <span>Pohotovost 24/7</span>
           </div>
-          <button class="read-more" data-target="e1-2">↓ číst více</button>
+          <span class="hub-link">Zjistit více →</span>
         </div>
+      </a>
 
-        <div class="service-additional">
-          <p class="add-label">Doplňkové služby</p>
-          <div class="add-tags">
-            <span class="add-tag">Příprava na kojení</span>
-            <span class="add-tag">Rebozo masáž</span>
-            <span class="add-tag">Těhotenská masáž</span>
-            <span class="add-tag">Předporodní rituál</span>
-          </div>
+      <!-- POPORODNÍ PÉČE -->
+      <a href="poporodní-pece.html" class="hub-card hub-3">
+        <div class="hub-img">
+          <img src="PODKLADY/Obrázky/sesti2-web.jpg" alt="Poporodní péče – rebozo závinování">
         </div>
-
-        <div class="pillar-cta">
-          <a href="#kontakt" class="btn btn-primary">CHCI KONZULTACI ZDARMA →</a>
+        <div class="hub-content">
+          <div class="hub-icon">
+            <img src="PODKLADY/IKONY/care_6212757.svg" alt="">
+          </div>
+          <h3>Poporodní péče</h3>
+          <p>Laktační poradenství, zpracování placenty a regenerační rituály. Péče, která v šestinedělí patří vám.</p>
+          <div class="hub-tags">
+            <span>Laktační poradenství</span>
+            <span>Zavírání kostí</span>
+            <span>Placenta</span>
+          </div>
+          <span class="hub-link">Zjistit více →</span>
         </div>
-      </div>
-
-
-      <!-- PILÍŘ 2: DOPROVOD K PORODU -->
-      <div class="pillar-card pillar-2">
-        <div class="pillar-header">
-          <div class="pillar-icon"><img src="PODKLADY/IKONY/care_4410386.svg" alt=""></div>
-          <div class="pillar-meta">
-            <h3 class="pillar-title">Doprovod k porodu</h3>
-          </div>
-        </div>
-
-        <div class="service-item hl">
-          <div class="service-top">
-            <h4>Doprovod k porodu</h4>
-            <span class="srv-badge">★ Oblíbené</span>
-          </div>
-          <p class="service-desc">Jsem s vámi od začátku porodní činnosti až po první přiložení miminka k prsu – v porodnici i doma.</p>
-          <div class="service-extra" id="e2-2">
-            <p>Vedle vás stojím po celou dobu porodu. Pracuji s bachovou terapií, aromaterapií, rebozo technikami i masáží zad. Doprovázím i k domácím porodům.</p>
-          </div>
-          <button class="read-more" data-target="e2-2">↓ číst více</button>
-          <div class="service-tags">
-            <span class="stag">porodnice</span>
-            <span class="stag">doma</span>
-          </div>
-        </div>
-
-        <div class="service-item">
-          <div class="service-top">
-            <h4>Pohotovost 24/7</h4>
-          </div>
-          <p class="service-desc">Od 37. týdne jsem vám k dispozici kdykoliv – přes WhatsApp, Messenger i telefon. Výjezd do 1 hodiny.</p>
-          <div class="service-extra" id="e2-1">
-            <p>Po uzavření smlouvy o doprovodu jsem vám dostupná nepřetržitě po dobu 3 týdnů kolem vašeho termínu. Výjezd za vámi garantuji do 1 hodiny od zavolání.</p>
-          </div>
-          <button class="read-more" data-target="e2-1">↓ číst více</button>
-          <div class="service-tags">
-            <span class="stag">od 37. tt</span>
-            <span class="stag">výjezd do 1 hod.</span>
-          </div>
-        </div>
-
-        <div class="service-additional">
-          <p class="add-label">Součást doprovodu</p>
-          <div class="add-tags">
-            <span class="add-tag">Bachovy esence</span>
-            <span class="add-tag">Aromaterapie</span>
-            <span class="add-tag">Relaxační techniky</span>
-            <span class="add-tag">Rebozo podpora</span>
-          </div>
-        </div>
-
-        <div class="pillar-cta">
-          <a href="#kontakt" class="btn btn-primary">CHCI KONZULTACI ZDARMA →</a>
-        </div>
-      </div>
-
-
-      <!-- PILÍŘ 3: POPORODNÍ PÉČE -->
-      <div class="pillar-card pillar-3">
-        <div class="pillar-header">
-          <div class="pillar-icon"><img src="PODKLADY/IKONY/care_6212757.svg" alt=""></div>
-          <div class="pillar-meta">
-            <h3 class="pillar-title">Poporodní péče</h3>
-          </div>
-        </div>
-
-        <div class="service-item hl">
-          <div class="service-top">
-            <h4>Zpracování placenty</h4>
-            <span class="srv-badge">★ Oblíbené</span>
-          </div>
-          <p class="service-desc">Příprava placentárních kapslí, tinktury nebo homeopatik pro rychlejší regeneraci a hormonální rovnováhu.</p>
-          <div class="service-extra" id="e3-2">
-            <p>Placenta se zpracovává šetrně metodou TCM nebo syrovou metodou. Kapsle přispívají k hormonální rovnováze, doplnění energie a podpoře laktace. Vždy pracuji osobně a v bezpečných podmínkách.</p>
-          </div>
-          <button class="read-more" data-target="e3-2">↓ číst více</button>
-          <div class="service-tags">
-            <span class="stag">kapsle</span>
-            <span class="stag">tinktura</span>
-            <span class="stag">homeopatika</span>
-          </div>
-        </div>
-
-        <div class="service-item">
-          <div class="service-top">
-            <h4>Laktační poradenství</h4>
-          </div>
-          <p class="service-desc">Pomoc s nastartováním kojení, problémy s přikládáním nebo přechodem na umělou výživu – bez odsuzování.</p>
-          <div class="service-extra" id="e3-1">
-            <p>Přijdu za vámi domů nebo se setkáme na konzultaci. Problémy s kojením řešíme společně v klidu. Laktační poradenství je dostupné i online.</p>
-          </div>
-          <button class="read-more" data-target="e3-1">↓ číst více</button>
-        </div>
-
-        <div class="service-item">
-          <div class="service-top">
-            <h4>Rituály a regenerace</h4>
-          </div>
-          <p class="service-desc">Zavírání kostí, uzavření těla i ošetření jizev – podpora fyzické i duševní obnovy po porodu.</p>
-          <div class="service-extra" id="e3-3">
-            <p>Rituál zavírání kostí symbolicky i fyzicky uzavírá porodní cestu. Pomocí rebozo šátků podporuji svalový tonus. Součástí bývá masáž, bylinné obklady a prostor pro zpracování zážitku z porodu.</p>
-          </div>
-          <button class="read-more" data-target="e3-3">↓ číst více</button>
-          <div class="service-tags">
-            <span class="stag">Zavírání kostí</span>
-            <span class="stag">Ošetření jizev</span>
-          </div>
-        </div>
-
-        <div class="pillar-cta">
-          <a href="#kontakt" class="btn btn-primary">CHCI KONZULTACI ZDARMA →</a>
-        </div>
-      </div>
+      </a>
 
     </div>
-  </div>
-</section>
-
-
-<!-- ═══════════════════════════════
-     CENÍK
-═══════════════════════════════ -->
-<section id="cenik">
-  <div class="container">
-    <header class="section-header">
-      <p class="eyebrow">Orientační ceny</p>
-      <h2>Ceník služeb</h2>
-      <div class="divider"></div>
-    </header>
-    <p class="cenik-subtitle">Ceny jsou orientační a mohou se lišit dle rozsahu péče. Doprava po dohodě.</p>
-
-    <div class="cenik-grid">
-
-      <div class="cenik-group cg1">
-        <div class="cenik-group-head">
-          <img class="cg-icon" src="PODKLADY/IKONY/notes_768818.svg" alt="">
-          <h4>Konzultace &amp; příprava</h4>
-        </div>
-        <div class="cenik-row">
-          <div class="cr-name">Informační schůzka<small>20 min · online</small></div>
-          <span class="cr-price free">zdarma</span>
-        </div>
-        <div class="cenik-row">
-          <div class="cr-name">Individuální konzultace<small>60 min</small></div>
-          <span class="cr-price">900 Kč</span>
-        </div>
-        <div class="cenik-row">
-          <div class="cr-name">Intenzivní příprava doma<small>3 hod. · u vás</small></div>
-          <span class="cr-price">2 800 Kč</span>
-        </div>
-        <div class="cenik-row">
-          <div class="cr-name">Předporodní kurz<small>skupinový · na osobu</small></div>
-          <span class="cr-price">od 3 500 Kč</span>
-        </div>
-      </div>
-
-      <div class="cenik-group cg2">
-        <div class="cenik-group-head">
-          <img class="cg-icon" src="PODKLADY/IKONY/care_4410386.svg" alt="">
-          <h4>Doprovod k porodu</h4>
-        </div>
-        <div class="cenik-row">
-          <div class="cr-name">Pohotovost 24/7<small>3 týdny · od 37. tt</small></div>
-          <span class="cr-price">3 000 Kč</span>
-        </div>
-        <div class="cenik-row">
-          <div class="cr-name">Doprovod · porodnice<small>od začátku porod. činnosti</small></div>
-          <span class="cr-price">od 8 000 Kč</span>
-        </div>
-        <div class="cenik-row">
-          <div class="cr-name">Doprovod · doma<small>příprava + porod</small></div>
-          <span class="cr-price">od 12 000 Kč</span>
-        </div>
-        <div class="cenik-row">
-          <div class="cr-name">Poporodní návštěva<small>2–3 hod. doma</small></div>
-          <span class="cr-price">1 500 Kč</span>
-        </div>
-      </div>
-
-      <div class="cenik-group cg3">
-        <div class="cenik-group-head">
-          <img class="cg-icon" src="PODKLADY/IKONY/yoga-pose_2978690.svg" alt="">
-          <h4>Opečování &amp; rituály</h4>
-        </div>
-        <div class="cenik-row">
-          <div class="cr-name">Rebozo masáž<small>60 min</small></div>
-          <span class="cr-price">900 Kč</span>
-        </div>
-        <div class="cenik-row">
-          <div class="cr-name">Předporodní rituál</div>
-          <span class="cr-price">1 200 Kč</span>
-        </div>
-        <div class="cenik-row">
-          <div class="cr-name">Zavírání kostí</div>
-          <span class="cr-price">1 800 Kč</span>
-        </div>
-        <div class="cenik-row">
-          <div class="cr-name">Ošetření jizvy<small>60 min</small></div>
-          <span class="cr-price">900 Kč</span>
-        </div>
-      </div>
-
-      <div class="cenik-group cg4">
-        <div class="cenik-group-head">
-          <img class="cg-icon" src="PODKLADY/IKONY/feeding-bottle_3142941.svg" alt="">
-          <h4>Laktace &amp; placenta</h4>
-        </div>
-        <div class="cenik-row">
-          <div class="cr-name">Laktační poradenství<small>60 min</small></div>
-          <span class="cr-price">900 Kč</span>
-        </div>
-        <div class="cenik-row">
-          <div class="cr-name">Zpracování placenty – kapsle</div>
-          <span class="cr-price">2 500 Kč</span>
-        </div>
-        <div class="cenik-row">
-          <div class="cr-name">Zpracování placenty – tinktura</div>
-          <span class="cr-price">1 500 Kč</span>
-        </div>
-        <div class="cenik-row">
-          <div class="cr-name">Zpracování placenty – homeopatika</div>
-          <span class="cr-price">1 200 Kč</span>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="cenik-cta">
-      <p>Nejste si jistí, co je pro vás nejlepší? <strong>Zavolejte nebo napište</strong> — ráda vám poradím.</p>
-      <a href="#kontakt" class="btn btn-primary">CHCI KONZULTACI ZDARMA</a>
-    </div>
-
   </div>
 </section>
 
@@ -434,10 +207,9 @@
         <p class="eyebrow">O mně</p>
         <h2>Ahoj, jsem <em>Michaela</em></h2>
         <div class="about-divider"></div>
-        <p>Jsem porodní bába, laktační poradkyně a lektorka předporodní přípravy z Ostravy. Věřím, že každá žena má v sobě sílu rodit – potřebuje jen správnou podporu, klid a důvěru v sebe sama.</p>
-        <p>Za více než 10 let praxe jsem doprovázela přes 200 rodin na jejich cestě rodičovstvím. Sama jsem maminka pěti dětí, takže vím z vlastní zkušenosti, jak transformující i náročné mateřství může být.</p>
-        <p>Moje cesta začala jako dula od roku 2014. Touha porozumět porodu do hloubky mě přivedla ke studiu porodní asistence, které jsem dokončila v roce 2024. Dnes propojuji vědecké poznatky s přirozeným přístupem k porodu.</p>
-        <p style="margin-bottom: 24px;">Pracuji v Ostravě a blízkém okolí. Individuální konzultace a laktační poradenství nabízím i online po celé České republice.</p>
+        <p>Jsem žena, manželka a matka pěti dětí. Mé porody mi pomohly najít své životní poslání – stala jsem se dulou (2014) a porodní asistentkou (2024). Možná to zní jako klišé, ale vznik nového života a porod považuji za zázrak a jsem ráda, že jej mohu se „svými" ženami opakovaně zažívat.</p>
+        <p>Ženám a jejich mužům poskytuji informační i psychickou podporu v těhotenství a při porodu, rodině jsem nápomocná i během šestinedělí. Věřím, že každá žena má právo svobodně se rozhodnout, kde, s kým a jak prožije zásadní transformační okamžik svého života – porod – zázrak zrození.</p>
+        <p style="margin-bottom: 24px;">Ráda Vás podpořím na cestě ke spokojenému rodičovství a harmonické rodině.</p>
 
         <div class="cert-grid">
           <div class="cert-badge">
@@ -453,10 +225,12 @@
             <div class="cert-text"><strong>Laktační poradkyně</strong><span>certifikát</span></div>
           </div>
           <div class="cert-badge">
-            <div class="cicon"><img src="PODKLADY/IKONY/family_1688111.svg" alt=""></div>
+            <div class="cicon"><img src="PODKLADY/IKONY/mother_4369640.svg" alt=""></div>
             <div class="cert-text"><strong>Máma 5 dětí</strong><span>osobní zkušenost</span></div>
           </div>
         </div>
+
+        <a href="#kontakt" class="btn btn-primary" style="margin-top: 32px; display: inline-flex;">Pojďme se poznat</a>
       </div>
 
     </div>
@@ -607,6 +381,7 @@
 
       <div class="contact-info-col">
         <p class="contact-name">Michaela Sedláčková</p>
+        <p style="font-size:.92rem;color:var(--text-muted);margin-bottom:20px;line-height:1.65;">Kontaktujte mě a domluvte si první nezávaznou konzultaci zdarma (20&nbsp;minut), nebo si rovnou rezervujte jakoukoli z nabízených služeb.<br><br>V případě zájmu o kompletní předporodní přípravu využijte prosím rovnou <strong style="color:var(--p5);white-space:nowrap;">→ rezervační kalendář níže</strong>.</p>
         <div class="contact-row">
           <div class="c-detail">
             <strong>Telefon</strong>
@@ -636,7 +411,6 @@
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           </a>
         </div>
-        <p style="font-size:.75rem;color:var(--text-muted);margin-top:8px;">IČO: 06326668</p>
       </div>
 
       <div class="contact-right">
@@ -708,7 +482,6 @@
     </div>
     <nav class="footer-nav" aria-label="Patička">
       <a href="#nabidka">Co nabízím</a>
-      <a href="#cenik">Ceník</a>
       <a href="#o-mne">O mně</a>
       <a href="#reference">Reference</a>
       <a href="#kontakt">Kontakt</a>
