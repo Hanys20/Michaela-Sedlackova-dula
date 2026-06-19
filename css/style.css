@@ -32,7 +32,7 @@
   --font-h: 'Playfair Display', Georgia, serif;
   --font-b: 'Inter', 'Helvetica Neue', sans-serif;
   --font-s: 'SummerFestival', cursive;      /* logo font – script/display */
-  --max:   1100px;
+  --max:   1200px;
   --r:     14px;           /* obecný border-radius karet */
   --shadow: 0 8px 36px rgba(100,88,104,.10);
 }
