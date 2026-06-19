@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WIREFRAME – Michaela Sedláčková</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /*
+      ══════════════════════════════════════
+      PALETA  (dle dodané předlohy)
+      P1  #f2e0e5  — ultra-pale blush (bg sekcí)
+      P2  #ebbcc8  — light pink      (Pilíř 1)
+      P3  #e888a0  — medium pink     (Pilíř 2)
+      P4  #cc7080  — dusty rose      (Pilíř 3)
+      P5  #c83860  — deep crimson    (CTA, akcent, divider)
+      P6  #706878  — gray-purple     (text, footer, dark)
+      ══════════════════════════════════════
+    */
+    :root {
+      --wf-border: #c0a0a8;
+      --wf-bg: #f7edf0;
+      --wf-block: #ddc8cc;
+      --wf-dark: #706878;
+      --wf-label: #9a8090;
+      --wf-accent: #c83860;
+      --wf-img: #d8c0c8;
+      --wf-nav: #f5e8ec;
+      --max: 960px;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #fff;
+      color: var(--wf-dark);
+    }
+
+    /* --- Wireframe utility classes --- */
+    .wf-box {
+      border: 2px dashed var(--wf-border);
+      background: var(--wf-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--wf-label);
+      font-size: 12px;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+    .wf-img {
+      background: var(--wf-img);
+      border: 2px solid #bbb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+    .wf-btn {
+      display: inline-block;
+      border: 2px solid var(--wf-dark);
+      padding: 10px 28px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      background: transparent;
+    }
+    .wf-btn.filled {
+      background: var(--wf-dark);
+      color: #fff;
+    }
+    .wf-label {
+      font-size: 10px;
+      color: var(--wf-label);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      margin-bottom: 4px;
+    }
+    .section-tag {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      font-size: 9px;
+      background: var(--wf-accent);
+      color: #fff;
+      padding: 2px 6px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .section-wrap {
+      position: relative;
+      border: 1px solid #ccc;
+    }
+    .inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ============================
+       1. NAVBAR
+    ============================ */
+    .wf-nav {
+      height: 70px;
+      background: var(--wf-nav);
+      border-bottom: 2px solid var(--wf-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .wf-logo-box {
+      width: 160px;
+      height: 44px;
+    }
+    .wf-nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+    .wf-nav-links span {
+      width: 70px;
+      height: 18px;
+    }
+    .wf-nav-links span.active {
+      border-bottom: 2px solid var(--wf-dark);
+    }
+
+    /* ============================
+       2. HERO
+    ============================ */
+    .wf-hero {
+      height: 100vh;
+      min-height: 600px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+    }
+    .hero-left {
+      background: #f2e0e5;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px 60px 60px 80px;
+      gap: 20px;
+    }
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-headline {
+      height: 28px;
+      background: var(--wf-block);
+      width: 85%;
+      margin-bottom: 8px;
+    }
+    .hero-headline.lg {
+      height: 40px;
+      width: 95%;
+    }
+    .hero-sub {
+      height: 16px;
+      background: #e0e0e0;
+      width: 70%;
+      margin: 4px 0;
+    }
+    .hero-badge {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--wf-block);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      color: #999;
+      text-align: center;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    /* ============================
+       3. O MNĚ
+    ============================ */
+    .wf-about {
+      padding: 80px 40px;
+      background: #fff;
+    }
+    .about-grid {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .about-img {
+      width: 100%;
+      height: 420px;
+      border-radius: 4px;
+    }
+    .about-text .line {
+      height: 14px;
+      background: #e0e0e0;
+      margin-bottom: 10px;
+      border-radius: 2px;
+    }
+    .about-text .line.w90 { width: 90%; }
+    .about-text .line.w80 { width: 80%; }
+    .about-text .line.w70 { width: 70%; }
+    .about-text .line.w60 { width: 60%; }
+    .about-text .line.w50 { width: 50%; }
+    .about-certs {
+      display: flex;
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .cert-badge {
+      height: 56px;
+      flex: 1;
+      background: var(--wf-block);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      color: #999;
+      text-transform: uppercase;
+    }
+
+    /* ============================
+       4. SERVICES – přehled
+    ============================ */
+    .wf-services-intro {
+      background: #fff;
+      padding: 80px 40px;
+    }
+    .services-grid {
+      max-width: var(--max);
+      margin: 32px auto 0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .service-card {
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--wf-block);
+      border-radius: 50%;
+    }
+    .sc-title {
+      height: 16px;
+      background: #ccc;
+      width: 80%;
+      border-radius: 2px;
+    }
+    .sc-text {
+      height: 11px;
+      background: #e0e0e0;
+      border-radius: 2px;
+    }
+    .sc-text.w75 { width: 75%; }
+    .sc-text.w90 { width: 90%; }
+    .sc-text.w60 { width: 60%; }
+
+    /* ============================
+       5. DÁLE NABÍZÍM – malé karty
+    ============================ */
+    .wf-also {
+      padding: 80px 40px;
+      background: #fff;
+    }
+    .also-grid {
+      max-width: var(--max);
+      margin: 32px auto 0;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+    }
+    .also-card {
+      background: #f2e0e5;
+      border: 1px solid #e8e0d8;
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+    }
+    .also-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--wf-block);
+      border-radius: 50%;
+    }
+    .also-title {
+      height: 14px;
+      background: #ccc;
+      width: 85%;
+      border-radius: 2px;
+    }
+    .also-text {
+      height: 10px;
+      background: #e0e0e0;
+      border-radius: 2px;
+    }
+    .also-text.w80 { width: 80%; }
+    .also-text.w65 { width: 65%; }
+
+    /* "Číst více" vzor */
+    .read-more-mock {
+      margin-top: 6px;
+      height: 12px;
+      width: 70px;
+      background: #bbb;
+      border-radius: 2px;
+      position: relative;
+    }
+    .read-more-mock::after {
+      content: '↓ číst více';
+      position: absolute;
+      top: -1px;
+      left: 0;
+      font-size: 9px;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      white-space: nowrap;
+    }
+
+    /* ============================
+       6. CENÍK
+    ============================ */
+    .wf-cenik {
+      padding: 80px 40px;
+      background: #f2e0e5;
+    }
+    .cenik-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+    .cenik-note {
+      height: 13px;
+      background: #ddd;
+      width: 50%;
+      margin: 16px auto 40px;
+      border-radius: 2px;
+    }
+    .cenik-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .cenik-group {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .cenik-group-header {
+      background: var(--wf-block);
+      padding: 12px 20px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+    }
+    .cenik-group-header .ch-title {
+      height: 14px;
+      background: #bbb;
+      width: 55%;
+      border-radius: 2px;
+    }
+    .cenik-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      border-bottom: 1px solid #eee;
+    }
+    .cenik-row:last-child { border-bottom: none; }
+    .cr-name {
+      height: 12px;
+      background: #e0e0e0;
+      border-radius: 2px;
+    }
+    .cr-name.w70 { width: 70%; }
+    .cr-name.w55 { width: 55%; }
+    .cr-name.w80 { width: 80%; }
+    .cr-price {
+      height: 14px;
+      width: 72px;
+      background: #ccc;
+      border-radius: 2px;
+      flex-shrink: 0;
+      margin-left: 16px;
+    }
+
+    /* ============================
+       7. KONTAKT
+    ============================ */
+    .wf-contact {
+      padding: 80px 40px;
+      background: #fff;
+    }
+    .contact-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+    }
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .contact-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .ci-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--wf-block);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .ci-lines {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .ci-line {
+      height: 12px;
+      background: #e0e0e0;
+      border-radius: 2px;
+    }
+    .ci-line.w80 { width: 80%; }
+    .ci-line.w60 { width: 60%; }
+    .wf-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .form-field {
+      height: 44px;
+      background: #f4f4f4;
+      border: 1px solid #ddd;
+      border-radius: 2px;
+    }
+    .form-field.tall {
+      height: 120px;
+    }
+
+    /* ============================
+       8. FOOTER
+    ============================ */
+    .wf-footer {
+      background: #706878;
+      padding: 40px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 40px;
+    }
+    .footer-logo {
+      width: 120px;
+      height: 34px;
+      background: #8a8090;
+    }
+    .footer-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .footer-link {
+      height: 10px;
+      background: #9a90a0;
+      border-radius: 2px;
+    }
+    .footer-right {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+    }
+    .social-icon {
+      width: 36px;
+      height: 36px;
+      background: #8a8090;
+      border-radius: 50%;
+    }
+    .footer-copy {
+      height: 10px;
+      width: 180px;
+      background: #8a8090;
+      border-radius: 2px;
+    }
+
+    /* ============================
+       Section headings style
+    ============================ */
+    .wf-section-heading {
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .wf-h2 {
+      height: 32px;
+      background: #ccc;
+      border-radius: 2px;
+      margin: 0 auto 12px;
+    }
+    .wf-h2.w40 { width: 40%; }
+    .wf-h2.w30 { width: 30%; }
+    .wf-divider {
+      width: 48px;
+      height: 3px;
+      background: var(--wf-accent);
+      margin: 0 auto 20px;
+    }
+    .wf-subtext {
+      height: 14px;
+      background: #e0e0e0;
+      border-radius: 2px;
+      margin: 0 auto 8px;
+    }
+    .wf-subtext.w50 { width: 50%; }
+    .wf-subtext.w40 { width: 40%; }
+
+    /* ============================
+       ANNOTATIONS
+    ============================ */
+    .annotations {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 40px 24px 0;
+    }
+    .ann-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--wf-label);
+      margin-bottom: 24px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 8px;
+    }
+    .ann-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .ann-item {
+      background: #f9f9f9;
+      border-left: 3px solid var(--wf-accent);
+      padding: 12px 14px;
+    }
+    .ann-section {
+      font-size: 10px;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: var(--wf-accent);
+      margin-bottom: 4px;
+    }
+    .ann-text {
+      font-size: 11px;
+      color: #666;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════
+     LEGENDA
+═══════════════════════════════════ -->
+<div style="background:#706878; color:#e0d8dc; padding:16px 40px; font-size:11px; display:flex; gap:32px; align-items:center; flex-wrap:wrap;">
+  <strong style="color:#fff; letter-spacing:.1em; text-transform:uppercase; margin-right:8px;">WIREFRAME</strong>
+  <span style="display:flex;align-items:center;gap:6px;"><span style="display:inline-block;width:16px;height:10px;background:#ddc8cc;"></span> Textový blok</span>
+  <span style="display:flex;align-items:center;gap:6px;"><span style="display:inline-block;width:16px;height:10px;background:#d8c0c8;border:1px solid #c0a8b0;"></span> Obrázek / fotka</span>
+  <span style="display:flex;align-items:center;gap:6px;"><span style="display:inline-block;width:16px;height:10px;background:#c83860;"></span> Akcent / linka</span>
+  <span style="display:flex;align-items:center;gap:6px;"><span style="display:inline-block;width:16px;height:10px;background:#f2e0e5;border:1px dashed #c0a0a8;"></span> Formulářové pole</span>
+  <!-- Paleta barev -->
+  <span style="display:flex;align-items:center;gap:4px;margin-left:auto;">
+    <span style="display:inline-block;width:18px;height:18px;background:#f2e0e5;border:1px solid #c0a0a8;border-radius:2px;"></span>
+    <span style="display:inline-block;width:18px;height:18px;background:#ebbcc8;border-radius:2px;"></span>
+    <span style="display:inline-block;width:18px;height:18px;background:#e888a0;border-radius:2px;"></span>
+    <span style="display:inline-block;width:18px;height:18px;background:#cc7080;border-radius:2px;"></span>
+    <span style="display:inline-block;width:18px;height:18px;background:#c83860;border-radius:2px;"></span>
+    <span style="display:inline-block;width:18px;height:18px;background:#706878;border-radius:2px;"></span>
+  </span>
+</div>
+
+
+<!-- ═══════════════════════════════════
+     1. NAVBAR
+═══════════════════════════════════ -->
+<div style="margin-bottom:4px;">
+  <div style="font-size:9px;background:#c83860;color:#fff;padding:2px 8px;display:inline-block;margin-left:8px;letter-spacing:.08em;text-transform:uppercase;">1 — Navigace (fixed)</div>
+</div>
+<nav class="wf-nav">
+  <div class="wf-logo-box wf-box">LOGO MS</div>
+  <div class="wf-nav-links">
+    <span class="wf-box active">Co nabízím</span>
+    <span class="wf-box">Ceník</span>
+    <span class="wf-box">O mně</span>
+    <span class="wf-box">Kontakt</span>
+    <div class="wf-btn">Objednat se</div>
+  </div>
+</nav>
+
+
+<!-- ═══════════════════════════════════
+     2. HERO
+═══════════════════════════════════ -->
+<div style="margin-top:4px;">
+  <div style="font-size:9px;background:#c83860;color:#fff;padding:2px 8px;display:inline-block;margin-left:8px;letter-spacing:.08em;text-transform:uppercase;">2 — Hero (full-screen, 2 sloupce)</div>
+</div>
+<section class="wf-hero section-wrap">
+  <!-- Levý sloupec – text -->
+  <div class="hero-left">
+    <p class="wf-label">Porodní bába · Laktační poradkyně · Lektorka</p>
+    <div class="hero-headline lg"></div>
+    <div class="hero-headline"></div>
+    <div style="display:flex;flex-direction:column;gap:6px;margin:8px 0;">
+      <div class="hero-sub"></div>
+      <div class="hero-sub" style="width:85%;"></div>
+      <div class="hero-sub" style="width:55%;"></div>
+    </div>
+    <div style="display:flex;gap:12px;margin-top:12px;">
+      <div class="wf-btn filled">Zjistit více</div>
+      <div class="wf-btn">Objednat se</div>
+    </div>
+    <!-- Social proof – 3 čísla -->
+    <div style="display:flex;gap:32px;margin-top:32px;padding-top:24px;border-top:1px solid #e0d8d0;">
+      <div style="text-align:center;">
+        <div style="font-size:28px;font-weight:bold;color:#555;line-height:1;">10+</div>
+        <div style="font-size:10px;color:#999;text-transform:uppercase;letter-spacing:.07em;margin-top:4px;">let praxe</div>
+      </div>
+      <div style="width:1px;background:#e0d8d0;align-self:stretch;"></div>
+      <div style="text-align:center;">
+        <div style="font-size:28px;font-weight:bold;color:#555;line-height:1;">200+</div>
+        <div style="font-size:10px;color:#999;text-transform:uppercase;letter-spacing:.07em;margin-top:4px;">porodů</div>
+      </div>
+      <div style="width:1px;background:#e0d8d0;align-self:stretch;"></div>
+      <div style="text-align:center;">
+        <div style="font-size:28px;font-weight:bold;color:#555;line-height:1;">5×</div>
+        <div style="font-size:10px;color:#999;text-transform:uppercase;letter-spacing:.07em;margin-top:4px;">máma</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pravý sloupec – foto v boxu, ne na celou výšku -->
+  <div class="hero-right" style="background:#f2e0e5;display:flex;align-items:center;justify-content:center;">
+    <div style="position:relative;display:inline-block;">
+      <!-- Foto box – pevná výška, ne 100% sloupce -->
+      <div class="wf-img" style="width:320px;height:400px;border-radius:4px;font-size:11px;">
+        FOTO MICHAELY<br><br>
+        <span style="font-size:10px;color:#bbb;">portrét v boxu</span>
+      </div>
+      <!-- Logo badge přes roh fotky -->
+      <div style="position:absolute;bottom:-16px;right:-16px;width:80px;height:80px;background:#e8e8e8;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;color:#999;text-align:center;text-transform:uppercase;border:3px solid #f2e0e5;">Logo<br>Jemné<br>Zrození</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════
+     3. CO NABÍZÍM – 3 pilíře
+═══════════════════════════════════ -->
+<div style="margin-top:4px;">
+  <div style="font-size:9px;background:#c83860;color:#fff;padding:2px 8px;display:inline-block;margin-left:8px;letter-spacing:.08em;text-transform:uppercase;">3 — Co nabízím (3 pilíře služeb)</div>
+</div>
+<section class="wf-services-intro section-wrap" style="padding-bottom:60px;">
+  <div class="wf-section-heading">
+    <p class="wf-label">Moje služby</p>
+    <div class="wf-h2 w40"></div>
+    <div class="wf-divider"></div>
+    <div class="wf-subtext w50"></div>
+  </div>
+
+  <!--
+    PALETA PILÍŘŮ (dle dodané palety):
+    Pilíř 1 – swatch 2:  #ebbcc8 / bg #fdf0f3 / hl bg #fae8ee
+    Pilíř 2 – swatch 3:  #e888a0 / bg #fce4ec / hl bg #f8d4e2
+    Pilíř 3 – swatch 4:  #cc7080 / bg #f9dce4 / hl bg #f4ccd8
+    CTA/akcent – swatch 5: #c83860
+    Text/dark – swatch 6: #706878
+  -->
+  <div style="max-width:var(--max);margin:40px auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:start;">
+
+    <!-- ══════════════════════════════
+         PILÍŘ 1 – PŘEDPORODNÍ PÉČE
+         swatch 2: #ebbcc8
+    ══════════════════════════════ -->
+    <div style="background:#fff;border:1px solid #ddaab8;border-top:4px solid #ebbcc8;display:flex;flex-direction:column;">
+
+      <div style="padding:24px 24px 16px;display:flex;align-items:center;gap:14px;border-bottom:1px solid #f5e0e8;background:#fdf0f3;">
+        <div style="width:44px;height:44px;background:#f5d8e0;border-radius:50%;flex-shrink:0;"></div>
+        <div>
+          <div style="height:8px;background:#ebbcc8;width:60px;border-radius:2px;margin-bottom:5px;"></div>
+          <div style="height:16px;background:#ddb0bc;width:140px;border-radius:2px;"></div>
+        </div>
+      </div>
+      <p style="font-size:9px;color:#b88094;text-transform:uppercase;letter-spacing:.1em;padding:8px 24px 0;font-weight:bold;">1 — Předporodní péče</p>
+
+      <!-- Zvýrazněná: Individuální konzultace -->
+      <div style="padding:16px 24px;border-bottom:2px solid #ddaab8;background:#fae8ee;border-left:4px solid #ebbcc8;position:relative;">
+        <div style="position:absolute;top:12px;right:16px;background:#ebbcc8;color:#fff;font-size:8px;padding:2px 7px;border-radius:10px;text-transform:uppercase;letter-spacing:.05em;">★ Oblíbené</div>
+        <div style="height:14px;background:#ebbcc8;opacity:.6;width:75%;border-radius:2px;margin-bottom:8px;"></div>
+        <div style="height:11px;background:#ddb0bc;width:95%;border-radius:2px;margin-bottom:4px;"></div>
+        <div style="height:11px;background:#ddb0bc;width:80%;border-radius:2px;margin-bottom:4px;"></div>
+        <div style="font-size:9px;color:#b88094;text-transform:uppercase;letter-spacing:.05em;margin-top:6px;font-weight:bold;">↓ číst více</div>
+        <p style="font-size:8px;color:#b88094;margin-top:6px;text-transform:uppercase;font-weight:bold;">Individuální konzultace · 1. konzultace zdarma</p>
+      </div>
+
+      <!-- Intenzivní příprava doma -->
+      <div style="padding:16px 24px;border-bottom:1px solid #f5e0e8;">
+        <div style="height:13px;background:#ddb0bc;width:80%;border-radius:2px;margin-bottom:8px;"></div>
+        <div style="height:11px;background:#f0d8e0;width:90%;border-radius:2px;margin-bottom:4px;"></div>
+        <div style="height:11px;background:#f0d8e0;width:70%;border-radius:2px;margin-bottom:4px;"></div>
+        <div style="font-size:9px;color:#c090a0;text-transform:uppercase;letter-spacing:.05em;margin-top:6px;">↓ číst více</div>
+        <p style="font-size:8px;color:#c090a0;margin-top:6px;text-transform:uppercase;">Intenzivní příprava doma · 3 hod.</p>
+      </div>
+
+      <!-- Zvýrazněná: Předporodní kurzy + rezervační tlačítko -->
+      <div style="padding:16px 24px;border-bottom:2px solid #ddaab8;background:#fae8ee;border-left:4px solid #ebbcc8;position:relative;">
+        <div style="position:absolute;top:12px;right:16px;background:#ebbcc8;color:#fff;font-size:8px;padding:2px 7px;border-radius:10px;text-transform:uppercase;letter-spacing:.05em;">★ Oblíbené</div>
+        <div style="height:14px;background:#ebbcc8;opacity:.6;width:70%;border-radius:2px;margin-bottom:8px;"></div>
+        <div style="height:11px;background:#ddb0bc;width:95%;border-radius:2px;margin-bottom:4px;"></div>
+        <div style="height:11px;background:#ddb0bc;width:75%;border-radius:2px;margin-bottom:4px;"></div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;">
+          <span style="font-size:8px;background:#f5e0e8;border:1px solid #ebbcc8;padding:2px 7px;border-radius:2px;color:#b88094;">1× týdně Ostrava</span>
+          <span style="font-size:8px;background:#f5e0e8;border:1px solid #ebbcc8;padding:2px 7px;border-radius:2px;color:#b88094;">víkend. intenziv</span>
+        </div>
+        <!-- Rezervační tlačítko přímo u kurzů -->
+        <div style="margin-top:12px;">
+          <div style="display:inline-block;background:#c83860;color:#fff;font-size:9px;padding:6px 14px;border-radius:2px;text-transform:uppercase;letter-spacing:.06em;">Rezervovat místo →</div>
+          <p style="font-size:8px;color:#c090a0;margin-top:4px;text-transform:uppercase;">ext. rezervační systém</p>
+        </div>
+        <p style="font-size:8px;color:#b88094;margin-top:8px;text-transform:uppercase;font-weight:bold;">Předporodní kurzy · skupinový</p>
+      </div>
+
+      <!-- Doplňkové -->
+      <div style="padding:16px 24px;">
+        <div style="height:13px;background:#ddb0bc;width:65%;border-radius:2px;margin-bottom:8px;"></div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;">
+          <span style="font-size:8px;background:#fdf0f3;border:1px solid #ddaab8;padding:2px 7px;border-radius:2px;color:#c090a0;">Rebozo masáž</span>
+          <span style="font-size:8px;background:#fdf0f3;border:1px solid #ddaab8;padding:2px 7px;border-radius:2px;color:#c090a0;">Těh. olejová masáž</span>
+          <span style="font-size:8px;background:#fdf0f3;border:1px solid #ddaab8;padding:2px 7px;border-radius:2px;color:#c090a0;">Předporodní rituál</span>
+        </div>
+        <p style="font-size:8px;color:#c090a0;margin-top:8px;text-transform:uppercase;">Doplňkové služby</p>
+      </div>
+
+      <div style="padding:16px 24px 24px;">
+        <div style="background:#c83860;color:#fff;font-size:10px;padding:10px;text-align:center;text-transform:uppercase;letter-spacing:.08em;">Objednat se →</div>
+      </div>
+    </div>
+
+
+    <!-- ══════════════════════════════
+         PILÍŘ 2 – DOPROVOD K PORODU
+         swatch 3: #e888a0  ★ Nejžádanější
+    ══════════════════════════════ -->
+    <div style="background:#fff;border:2px solid #e888a0;border-top:6px solid #e888a0;display:flex;flex-direction:column;box-shadow:0 4px 20px rgba(200,56,96,.15);position:relative;">
+      <div style="position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:#c83860;color:#fff;font-size:8px;padding:3px 12px;border-radius:0 0 8px 8px;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;">★ Nejžádanější služba</div>
+
+      <div style="padding:28px 24px 16px;display:flex;align-items:center;gap:14px;border-bottom:1px solid #f5c8d8;background:#fce4ec;">
+        <div style="width:48px;height:48px;background:#f5c0d0;border-radius:50%;flex-shrink:0;border:2px solid #e888a0;"></div>
+        <div>
+          <div style="height:8px;background:#e888a0;width:60px;border-radius:2px;margin-bottom:5px;"></div>
+          <div style="height:17px;background:#d880a0;width:150px;border-radius:2px;opacity:.7;"></div>
+        </div>
+      </div>
+      <p style="font-size:9px;color:#a05878;text-transform:uppercase;letter-spacing:.1em;padding:8px 24px 0;font-weight:bold;">2 — Doprovod k porodu</p>
+
+      <!-- Pohotovost -->
+      <div style="padding:16px 24px;border-bottom:1px solid #f8d4e2;">
+        <div style="height:13px;background:#d880a0;width:70%;border-radius:2px;margin-bottom:8px;"></div>
+        <div style="height:11px;background:#f5c0d0;width:90%;border-radius:2px;margin-bottom:4px;"></div>
+        <div style="height:11px;background:#f5c0d0;width:75%;border-radius:2px;margin-bottom:4px;"></div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;">
+          <span style="font-size:8px;background:#fce4ec;border:1px solid #d880a0;padding:2px 7px;border-radius:2px;color:#a05878;">od 37. TT</span>
+          <span style="font-size:8px;background:#fce4ec;border:1px solid #d880a0;padding:2px 7px;border-radius:2px;color:#a05878;">WhatsApp / Messenger</span>
+          <span style="font-size:8px;background:#fce4ec;border:1px solid #d880a0;padding:2px 7px;border-radius:2px;color:#a05878;">výjezd do 1 hod.</span>
+        </div>
+        <div style="font-size:9px;color:#a05878;text-transform:uppercase;letter-spacing:.05em;margin-top:8px;">↓ číst více</div>
+        <p style="font-size:8px;color:#a05878;margin-top:6px;text-transform:uppercase;">Pohotovost 24/7</p>
+      </div>
+
+      <!-- Zvýrazněná: Doprovod k porodu -->
+      <div style="padding:16px 24px;border-bottom:2px solid #f5c8d8;background:#f8d4e2;border-left:4px solid #e888a0;position:relative;">
+        <div style="position:absolute;top:12px;right:16px;background:#c83860;color:#fff;font-size:8px;padding:2px 7px;border-radius:10px;text-transform:uppercase;letter-spacing:.05em;">★ Oblíbené</div>
+        <div style="height:14px;background:#e888a0;opacity:.6;width:75%;border-radius:2px;margin-bottom:8px;"></div>
+        <div style="height:11px;background:#f5c0d0;width:95%;border-radius:2px;margin-bottom:4px;"></div>
+        <div style="height:11px;background:#f5c0d0;width:80%;border-radius:2px;margin-bottom:4px;"></div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;">
+          <span style="font-size:8px;background:#fce4ec;border:1px solid #e888a0;padding:2px 7px;border-radius:2px;color:#a05878;">porodnice</span>
+          <span style="font-size:8px;background:#fce4ec;border:1px solid #e888a0;padding:2px 7px;border-radius:2px;color:#a05878;">domácí porod</span>
+        </div>
+        <div style="font-size:9px;color:#a05878;text-transform:uppercase;letter-spacing:.05em;margin-top:8px;font-weight:bold;">↓ číst více</div>
+        <p style="font-size:8px;color:#a05878;margin-top:6px;text-transform:uppercase;font-weight:bold;">Doprovod k porodu · porodnice i doma</p>
+      </div>
+
+      <!-- Součásti -->
+      <div style="padding:16px 24px;">
+        <div style="height:12px;background:#d880a0;width:55%;border-radius:2px;margin-bottom:10px;"></div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <span style="font-size:8px;background:#fce4ec;border:1px solid #d880a0;padding:2px 7px;border-radius:2px;color:#a05878;">Bachovy esence</span>
+          <span style="font-size:8px;background:#fce4ec;border:1px solid #d880a0;padding:2px 7px;border-radius:2px;color:#a05878;">Aromatické kompozice</span>
+          <span style="font-size:8px;background:#fce4ec;border:1px solid #d880a0;padding:2px 7px;border-radius:2px;color:#a05878;">Relaxační techniky</span>
+          <span style="font-size:8px;background:#fce4ec;border:1px solid #d880a0;padding:2px 7px;border-radius:2px;color:#a05878;">Rebozo podpora</span>
+        </div>
+        <p style="font-size:8px;color:#a05878;margin-top:8px;text-transform:uppercase;">Součást doprovodu</p>
+      </div>
+
+      <div style="padding:16px 24px 24px;margin-top:auto;">
+        <div style="background:#c83860;color:#fff;font-size:10px;padding:10px;text-align:center;text-transform:uppercase;letter-spacing:.08em;">Objednat se →</div>
+      </div>
+    </div>
+
+
+    <!-- ══════════════════════════════
+         PILÍŘ 3 – POPORODNÍ PÉČE
+         swatch 4: #cc7080
+    ══════════════════════════════ -->
+    <div style="background:#fff;border:1px solid #c06070;border-top:4px solid #cc7080;display:flex;flex-direction:column;">
+
+      <div style="padding:24px 24px 16px;display:flex;align-items:center;gap:14px;border-bottom:1px solid #eec0c8;background:#f9dce4;">
+        <div style="width:44px;height:44px;background:#eeb0bc;border-radius:50%;flex-shrink:0;"></div>
+        <div>
+          <div style="height:8px;background:#cc7080;width:60px;border-radius:2px;margin-bottom:5px;"></div>
+          <div style="height:16px;background:#bc8890;width:140px;border-radius:2px;opacity:.7;"></div>
+        </div>
+      </div>
+      <p style="font-size:9px;color:#904060;text-transform:uppercase;letter-spacing:.1em;padding:8px 24px 0;font-weight:bold;">3 — Poporodní péče</p>
+
+      <!-- Laktační poradenství -->
+      <div style="padding:16px 24px;border-bottom:1px solid #eec0c8;">
+        <div style="height:13px;background:#bc8890;width:75%;border-radius:2px;margin-bottom:8px;"></div>
+        <div style="height:11px;background:#eeb0bc;width:90%;border-radius:2px;margin-bottom:4px;"></div>
+        <div style="height:11px;background:#eeb0bc;width:70%;border-radius:2px;margin-bottom:4px;"></div>
+        <div style="font-size:9px;color:#904060;text-transform:uppercase;letter-spacing:.05em;margin-top:6px;">↓ číst více</div>
+        <p style="font-size:8px;color:#904060;margin-top:6px;text-transform:uppercase;">Laktační poradenství · kojení · raná péče</p>
+      </div>
+
+      <!-- Zvýrazněná: Zpracování placenty -->
+      <div style="padding:16px 24px;border-bottom:2px solid #c06070;background:#f4ccd8;border-left:4px solid #cc7080;position:relative;">
+        <div style="position:absolute;top:12px;right:16px;background:#c83860;color:#fff;font-size:8px;padding:2px 7px;border-radius:10px;text-transform:uppercase;letter-spacing:.05em;">★ Oblíbené</div>
+        <div style="height:14px;background:#cc7080;opacity:.6;width:70%;border-radius:2px;margin-bottom:8px;"></div>
+        <div style="height:11px;background:#c06070;opacity:.5;width:85%;border-radius:2px;margin-bottom:4px;"></div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;">
+          <span style="font-size:8px;background:#f9dce4;border:1px solid #cc7080;padding:2px 7px;border-radius:2px;color:#904060;">kapsle</span>
+          <span style="font-size:8px;background:#f9dce4;border:1px solid #cc7080;padding:2px 7px;border-radius:2px;color:#904060;">tinktura</span>
+          <span style="font-size:8px;background:#f9dce4;border:1px solid #cc7080;padding:2px 7px;border-radius:2px;color:#904060;">homeopatika</span>
+        </div>
+        <div style="font-size:9px;color:#904060;text-transform:uppercase;letter-spacing:.05em;margin-top:8px;font-weight:bold;">↓ číst více</div>
+        <p style="font-size:8px;color:#904060;margin-top:6px;text-transform:uppercase;font-weight:bold;">Zpracování placenty</p>
+      </div>
+
+      <!-- Rituály -->
+      <div style="padding:16px 24px;border-bottom:1px solid #eec0c8;">
+        <div style="height:13px;background:#bc8890;width:70%;border-radius:2px;margin-bottom:8px;"></div>
+        <div style="height:11px;background:#eeb0bc;width:90%;border-radius:2px;margin-bottom:4px;"></div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;">
+          <span style="font-size:8px;background:#f9dce4;border:1px solid #c06070;padding:2px 7px;border-radius:2px;color:#904060;">Zavírání kostí</span>
+          <span style="font-size:8px;background:#f9dce4;border:1px solid #c06070;padding:2px 7px;border-radius:2px;color:#904060;">Uzavření těla</span>
+        </div>
+        <div style="font-size:9px;color:#904060;text-transform:uppercase;letter-spacing:.05em;margin-top:8px;">↓ číst více</div>
+        <p style="font-size:8px;color:#904060;margin-top:6px;text-transform:uppercase;">Rituály a regenerace</p>
+      </div>
+
+      <!-- Fyzická regenerace -->
+      <div style="padding:16px 24px;">
+        <div style="height:13px;background:#bc8890;width:65%;border-radius:2px;margin-bottom:8px;"></div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;">
+          <span style="font-size:8px;background:#f9dce4;border:1px solid #c06070;padding:2px 7px;border-radius:2px;color:#904060;">Ošetření jizev</span>
+          <span style="font-size:8px;background:#f9dce4;border:1px solid #c06070;padding:2px 7px;border-radius:2px;color:#904060;">Masáž bříška bylinami</span>
+        </div>
+        <p style="font-size:8px;color:#904060;margin-top:8px;text-transform:uppercase;">Fyzická regenerace</p>
+      </div>
+
+      <div style="padding:16px 24px 24px;margin-top:auto;">
+        <div style="background:#c83860;color:#fff;font-size:10px;padding:10px;text-align:center;text-transform:uppercase;letter-spacing:.08em;">Objednat se →</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════
+     6. CENÍK
+═══════════════════════════════════ -->
+<div style="margin-top:4px;">
+  <div style="font-size:9px;background:#c83860;color:#fff;padding:2px 8px;display:inline-block;margin-left:8px;letter-spacing:.08em;text-transform:uppercase;">5 — Ceník</div>
+</div>
+<section class="wf-cenik section-wrap">
+  <div class="cenik-inner">
+    <div class="wf-section-heading">
+      <p class="wf-label">Orientační ceny</p>
+      <div class="wf-h2 w30"></div>
+      <div class="wf-divider"></div>
+    </div>
+    <div class="cenik-note"></div>
+
+    <div class="cenik-grid">
+
+      <!-- Skupina 1: Konzultace -->
+      <div class="cenik-group">
+        <div class="cenik-group-header"><div class="ch-title"></div></div>
+        <div class="cenik-row"><div class="cr-name w70"></div><div class="cr-price"></div></div>
+        <div class="cenik-row"><div class="cr-name w55"></div><div class="cr-price"></div></div>
+        <div class="cenik-row"><div class="cr-name w80"></div><div class="cr-price"></div></div>
+        <p style="font-size:9px;color:#aaa;padding:4px 20px 12px;text-transform:uppercase;">Konzultace &amp; příprava</p>
+      </div>
+
+      <!-- Skupina 2: Doprovod k porodu -->
+      <div class="cenik-group">
+        <div class="cenik-group-header"><div class="ch-title"></div></div>
+        <div class="cenik-row"><div class="cr-name w70"></div><div class="cr-price"></div></div>
+        <div class="cenik-row"><div class="cr-name w55"></div><div class="cr-price"></div></div>
+        <div class="cenik-row"><div class="cr-name w80"></div><div class="cr-price"></div></div>
+        <div class="cenik-row"><div class="cr-name w70"></div><div class="cr-price"></div></div>
+        <p style="font-size:9px;color:#aaa;padding:4px 20px 12px;text-transform:uppercase;">Doprovod u porodu</p>
+      </div>
+
+      <!-- Skupina 3: Terapie & rituály -->
+      <div class="cenik-group">
+        <div class="cenik-group-header"><div class="ch-title"></div></div>
+        <div class="cenik-row"><div class="cr-name w70"></div><div class="cr-price"></div></div>
+        <div class="cenik-row"><div class="cr-name w55"></div><div class="cr-price"></div></div>
+        <div class="cenik-row"><div class="cr-name w80"></div><div class="cr-price"></div></div>
+        <p style="font-size:9px;color:#aaa;padding:4px 20px 12px;text-transform:uppercase;">Terapie &amp; Rituály</p>
+      </div>
+
+      <!-- Skupina 4: Ostatní -->
+      <div class="cenik-group">
+        <div class="cenik-group-header"><div class="ch-title"></div></div>
+        <div class="cenik-row"><div class="cr-name w70"></div><div class="cr-price"></div></div>
+        <div class="cenik-row"><div class="cr-name w80"></div><div class="cr-price"></div></div>
+        <div class="cenik-row"><div class="cr-name w55"></div><div class="cr-price"></div></div>
+        <p style="font-size:9px;color:#aaa;padding:4px 20px 12px;text-transform:uppercase;">Ostatní &amp; cestovné</p>
+      </div>
+    </div>
+
+    <!-- CTA pod ceníkem -->
+    <div style="text-align:center;margin-top:40px;">
+      <p style="font-size:11px;color:#999;text-transform:uppercase;letter-spacing:.07em;margin-bottom:16px;">Informační schůzka zdarma (20 min online)</p>
+      <div class="wf-btn filled" style="display:inline-block;">Domluvit schůzku</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════
+     6. O MNĚ
+═══════════════════════════════════ -->
+<div style="margin-top:4px;">
+  <div style="font-size:9px;background:#c83860;color:#fff;padding:2px 8px;display:inline-block;margin-left:8px;letter-spacing:.08em;text-transform:uppercase;">6 — O mně</div>
+</div>
+<section class="wf-about section-wrap">
+  <div class="about-grid">
+    <div class="about-img wf-img">
+      FOTO MICHAELY<br><br>
+      <span style="font-size:10px;color:#bbb;">čtverec nebo portrét</span>
+    </div>
+    <div class="about-text">
+      <p class="wf-label">O mně</p>
+      <div style="height:28px;background:#ccc;width:50%;border-radius:2px;margin-bottom:6px;"></div>
+      <div class="wf-divider" style="margin:0 0 20px;"></div>
+
+      <div class="line w90"></div>
+      <div class="line w90"></div>
+      <div class="line w80"></div>
+      <div class="line w90"></div>
+      <div class="line w70"></div>
+      <div class="line" style="height:0;margin:8px 0;"></div>
+      <!-- "Číst více" pro delší bio -->
+      <div style="font-size:9px;color:#888;text-transform:uppercase;letter-spacing:.05em;margin:4px 0 16px;">↓ číst více</div>
+
+      <div class="about-certs">
+        <div class="cert-badge">Certif. dula<br>od 2014</div>
+        <div class="cert-badge">Porodní<br>bába 2024</div>
+        <div class="cert-badge">Laktační<br>poradkyně</div>
+        <div class="cert-badge">Máma 5<br>dětí</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════
+     7. REFERENCE
+═══════════════════════════════════ -->
+<div style="margin-top:4px;">
+  <div style="font-size:9px;background:#c83860;color:#fff;padding:2px 8px;display:inline-block;margin-left:8px;letter-spacing:.08em;text-transform:uppercase;">7 — Reference</div>
+</div>
+<section class="section-wrap" style="background:#f2e0e5;padding:80px 40px;">
+  <div style="max-width:var(--max);margin:0 auto;">
+
+    <div class="wf-section-heading">
+      <p class="wf-label">Co říkají maminky</p>
+      <div class="wf-h2 w30"></div>
+      <div class="wf-divider"></div>
+    </div>
+
+    <!-- 3 recenze vedle sebe -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px;">
+
+      <div style="background:#fff;border:1px solid #e8e0d8;padding:28px 24px;display:flex;flex-direction:column;gap:12px;position:relative;">
+        <!-- uvozovky dekorativní -->
+        <div style="font-size:40px;color:#e0d0c8;line-height:1;margin-bottom:-8px;">"</div>
+        <!-- text recenze -->
+        <div style="height:13px;background:#e8e0d8;border-radius:2px;width:95%;"></div>
+        <div style="height:13px;background:#e8e0d8;border-radius:2px;width:90%;"></div>
+        <div style="height:13px;background:#e8e0d8;border-radius:2px;width:80%;"></div>
+        <div style="height:13px;background:#e8e0d8;border-radius:2px;width:85%;"></div>
+        <!-- "číst více" pro delší recenze -->
+        <div style="font-size:9px;color:#888;text-transform:uppercase;letter-spacing:.05em;">↓ číst více</div>
+        <!-- jméno + hvězdičky -->
+        <div style="margin-top:8px;padding-top:12px;border-top:1px solid #eee;display:flex;align-items:center;gap:12px;">
+          <div style="width:36px;height:36px;background:#ddd;border-radius:50%;flex-shrink:0;"></div>
+          <div style="display:flex;flex-direction:column;gap:4px;">
+            <div style="height:11px;background:#ccc;border-radius:2px;width:80px;"></div>
+            <div style="font-size:12px;color:#c83860;letter-spacing:2px;">★★★★★</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:#fff;border:1px solid #e8e0d8;padding:28px 24px;display:flex;flex-direction:column;gap:12px;">
+        <div style="font-size:40px;color:#e0d0c8;line-height:1;margin-bottom:-8px;">"</div>
+        <div style="height:13px;background:#e8e0d8;border-radius:2px;width:90%;"></div>
+        <div style="height:13px;background:#e8e0d8;border-radius:2px;width:95%;"></div>
+        <div style="height:13px;background:#e8e0d8;border-radius:2px;width:75%;"></div>
+        <div style="height:13px;background:#e8e0d8;border-radius:2px;width:85%;"></div>
+        <div style="font-size:9px;color:#888;text-transform:uppercase;letter-spacing:.05em;">↓ číst více</div>
+        <div style="margin-top:8px;padding-top:12px;border-top:1px solid #eee;display:flex;align-items:center;gap:12px;">
+          <div style="width:36px;height:36px;background:#ddd;border-radius:50%;flex-shrink:0;"></div>
+          <div style="display:flex;flex-direction:column;gap:4px;">
+            <div style="height:11px;background:#ccc;border-radius:2px;width:80px;"></div>
+            <div style="font-size:12px;color:#c83860;letter-spacing:2px;">★★★★★</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:#fff;border:1px solid #e8e0d8;padding:28px 24px;display:flex;flex-direction:column;gap:12px;">
+        <div style="font-size:40px;color:#e0d0c8;line-height:1;margin-bottom:-8px;">"</div>
+        <div style="height:13px;background:#e8e0d8;border-radius:2px;width:85%;"></div>
+        <div style="height:13px;background:#e8e0d8;border-radius:2px;width:90%;"></div>
+        <div style="height:13px;background:#e8e0d8;border-radius:2px;width:95%;"></div>
+        <div style="height:13px;background:#e8e0d8;border-radius:2px;width:70%;"></div>
+        <div style="font-size:9px;color:#888;text-transform:uppercase;letter-spacing:.05em;">↓ číst více</div>
+        <div style="margin-top:8px;padding-top:12px;border-top:1px solid #eee;display:flex;align-items:center;gap:12px;">
+          <div style="width:36px;height:36px;background:#ddd;border-radius:50%;flex-shrink:0;"></div>
+          <div style="display:flex;flex-direction:column;gap:4px;">
+            <div style="height:11px;background:#ccc;border-radius:2px;width:80px;"></div>
+            <div style="font-size:12px;color:#c83860;letter-spacing:2px;">★★★★★</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Navigace slideru (volitelně) -->
+    <div style="display:flex;justify-content:center;gap:8px;margin-top:28px;">
+      <div style="width:10px;height:10px;background:#c83860;border-radius:50%;"></div>
+      <div style="width:10px;height:10px;background:#ddd;border-radius:50%;"></div>
+      <div style="width:10px;height:10px;background:#ddd;border-radius:50%;"></div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════
+     8. KONTAKT
+═══════════════════════════════════ -->
+<div style="margin-top:4px;">
+  <div style="font-size:9px;background:#c83860;color:#fff;padding:2px 8px;display:inline-block;margin-left:8px;letter-spacing:.08em;text-transform:uppercase;">8 — Kontakt</div>
+</div>
+<section class="wf-contact section-wrap">
+  <div class="wf-section-heading" style="max-width:var(--max);margin:0 auto 40px;">
+    <p class="wf-label">Napište mi</p>
+    <div class="wf-h2 w30"></div>
+    <div class="wf-divider"></div>
+  </div>
+  <div class="contact-inner">
+    <!-- Levý sloupec – info -->
+    <div class="contact-info">
+      <div class="contact-row">
+        <div class="ci-icon"></div>
+        <div class="ci-lines">
+          <div class="ci-line w80"></div>
+          <div class="ci-line w60"></div>
+        </div>
+      </div>
+      <div class="contact-row">
+        <div class="ci-icon"></div>
+        <div class="ci-lines">
+          <div class="ci-line w80"></div>
+        </div>
+      </div>
+      <div class="contact-row">
+        <div class="ci-icon"></div>
+        <div class="ci-lines">
+          <div class="ci-line w80"></div>
+        </div>
+      </div>
+      <!-- Social ikony -->
+      <div style="display:flex;gap:12px;margin-top:8px;">
+        <div class="social-icon" style="background:#ddd;"></div>
+        <div class="social-icon" style="background:#ddd;"></div>
+      </div>
+      <!-- IČO -->
+      <div style="height:12px;width:140px;background:#e0e0e0;border-radius:2px;margin-top:8px;"></div>
+    </div>
+    <!-- Pravý sloupec – 2 bloky -->
+    <div style="display:flex;flex-direction:column;gap:28px;">
+
+      <!-- Blok 1: Rezervační systém kurzů -->
+      <div style="background:#f2e0e5;border:1px solid #e8e0d8;border-radius:4px;padding:24px;">
+        <p class="wf-label" style="margin-bottom:10px;">Předporodní příprava — rezervace kurzu</p>
+        <div style="height:18px;background:#ccc;width:70%;border-radius:2px;margin-bottom:10px;"></div>
+        <div style="height:12px;background:#e0e0e0;width:90%;border-radius:2px;margin-bottom:6px;"></div>
+        <div style="height:12px;background:#e0e0e0;width:75%;border-radius:2px;margin-bottom:18px;"></div>
+        <div class="wf-btn filled" style="font-size:11px;">Rezervovat místo na kurzu →</div>
+        <p style="font-size:9px;color:#aaa;margin-top:10px;text-transform:uppercase;letter-spacing:.05em;">odkaz na externí rezervační systém (nový tab)</p>
+      </div>
+
+      <!-- Oddělovač -->
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div style="flex:1;height:1px;background:#e0e0e0;"></div>
+        <span style="font-size:10px;color:#aaa;text-transform:uppercase;letter-spacing:.07em;">nebo napište přímo</span>
+        <div style="flex:1;height:1px;background:#e0e0e0;"></div>
+      </div>
+
+      <!-- Blok 2: Kontaktní formulář -->
+      <div class="wf-form">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div class="form-field"></div>
+          <div class="form-field"></div>
+        </div>
+        <div class="form-field"></div>
+        <div class="form-field tall"></div>
+        <div class="wf-btn filled" style="align-self:flex-start;">Odeslat zprávu</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════
+     8. FOOTER
+═══════════════════════════════════ -->
+<div style="margin-top:4px;">
+  <div style="font-size:9px;background:#c83860;color:#fff;padding:2px 8px;display:inline-block;margin-left:8px;letter-spacing:.08em;text-transform:uppercase;">8 — Footer</div>
+</div>
+<footer class="wf-footer">
+  <div class="footer-logo wf-img" style="font-size:9px;">LOGO</div>
+  <div class="footer-center">
+    <div class="footer-link" style="width:160px;"></div>
+    <div class="footer-link" style="width:120px;"></div>
+    <div class="footer-copy" style="margin-top:8px;"></div>
+  </div>
+  <div class="footer-right">
+    <div class="social-icon"></div>
+    <div class="social-icon"></div>
+  </div>
+</footer>
+
+
+<!-- ═══════════════════════════════════
+     POZNÁMKY K WIREFRAMU
+═══════════════════════════════════ -->
+<div class="annotations" style="padding-bottom:60px;">
+  <p class="ann-title">Poznámky k wireframu</p>
+  <div class="ann-grid">
+    <div class="ann-item">
+      <div class="ann-section">1 – Navigace</div>
+      <div class="ann-text">Fixní horní lišta. Logo vlevo, menu vpravo + CTA tlačítko „Objednat se". Na mobilu hamburger menu.</div>
+    </div>
+    <div class="ann-item">
+      <div class="ann-section">2 – Hero</div>
+      <div class="ann-text">Dva sloupce přes celou výšku obrazovky. Vlevo text + CTA + 3 číselné statistiky. Vpravo Michaelina fotka. Logo Jemné Zrození jako badge.</div>
+    </div>
+    <div class="ann-item">
+      <div class="ann-section">6 – O mně</div>
+      <div class="ann-text">Přesunuto za ceník. Foto vlevo, text + „číst více" + 4 certifikační badges vpravo. Návštěvník nejdřív vidí nabídku a ceny, pak kdo Michaela je.</div>
+    </div>
+    <div class="ann-item">
+      <div class="ann-section">3 – Co nabízím (3 pilíře)</div>
+      <div class="ann-text">3 sloupce vedle sebe, každý = jeden pilíř. Barevně odlišeny: růžová (předporodní), modrá (porod), zelená (poporodní). Každý pilíř má 3–4 podslužby s „číst více" a tagy. CTA tlačítko dole v každém pilíři.</div>
+    </div>
+    <div class="ann-item">
+      <div class="ann-section">Pilíř 1 – Předporodní péče</div>
+      <div class="ann-text">Individuální poradenství (1. konzultace zdarma) · Intenzivní příprava doma · Předporodní kurz (skupinový, Ostrava 1×/týdně + víkendový intenziv) · Doplňkové (rebozo, masáž, rituál).</div>
+    </div>
+    <div class="ann-item">
+      <div class="ann-section">Pilíř 2 – Doprovod k porodu</div>
+      <div class="ann-text">Pohotovost 24/7 od 37. TT (WhatsApp/Messenger, výjezd do 1 h) · Doprovod (porodnice i doma) · Součásti: esence, aromatické kompozice, relaxační techniky, rebozo.</div>
+    </div>
+    <div class="ann-item">
+      <div class="ann-section">Pilíř 3 – Poporodní péče</div>
+      <div class="ann-text">Laktační poradenství · Zpracování placenty (kapsle/tinktura/homeopatika) · Rituály (zavírání kostí, uzavření těla) · Fyzická regenerace (jizvy, masáž bříška bylinami).</div>
+    </div>
+    <div class="ann-item">
+      <div class="ann-section">Číst více – chování</div>
+      <div class="ann-text">Klik rozbalí skrytý text přímo v kartě (JavaScript accordion). Tlačítko se změní na „↑ skrýt". Používá se u každé podslužby kde je text delší než ~3 věty.</div>
+    </div>
+    <div class="ann-item">
+      <div class="ann-section">5 – Ceník</div>
+      <div class="ann-text">4 skupiny cen (konzultace, porod, terapie, ostatní). Každá v „kartě". Dole zvýrazněná info o bezplatné schůzce + velké CTA.</div>
+    </div>
+    <div class="ann-item">
+      <div class="ann-section">7 – Reference</div>
+      <div class="ann-text">3 recenze na béžovém pozadí. Každá: velké uvozovky, zkrácený text + „číst více", avatar + jméno + ★★★★★. Tečky pod kartami naznačují možný slider.</div>
+    </div>
+    <div class="ann-item">
+      <div class="ann-section">2 – Hero · Social proof</div>
+      <div class="ann-text">3 čísla oddělená svislou linkou: 10+ let praxe · 200+ porodů · 5× máma. Umístěna pod CTA tlačítky, oddělena jemnou linou od zbytku textu.</div>
+    </div>
+    <div class="ann-item">
+      <div class="ann-section">8 – Kontakt</div>
+      <div class="ann-text">Vlevo: adresa, tel, email, social, IČO. Vpravo: 1) béžový blok s CTA tlačítkem na rezervační systém kurzů (ext. odkaz), oddělovač „nebo napište přímo", 2) kontaktní formulář.</div>
+    </div>
+    <div class="ann-item">
+      <div class="ann-section">9 – Footer</div>
+      <div class="ann-text">Tmavý, minimalistický. Logo vlevo, navigační linky uprostřed, social ikony vpravo. Copyright dole.</div>
+    </div>
+    <div class="ann-item">
+      <div class="ann-section">Barevná paleta</div>
+      <div class="ann-text">P1 #f2e0e5 — bg sekcí · P2 #ebbcc8 — Pilíř 1 · P3 #e888a0 — Pilíř 2 · P4 #cc7080 — Pilíř 3 · P5 #c83860 — CTA / akcent / ★ · P6 #706878 — text / footer</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

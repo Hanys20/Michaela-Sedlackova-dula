@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve" width="512" height="512">
+<g>
+	
+		<line style="fill:none;stroke:#000000;stroke-width:30;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" x1="256" y1="55" x2="256" y2="15"/>
+	
+		<line style="fill:none;stroke:#000000;stroke-width:30;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" x1="256" y1="425" x2="256" y2="285"/>
+	
+		<polyline style="fill:none;stroke:#000000;stroke-width:30;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" points="&#10;&#9;&#9;216,245 256,285 296,245 &#9;"/>
+	
+		<line style="fill:none;stroke:#000000;stroke-width:30;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" x1="446" y1="245" x2="486" y2="245"/>
+	
+		<line style="fill:none;stroke:#000000;stroke-width:30;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" x1="66" y1="245" x2="26" y2="245"/>
+	
+		<line style="fill:none;stroke:#000000;stroke-width:30;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" x1="420.545" y1="150" x2="455.186" y2="130"/>
+	
+		<line style="fill:none;stroke:#000000;stroke-width:30;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" x1="91.455" y1="340" x2="56.814" y2="360"/>
+	
+		<line style="fill:none;stroke:#000000;stroke-width:30;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" x1="351" y1="80.455" x2="371" y2="45.814"/>
+	
+		<line style="fill:none;stroke:#000000;stroke-width:30;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" x1="161" y1="80.455" x2="141" y2="45.814"/>
+	
+		<line style="fill:none;stroke:#000000;stroke-width:30;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" x1="91.455" y1="150" x2="56.814" y2="130"/>
+	
+		<line style="fill:none;stroke:#000000;stroke-width:30;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" x1="420.545" y1="340" x2="455.186" y2="360"/>
+	<path style="fill:none;stroke:#000000;stroke-width:30;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" d="&#10;&#9;&#9;M306,425H206v42c0,16.569,13.431,30,30,30h40c16.569,0,30-13.431,30-30V425z"/>
+	<path style="fill:none;stroke:#000000;stroke-width:30;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" d="&#10;&#9;&#9;M126,245c0,36.14,14.787,68.778,38.609,92.315C177.798,350.345,186,367.573,186,386.113L186,405c0,11.046,8.954,20,20,20h100&#10;&#9;&#9;c11.046,0,20-8.954,20-20l0-18.887c0-18.54,8.202-35.768,21.391-48.798C371.213,313.778,386,281.14,386,245"/>
+	<path style="fill:none;stroke:#000000;stroke-width:30;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" d="&#10;&#9;&#9;M386,245c0-71.797-58.203-130-130-130s-130,58.203-130,130"/>
+</g>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</svg>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   version="1.1"
+   id="svg3180"
+   xml:space="preserve"
+   width="682.66669"
+   height="682.66669"
+   viewBox="0 0 682.66669 682.66669"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+     id="defs3184"><clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3194"><path
+         d="M 0,512 H 512 V 0 H 0 Z"
+         id="path3192" /></clipPath></defs><g
+     id="g3186"
+     transform="matrix(1.3333333,0,0,-1.3333333,0,682.66667)"><g
+       id="g3188"><g
+         id="g3190"
+         clip-path="url(#clipPath3194)"><g
+           id="g3196"
+           transform="translate(256,15.6621)"><path
+             d="m 0,0 v 0 c -116.452,35.684 -195.964,143.208 -195.964,265.005 v 177.68 c 125.56,51.538 266.368,51.538 391.928,0 V 265.005 C 195.964,143.208 116.452,35.684 0,0 Z"
+             style="fill:none;stroke:#000000;stroke-width:30;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+             id="path3198" /></g><g
+           id="g3200"
+           transform="translate(256,79.2344)"><path
+             d="m 0,0 c -37.25,14.949 -69.285,39.689 -93.409,72.312 -27.84,37.648 -42.555,82.297 -42.555,129.121 v 135.616 c 43.95,13.761 89.526,20.717 135.964,20.717 46.438,0 92.015,-6.956 135.964,-20.717 V 201.433 C 135.964,154.609 121.249,109.96 93.409,72.312 69.285,39.689 37.251,14.949 0,0 Z"
+             style="fill:none;stroke:#000000;stroke-width:30;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+             id="path3202" /></g><g
+           id="g3204"
+           transform="translate(319.3018,330.8291)"><path
+             d="M 0,0 C -16.818,16.818 -44.087,16.818 -60.905,0 L -63.302,-2.396 -65.699,0 c -16.818,16.818 -44.086,16.818 -60.905,0 -16.818,-16.818 -16.818,-44.087 0,-60.905 L -63.302,-124.207 0,-60.905 C 16.818,-44.087 16.818,-16.818 0,0 Z"
+             style="fill:none;stroke:#000000;stroke-width:30;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+             id="path3206" /></g></g></g></g></svg>
