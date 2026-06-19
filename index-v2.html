@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Michaela Sedláčková – Porodní bába, Laktační poradkyně, Ostrava</title>
+  <meta name="description" content="Jsem porodní bába, laktační poradkyně a lektorka předporodní přípravy v Ostravě. Provázím vás od těhotenství přes porod až po šestinedělí – přirozeně a s láskou.">
+  <link rel="icon" href="PODKLADY/Logo/Ikona favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ═══════════════════════════════
+     NAVIGACE
+═══════════════════════════════ -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#uvod" class="nav-logo">
+      <img src="PODKLADY/Logo/Logo Míša.svg" alt="Michaela Sedláčková – porodní bába">
+    </a>
+    <div class="nav-links">
+      <div class="nav-dropdown">
+        <a href="#nabidka" class="nav-dropdown-trigger">Co nabízím</a>
+        <div class="nav-dropdown-menu">
+          <a href="predporodní-pece.html">Předporodní péče</a>
+          <a href="doprovod-k-porodu.html">Doprovod k porodu</a>
+          <a href="poporodní-pece.html">Poporodní péče</a>
+        </div>
+      </div>
+      <a href="#o-mne">O mně</a>
+      <a href="#kontakt">Kontakt</a>
+      <a href="#kontakt" class="btn btn-primary btn-sm">KONZULTACE ZDARMA</a>
+      <div class="nav-social">
+        <a href="https://www.facebook.com/profile.php?id=100064773033685" class="nav-soc" aria-label="Facebook" target="_blank" rel="noopener">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="17" height="17"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/michaelasedlackova_porodnibaba/" class="nav-soc" aria-label="Instagram" target="_blank" rel="noopener">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="17" height="17"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </a>
+        <a href="https://wa.me/420775645743" class="nav-soc" aria-label="WhatsApp" target="_blank" rel="noopener">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="17" height="17"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </a>
+      </div>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mob-group">
+    <span class="mob-label">Co nabízím</span>
+    <a href="predporodní-pece.html" class="mob-sub">Předporodní péče</a>
+    <a href="doprovod-k-porodu.html" class="mob-sub">Doprovod k porodu</a>
+    <a href="poporodní-pece.html" class="mob-sub">Poporodní péče</a>
+  </div>
+  <a href="#o-mne">O mně</a>
+  <a href="#kontakt">Kontakt</a>
+  <a href="#kontakt" class="btn btn-primary">CHCI KONZULTACI ZDARMA</a>
+  <div class="mobile-social">
+    <a href="https://www.facebook.com/profile.php?id=100064773033685" class="nav-soc" aria-label="Facebook" target="_blank" rel="noopener">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+    </a>
+    <a href="https://www.instagram.com/michaelasedlackova_porodnibaba/" class="nav-soc" aria-label="Instagram" target="_blank" rel="noopener">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    </a>
+    <a href="https://wa.me/420775645743" class="nav-soc" aria-label="WhatsApp" target="_blank" rel="noopener">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════
+     HERO
+═══════════════════════════════ -->
+<section class="hero" id="uvod">
+
+  <div class="hero-content">
+    <p class="eyebrow">Porodní bába · Laktační poradkyně · Lektorka</p>
+    <h1>Každý příchod<br>na svět si zaslouží<br><em>péči a klid</em></h1>
+    <p class="hero-desc">Provázím vás od první těhotenské konzultace přes porod až po šestinedělí doma. Přirozeně, s láskou a s respektem k vaší volbě.</p>
+    <div class="hero-btns">
+      <a href="#nabidka" class="btn btn-primary">Co nabízím</a>
+      <a href="#kontakt" class="btn-outline-light">CHCI KONZULTACI ZDARMA</a>
+    </div>
+    <div class="social-proof">
+      <div class="sp-item">
+        <span class="sp-number">13+</span>
+        <span class="sp-label">let praxe</span>
+      </div>
+      <div class="sp-item">
+        <span class="sp-number">400+</span>
+        <span class="sp-label">porodů</span>
+      </div>
+      <div class="sp-item">
+        <span class="sp-number">5×</span>
+        <span class="sp-label">máma</span>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ═══════════════════════════════
+     CO NABÍZÍM – ROZCESTNÍK
+═══════════════════════════════ -->
+<section id="nabidka">
+  <div class="container">
+    <header class="section-header">
+      <p class="eyebrow">Moje služby</p>
+      <h2>Co pro vás <em>mohu udělat</em></h2>
+      <div class="divider"></div>
+      <p>Komplexní péče od prvního těhotenského trimestru až po šestinedělí. Vyberte oblast, která vás zajímá.</p>
+    </header>
+
+    <div class="hub-grid">
+
+      <!-- PŘEDPORODNÍ PÉČE -->
+      <a href="predporodní-pece.html" class="hub-card hub-1">
+        <div class="hub-img">
+          <img src="PODKLADY/Obrázky/konzultace-web.jpg" alt="Předporodní péče – konzultace s porodní bábou">
+        </div>
+        <div class="hub-content">
+          <div class="hub-icon">
+            <img src="PODKLADY/IKONY/fetus_7713517.svg" alt="">
+          </div>
+          <h3>Předporodní péče</h3>
+          <p>Individuální konzultace, předporodní kurzy a intenzivní příprava doma. Vše pro klidný a sebejistý vstup do porodu.</p>
+          <div class="hub-tags">
+            <span>Individuální konzultace</span>
+            <span>Předporodní kurzy</span>
+            <span>Příprava doma</span>
+          </div>
+          <span class="hub-link">Zjistit více →</span>
+        </div>
+      </a>
+
+      <!-- DOPROVOD K PORODU -->
+      <a href="doprovod-k-porodu.html" class="hub-card hub-2">
+        <div class="hub-img">
+          <img src="PODKLADY/Obrázky/doprovod-hub-web.jpg" alt="Doprovod k porodu – příprava s porodní bábou">
+        </div>
+        <div class="hub-content">
+          <div class="hub-icon">
+            <img src="PODKLADY/IKONY/care_4410386.svg" alt="">
+          </div>
+          <h3>Doprovod k porodu</h3>
+          <p>Jsem s vámi od začátku porodní činnosti až po první přiložení miminka – v porodnici i doma. Nejste na to sama.</p>
+          <div class="hub-tags">
+            <span>Porodnice</span>
+            <span>Domácí porod</span>
+            <span>Pohotovost 24/7</span>
+          </div>
+          <span class="hub-link">Zjistit více →</span>
+        </div>
+      </a>
+
+      <!-- POPORODNÍ PÉČE -->
+      <a href="poporodní-pece.html" class="hub-card hub-3">
+        <div class="hub-img">
+          <img src="PODKLADY/Obrázky/sesti2-web.jpg" alt="Poporodní péče – rebozo závinování">
+        </div>
+        <div class="hub-content">
+          <div class="hub-icon">
+            <img src="PODKLADY/IKONY/care_6212757.svg" alt="">
+          </div>
+          <h3>Poporodní péče</h3>
+          <p>Laktační poradenství, zpracování placenty a regenerační rituály. Péče, která v šestinedělí patří vám.</p>
+          <div class="hub-tags">
+            <span>Laktační poradenství</span>
+            <span>Zavírání kostí</span>
+            <span>Placenta</span>
+          </div>
+          <span class="hub-link">Zjistit více →</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════
+     O MNĚ
+═══════════════════════════════ -->
+<section id="o-mne">
+  <div class="container">
+    <div class="about-grid">
+
+      <div class="about-img-wrap">
+        <img
+          src="PODKLADY/Obrázky/profilovka-web.jpg"
+          alt="Michaela Sedláčková – porodní bába a laktační poradkyně"
+          class="about-img"
+        >
+        <div class="about-accent-circle"></div>
+      </div>
+
+      <div class="about-text">
+        <p class="eyebrow">O mně</p>
+        <h2>Ahoj, jsem <em>Michaela</em></h2>
+        <div class="about-divider"></div>
+        <p>Jsem žena, manželka a matka pěti dětí. Mé porody mi pomohly najít své životní poslání – stala jsem se dulou (2014) a porodní asistentkou (2024). Možná to zní jako klišé, ale vznik nového života a porod považuji za zázrak a jsem ráda, že jej mohu se „svými" ženami opakovaně zažívat.</p>
+        <p>Ženám a jejich mužům poskytuji informační i psychickou podporu v těhotenství a při porodu, rodině jsem nápomocná i během šestinedělí. Věřím, že každá žena má právo svobodně se rozhodnout, kde, s kým a jak prožije zásadní transformační okamžik svého života – porod – zázrak zrození.</p>
+        <p style="margin-bottom: 24px;">Ráda Vás podpořím na cestě ke spokojenému rodičovství a harmonické rodině.</p>
+
+        <div class="cert-grid">
+          <div class="cert-badge">
+            <div class="cicon"><img src="PODKLADY/IKONY/newborn_7189967.svg" alt=""></div>
+            <div class="cert-text"><strong>Porodní asistentka</strong><span>2024</span></div>
+          </div>
+          <div class="cert-badge">
+            <div class="cicon"><img src="PODKLADY/IKONY/graduation-cap_3074058.svg" alt=""></div>
+            <div class="cert-text"><strong>Dula</strong><span>od 2014</span></div>
+          </div>
+          <div class="cert-badge">
+            <div class="cicon"><img src="PODKLADY/IKONY/mom_2087515.svg" alt=""></div>
+            <div class="cert-text"><strong>Laktační poradkyně</strong><span>certifikát</span></div>
+          </div>
+          <div class="cert-badge">
+            <div class="cicon"><img src="PODKLADY/IKONY/mother_4369640.svg" alt=""></div>
+            <div class="cert-text"><strong>Máma 5 dětí</strong><span>osobní zkušenost</span></div>
+          </div>
+        </div>
+
+        <a href="#kontakt" class="btn btn-primary" style="margin-top: 32px; display: inline-flex;">Pojďme se poznat</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════
+     REFERENCE
+═══════════════════════════════ -->
+<section id="reference">
+  <div class="container">
+    <header class="section-header">
+      <p class="eyebrow">Co říkají maminky</p>
+      <h2>Reference</h2>
+      <div class="divider"></div>
+    </header>
+
+    <div class="carousel-wrapper">
+      <button class="carousel-btn carousel-prev" aria-label="Předchozí"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <div class="carousel-track-container">
+        <div class="carousel-track">
+
+          <div class="review-card">
+            <div class="review-quote">"</div>
+            <p class="review-text">Michaela mě doprovázela k porodu prvorozeného syna. Byla neuvěřitelně klidná a podpůrná ve chvílích, kdy jsem sama nevěřila, že to zvládnu. Díky ní se stal porod tím nejkrásnějším zážitkem mého života.</p>
+            <div class="review-extra" id="r1">
+              <p>Nachystala mi teplé obklady, masírovala záda, komunikovala s porodnicí za mě a celou dobu mě povzbuzovala. Bylo to přesně to, co jsem potřebovala. Vrátila jsem se k ní i s druhým miminkem.</p>
+            </div>
+            <button class="read-more" data-target="r1">↓ číst více</button>
+            <div class="review-footer">
+              <div class="rev-avatar" style="background: var(--p3);">TM</div>
+              <div class="rev-info">
+                <span class="rev-name">Tereza M.</span>
+                <span class="rev-stars">★★★★★</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-quote">"</div>
+            <p class="review-text">Předporodní kurz s Michaelou byl skvělý – praktický, upřímný a plný vřelosti. Přišla jsem bez znalostí a odcházela sebejistá a připravená. Manžel říkal, že to byl nejlepší kurz, který jsme kdy absolvovali.</p>
+            <div class="review-extra" id="r2">
+              <p>Obzvlášť oceňuji, jak Michaela mluvila otevřeně i o věcech, které se v jiných kurzech zamlčují. Žádná přikrášlená realita, jen upřímnost a podpora.</p>
+            </div>
+            <button class="read-more" data-target="r2">↓ číst více</button>
+            <div class="review-footer">
+              <div class="rev-avatar" style="background: var(--p2);">LK</div>
+              <div class="rev-info">
+                <span class="rev-name">Lucie K.</span>
+                <span class="rev-stars">★★★★★</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-quote">"</div>
+            <p class="review-text">Po porodu jsem bojovala s kojením a nevěděla, kam dřív. Michaela přijela domů, sedla si se mnou a za hodinu jsme to měly! Klidná, profesionální, bez odsuzování. Jsem jí nesmírně vděčná.</p>
+            <div class="review-extra" id="r3">
+              <p>Volala mi i den po návštěvě, zda je vše v pořádku. Takový přístup je dnes vzácný. Ke konzultaci jsem se vrátila i s otázkami ohledně odstavení – pokaždé stejně vstřícná.</p>
+            </div>
+            <button class="read-more" data-target="r3">↓ číst více</button>
+            <div class="review-footer">
+              <div class="rev-avatar" style="background: var(--p4);">JR</div>
+              <div class="rev-info">
+                <span class="rev-name">Jana R.</span>
+                <span class="rev-stars">★★★★★</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-quote">"</div>
+            <p class="review-text">Těhotenské konzultace u Michaely byly pro mě záchranou. Jako prvorodička jsem měla tisíc otázek a ona měla vždy čas, trpělivost a hlavně odpovědi. Nikdy jsem se necítila trapně za žádnou otázku.</p>
+            <div class="review-extra" id="r4">
+              <p>Pomohla mi zpracovat strach z porodu, sestavit porodní přání a vysvětlila vše, co mě čeká. Přistupovala ke mně jako k celé osobnosti, ne jen k těhotné.</p>
+            </div>
+            <button class="read-more" data-target="r4">↓ číst více</button>
+            <div class="review-footer">
+              <div class="rev-avatar" style="background: var(--p3);">ES</div>
+              <div class="rev-info">
+                <span class="rev-name">Eva S.</span>
+                <span class="rev-stars">★★★★★</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-quote">"</div>
+            <p class="review-text">Rituál zavírání kostí byl nádherný zážitek. Měla jsem z toho obavy, ale Michaela vše vysvětlila, přistupovala k tomu s takovou péčí a něžností. Po rituálu jsem se fyzicky i psychicky cítila lépe než před ním.</p>
+            <div class="review-extra" id="r5">
+              <p>Přestala mě bolet záda a měla jsem více energie. Doporučuji každé mamince po porodu. Michaela k rituálu přistupuje s plnou vážností a zároveň s lidskostí.</p>
+            </div>
+            <button class="read-more" data-target="r5">↓ číst více</button>
+            <div class="review-footer">
+              <div class="rev-avatar" style="background: var(--p2);">MB</div>
+              <div class="rev-info">
+                <span class="rev-name">Markéta B.</span>
+                <span class="rev-stars">★★★★★</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-quote">"</div>
+            <p class="review-text">Michaela provázela mou sestru i mě – obě máme miminko díky Jemnému zrození. Náš rodinný poklad! Profesionální, laskavá, vždy dostupná. Takových lidí je na světě málo.</p>
+            <div class="review-extra" id="r6">
+              <p>Sestra říká, že bez Michaely by její porod nebyl tím, čím byl. Já se přidávám – laktační poradenství mi zachránilo kojení v prvních týdnech. Obě jsme jí nesmírně vděčné.</p>
+            </div>
+            <button class="read-more" data-target="r6">↓ číst více</button>
+            <div class="review-footer">
+              <div class="rev-avatar" style="background: var(--p4);">PH</div>
+              <div class="rev-info">
+                <span class="rev-name">Petra H.</span>
+                <span class="rev-stars">★★★★★</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <button class="carousel-btn carousel-next" aria-label="Následující"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></button>
+      <div class="carousel-dots" id="carousel-dots">
+        <button class="carousel-dot active"></button>
+        <button class="carousel-dot"></button>
+        <button class="carousel-dot"></button>
+        <button class="carousel-dot"></button>
+        <button class="carousel-dot"></button>
+        <button class="carousel-dot"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════
+     KONTAKT
+═══════════════════════════════ -->
+<section id="kontakt">
+  <div class="container">
+    <header class="section-header">
+      <p class="eyebrow">Napište mi</p>
+      <h2>Kontakt</h2>
+      <div class="divider"></div>
+    </header>
+
+    <div class="contact-grid">
+
+      <div class="contact-info-col">
+        <p class="contact-name">Michaela Sedláčková</p>
+        <p style="font-size:.92rem;color:var(--text-muted);margin-bottom:20px;line-height:1.65;">Kontaktujte mě a domluvte si první nezávaznou konzultaci zdarma (20&nbsp;minut), nebo si rovnou rezervujte jakoukoli z nabízených služeb.<br><br>V případě zájmu o kompletní předporodní přípravu využijte prosím rovnou <strong style="color:var(--p5);white-space:nowrap;">→ rezervační kalendář níže</strong>.</p>
+        <div class="contact-row">
+          <div class="c-detail">
+            <strong>Telefon</strong>
+            <a href="tel:+420775645743">+420 775 645 743</a>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="c-detail">
+            <strong>E-mail</strong>
+            <a href="mailto:misa.ms@seznam.cz">misa.ms@seznam.cz</a>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="c-detail">
+            <strong>Adresa</strong>
+            <p>Na Nové 156/26<br>747 06 Opava – Podvihov</p>
+          </div>
+        </div>
+        <div class="contact-socials">
+          <a href="https://www.facebook.com/profile.php?id=100064773033685" class="soc-btn" aria-label="Facebook" target="_blank" rel="noopener">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/michaelasedlackova_porodnibaba/" class="soc-btn" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="https://wa.me/420775645743" class="soc-btn" aria-label="WhatsApp" target="_blank" rel="noopener">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="contact-right">
+
+        <form class="contact-form" action="#" method="post" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="jmeno">Jméno a příjmení</label>
+              <input type="text" id="jmeno" name="jmeno" placeholder="Jana Nováková" required>
+            </div>
+            <div class="form-group">
+              <label for="email">E-mail</label>
+              <input type="email" id="email" name="email" placeholder="jana@email.cz" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="telefon">Telefon</label>
+              <input type="tel" id="telefon" name="telefon" placeholder="+420 777 000 000">
+            </div>
+            <div class="form-group">
+              <label for="sluzba">Zájem o službu</label>
+              <select id="sluzba" name="sluzba">
+                <option value="">— vyberte —</option>
+                <option>Individuální konzultace</option>
+                <option>Předporodní kurz</option>
+                <option>Doprovod k porodu</option>
+                <option>Laktační poradenství</option>
+                <option>Zpracování placenty</option>
+                <option>Jiné</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="zprava">Zpráva</label>
+            <textarea id="zprava" name="zprava" placeholder="Napište mi, s čím vám mohu pomoci..."></textarea>
+          </div>
+          <p class="form-privacy">Odesláním souhlasíte se <a href="zasady-ochrany-osobnich-udaju.html">zpracováním osobních údajů</a>.</p>
+          <button type="submit" class="btn btn-primary">Odeslat zprávu</button>
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Rezervační kalendář kurzů -->
+<div class="reenio-section">
+  <div class="container">
+    <div class="reenio-header">
+      <p class="eyebrow">Online rezervace</p>
+      <h3>Termíny předporodní přípravy</h3>
+      <p>Vyberte si volný termín a rezervujte si místo přímo zde. Počet míst na kurzu je omezen.</p>
+    </div>
+    <div class="reenio-iframe" data-size="auto"></div>
+    <script src="https://reenio.cz/cs/GI3DQNBZ/widget-iframe.js" async defer></script>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════
+     FOOTER
+═══════════════════════════════ -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-logo">
+      <img src="PODKLADY/Logo/Logo Míša.svg" alt="Michaela Sedláčková">
+    </div>
+    <nav class="footer-nav" aria-label="Patička">
+      <a href="#nabidka">Co nabízím</a>
+      <a href="#o-mne">O mně</a>
+      <a href="#reference">Reference</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <div class="footer-social">
+      <a href="https://www.facebook.com/profile.php?id=100064773033685" aria-label="Facebook" target="_blank" rel="noopener">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/michaelasedlackova_porodnibaba/" aria-label="Instagram" target="_blank" rel="noopener">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+      <a href="https://wa.me/420775645743" aria-label="WhatsApp" target="_blank" rel="noopener">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      </a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© <span id="footer-year"></span> Michaela Sedláčková · Porodní bába, laktační poradkyně · Opava · IČO 06326668</p>
+    <p class="footer-legal"><a href="zasady-ochrany-osobnich-udaju.html">Zásady ochrany osobních údajů</a></p>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

@@ -134,6 +134,19 @@ document.addEventListener('DOMContentLoaded', () => {
       resizeTimer = setTimeout(init, 150);
     });
 
+    /* ─── TOUCH / SWIPE ─── */
+    let touchStartX = 0;
+    carouselTrack.addEventListener('touchstart', e => {
+      touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+    carouselTrack.addEventListener('touchend', e => {
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) {
+        goTo(currentPage + (diff > 0 ? 1 : -1));
+        resetAuto();
+      }
+    }, { passive: true });
+
     init();
     resetAuto();
   }

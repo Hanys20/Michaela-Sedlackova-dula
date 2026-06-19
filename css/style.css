@@ -8,6 +8,13 @@
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: 'SummerFestival';
+  src: url('../fonts/SummerFestival-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
 
 /* =============================================
    PROMĚNNÉ + PALETA  (jemná, desaturovaná)
@@ -46,13 +53,15 @@ body {
   color: var(--text);
   background: #fff;
   font-size: 16px;
-  overflow-x: hidden;
+  overflow-x: clip;
+  padding-top: 72px;
 }
 h1,h2,h3,h4 { font-family: var(--font-h); line-height: 1.25; }
 h1 { font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 600; }
 h2 { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 400; }
 /* h2 em – Summer Festival, zvětšený o 20px (1.5em od h2 = ~63px max) */
-h2 em { font-family: var(--font-s); font-style: normal; font-weight: normal; font-size: 1.5em; }
+h2 em { font-family: var(--font-s); font-style: normal; font-weight: normal; font-size: 1.5em; margin-left: 10px; }
+h2 .sf { font-family: var(--font-s); font-style: normal; font-weight: normal; font-size: 1.5em; margin-left: 10px; }
 /* h1/h3 em – Playfair italic (příliš malé pro Summer Festival) */
 h1 em, h3 em { font-family: var(--font-h); font-style: italic; font-weight: inherit; }
 h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); font-weight: 600; }
@@ -114,7 +123,7 @@ p  { line-height: 1.7; }
    NAVIGACE
 ============================================= */
 #navbar {
-  position: sticky; top: 0; z-index: 200;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
   background: rgba(255,255,255,.97);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--p1);
@@ -127,7 +136,7 @@ p  { line-height: 1.7; }
   height: 72px;
   display: flex; align-items: center; justify-content: space-between;
 }
-.nav-logo img { height: 48px; width: auto; }
+.nav-logo img { height: 40px; width: auto; }
 
 .nav-links { display: flex; align-items: center; gap: 30px; }
 .nav-links a {
@@ -173,18 +182,34 @@ p  { line-height: 1.7; }
   font-size: .95rem; color: var(--text);
   padding: 8px 0;
   transition: color .2s;
+  text-transform: uppercase;
 }
 .mobile-menu > a:hover { color: var(--p5); }
 .mobile-menu .btn { margin-top: 8px; text-align: center; color: #fff; }
 .mobile-menu .btn:hover { color: #fff; }
 
+.mob-group { display: flex; flex-direction: column; gap: 0; }
+.mob-label {
+  font-size: .95rem; color: var(--text);
+  padding: 8px 0; display: block;
+  text-transform: uppercase;
+}
+.mob-sub {
+  font-size: .95rem; color: var(--text);
+  padding: 6px 0 6px 14px; transition: color .2s;
+  display: block; text-decoration: none;
+  border-left: 2px solid var(--p2); margin-bottom: 1px;
+}
+.mob-sub:hover { color: var(--p5); border-left-color: var(--p5); }
+
 .mobile-social {
   display: flex; gap: 16px; align-items: center;
-  justify-content: flex-start; padding-top: 12px;
+  justify-content: center; padding-top: 12px;
 }
 
 .nav-social {
   display: flex; gap: 8px; align-items: center;
+  margin-left: calc(8px - 30px);
 }
 .nav-soc {
   display: flex; align-items: center; justify-content: center;
@@ -194,6 +219,7 @@ p  { line-height: 1.7; }
 }
 .nav-soc:hover { background: var(--p5-dark); }
 .nav-soc::after { display: none; }
+.nav-soc svg { display: block; pointer-events: none; }
 
 /* =============================================
    HERO – fullscreen B&W photo + dark overlay
@@ -209,8 +235,9 @@ p  { line-height: 1.7; }
 .hero::before {
   content: '';
   position: absolute; inset: 0;
-  background: url('../PODKLADY/Obrázky/cropped-3CA58A42-9BE2-4212-883A-0EDA3C1F5AAB.png') center/cover no-repeat;
-  filter: grayscale(100%);
+  background: url('../PODKLADY/Obrázky/hero-web.jpg') center/cover no-repeat;
+  filter: grayscale(100%) scaleX(-1);
+  transform: scaleX(-1);
   z-index: 0;
 }
 /* dark gradient overlay – darker left for text readability */
@@ -245,6 +272,7 @@ p  { line-height: 1.7; }
 /* light outline button for dark hero bg */
 .btn-outline-light {
   display: inline-flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 13px 30px;
@@ -260,6 +288,11 @@ p  { line-height: 1.7; }
 .btn-outline-light:hover {
   background: rgba(255,255,255,.12);
   border-color: #fff;
+}
+.btn-sub {
+  display: block; font-size: .62rem; font-weight: 400;
+  letter-spacing: .08em; text-transform: lowercase;
+  opacity: .7; margin-top: 2px; line-height: 1;
 }
 
 .social-proof {
@@ -513,7 +546,7 @@ p  { line-height: 1.7; }
    O MNĚ
 ============================================= */
 #o-mne {
-  background: #fff;
+  background: var(--p1);
   padding: clamp(60px,8vw,100px) 24px;
 }
 .about-grid {
@@ -572,7 +605,7 @@ p  { line-height: 1.7; }
    REFERENCE
 ============================================= */
 #reference {
-  background: var(--p1);
+  background: #fff;
   padding: clamp(60px,8vw,100px) 24px;
 }
 /* ── CAROUSEL ── */
@@ -580,7 +613,7 @@ p  { line-height: 1.7; }
   display: flex; flex-wrap: wrap; align-items: center; gap: 20px;
 }
 .carousel-prev { order: 1; flex-shrink: 0; }
-.carousel-track-container { order: 2; flex: 1; overflow: hidden; }
+.carousel-track-container { order: 2; flex: 1; overflow: hidden; padding: 4px 2px 14px; margin: -4px -2px -14px; }
 .carousel-next { order: 3; flex-shrink: 0; }
 .carousel-dots { order: 4; width: 100%; display: flex; justify-content: center; gap: 8px; margin-top: 8px; }
 .carousel-track {
@@ -632,6 +665,7 @@ p  { line-height: 1.7; }
   padding: 28px 24px;
   display: flex; flex-direction: column;
   border: 1px solid #e4d4dc;
+  box-shadow: 0 2px 16px rgba(100,88,104,.08);
   transition: box-shadow .3s, transform .3s;
 }
 .review-card:hover { box-shadow: var(--shadow); transform: translateY(-3px); }
@@ -660,7 +694,7 @@ p  { line-height: 1.7; }
    KONTAKT
 ============================================= */
 #kontakt {
-  background: #fff;
+  background: var(--p1);
   padding: clamp(60px,8vw,100px) 24px;
 }
 .contact-grid {
@@ -690,19 +724,19 @@ p  { line-height: 1.7; }
 .contact-socials { display: flex; gap: 10px; margin-top: 4px; }
 .soc-btn {
   width: 40px; height: 40px; border-radius: 50%;
-  background: var(--p1); display: flex; align-items: center;
-  justify-content: center; color: var(--p6);
+  background: #fff; display: flex; align-items: center;
+  justify-content: center; color: var(--p5);
   transition: all .2s;
 }
 .soc-btn svg { display: block; }
-.soc-btn:hover { background: var(--p2); color: var(--p5); }
+.soc-btn:hover { background: var(--p5); color: #fff; }
 .footer-social a svg { display: block; }
 
 .contact-right { display: flex; flex-direction: column; gap: 22px; }
 
 /* Reenio rezervační sekce pod kontaktem */
 .reenio-section {
-  background: var(--p1);
+  background: #fff;
   padding: clamp(60px,8vw,100px) 24px;
 }
 .reenio-header {
@@ -752,7 +786,7 @@ p  { line-height: 1.7; }
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus { border-color: var(--p4); }
-.form-group textarea { height: 110px; resize: vertical; }
+.form-group textarea { height: 200px; resize: vertical; }
 .form-privacy { font-size: .72rem; color: var(--text-muted); }
 .form-privacy a { color: var(--p5); }
 
@@ -816,6 +850,7 @@ footer { background: var(--p6); padding: 48px 24px 28px; }
   .container { padding-inline: 15px; }
   #nabidka, #cenik, #o-mne, #reference, #kontakt, .reenio-section { padding-inline: 0; }
   .nav-inner { padding-inline: 15px; gap: 24px; }
+  .nav-logo img { height: 30px; }
   .hamburger { flex-shrink: 0; }
   footer { padding-inline: 15px; }
   .carousel-wrapper { gap: 12px; }
@@ -849,7 +884,8 @@ footer { background: var(--p6); padding: 48px 24px 28px; }
   .mobile-menu { padding-inline: 15px; }
   .hero-btns { flex-direction: column; }
   .hero-btns .btn { text-align: center; }
-  .social-proof { flex-wrap: wrap; gap: 12px; }
+  .social-proof { flex-wrap: wrap; gap: 12px; justify-content: center; }
+  .sp-item:first-child { align-items: center; text-align: center; }
   .sp-number { font-size: 2.2rem; }
   .sp-label { font-size: .7rem; }
   .reenio-iframe { zoom: 0.58; }
@@ -908,4 +944,204 @@ footer { background: var(--p6); padding: 48px 24px 28px; }
   .hero-content .eyebrow, .hero-content h1, .hero-content .hero-desc,
   .hero-btns, .social-proof { animation: none; }
   .sr, .sr-left, .sr-right { opacity: 1; transform: none; transition: none; }
+}
+
+
+/* =============================================
+   NAV DROPDOWN
+============================================= */
+.nav-dropdown { position: relative; }
+
+.nav-dropdown-trigger {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.nav-dropdown-trigger .chev {
+  transition: transform .22s;
+  flex-shrink: 0;
+}
+
+.nav-dropdown:hover .nav-dropdown-trigger .chev { transform: rotate(180deg); }
+
+.nav-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 14px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+  background: #fff;
+  border-radius: var(--r);
+  box-shadow: 0 8px 36px rgba(100,88,104,.18);
+  min-width: 220px;
+  padding: 8px 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .22s, transform .22s, visibility .22s;
+  z-index: 300;
+  border-top: 3px solid var(--p5);
+}
+
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown:focus-within .nav-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.nav-dropdown-menu a {
+  display: block;
+  padding: 12px 22px;
+  font-size: .87rem;
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+  transition: background .15s, color .15s;
+}
+
+.nav-dropdown-menu a::after { display: none !important; }
+.nav-dropdown-menu a:hover { background: var(--p1); color: var(--p5); }
+
+
+/* =============================================
+   ROZCESTNÍK / HUB CARDS (index-v2.html)
+============================================= */
+.hub-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 52px;
+}
+
+.hub-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--r);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 6px 40px rgba(100,88,104,.18);
+  transition: transform .28s cubic-bezier(.22,1,.36,1), box-shadow .28s;
+  background: #fff;
+}
+
+.hub-card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 16px 48px rgba(100,88,104,.18);
+}
+
+.hub-img {
+  aspect-ratio: 4/3;
+  overflow: hidden;
+}
+
+.hub-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .55s ease, filter .45s ease;
+}
+
+.hub-card:hover .hub-img img {
+  transform: scale(1.05);
+  filter: grayscale(100%) blur(2px);
+}
+
+.hub-content {
+  padding: 28px 28px 32px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.hub-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  flex-shrink: 0;
+}
+
+.hub-icon img { width: 27px; height: 27px; display: block; }
+
+.hub-content h3 {
+  font-family: var(--font-h);
+  font-size: 1.28rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 10px;
+  line-height: 1.25;
+}
+
+.hub-content p {
+  font-size: .92rem;
+  color: var(--text-muted);
+  line-height: 1.68;
+  margin-bottom: 18px;
+}
+
+.hub-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 22px;
+}
+
+.hub-tags span {
+  background: var(--p1);
+  color: var(--p5);
+  font-size: .71rem;
+  font-weight: 600;
+  padding: 4px 11px;
+  border-radius: 20px;
+  letter-spacing: .04em;
+}
+
+.hub-link {
+  margin-top: auto;
+  font-size: .82rem;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 12px 20px;
+  border-radius: 100px;
+  background: var(--p5);
+  transition: background .22s, gap .22s;
+}
+
+.hub-card:hover .hub-link {
+  background: var(--p5-dark);
+  gap: 10px;
+}
+
+/* Hub card color differentiation */
+.hub-1 { border-top: 4px solid var(--p2); }
+.hub-2 { border-top: 4px solid var(--p3); }
+.hub-3 { border-top: 4px solid var(--p4); }
+
+
+.hub-1 .hub-icon,
+.hub-2 .hub-icon,
+.hub-3 .hub-icon { background: var(--p5); }
+
+.hub-icon img { filter: brightness(0) invert(1); }
+
+@media (max-width: 900px) {
+  .hub-grid { grid-template-columns: 1fr; gap: 20px; max-width: 520px; margin-inline: auto; }
+}
+
+@media (max-width: 600px) {
+  .hub-grid { max-width: 100%; }
+  .hub-content { padding: 22px 22px 26px; }
 }
