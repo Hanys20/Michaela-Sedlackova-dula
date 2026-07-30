@@ -1132,20 +1132,117 @@ footer { background: var(--p6); padding: 48px 24px 28px; }
   background: #fff;
 }
 
-.course-slots {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+.course-calendar-wrap {
+  max-width: 420px;
+  margin: 48px auto 40px;
+  display: flex;
+  flex-direction: column;
   gap: 18px;
-  margin: 48px 0 40px;
 }
 
 .course-slots-status {
-  grid-column: 1 / -1;
   color: var(--text-muted);
   text-align: center;
 }
 
-.slot-card {
+.calendar-card {
+  background: #fff;
+  border-radius: var(--r);
+  padding: 20px 22px 24px;
+  box-shadow: var(--shadow);
+}
+
+.calendar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.calendar-month-label {
+  font-family: var(--font-h);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--text);
+  text-transform: capitalize;
+}
+
+.calendar-nav {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--p2);
+  background: #fff;
+  color: var(--p5);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background .2s, color .2s, border-color .2s;
+}
+
+.calendar-nav:hover:not(:disabled) { background: var(--p5); border-color: var(--p5); color: #fff; }
+.calendar-nav:disabled { opacity: .3; cursor: default; }
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 4px;
+}
+
+.calendar-weekdays span {
+  text-align: center;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .03em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.calendar-day {
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  border-radius: 50%;
+  font-family: var(--font-b);
+  font-size: .85rem;
+  color: var(--text);
+  cursor: default;
+}
+
+.calendar-day.is-empty { visibility: hidden; }
+
+.calendar-day.is-today { font-weight: 700; color: var(--p5); }
+
+.calendar-day.has-slot {
+  cursor: pointer;
+  background: var(--p2);
+  font-weight: 600;
+  color: var(--p5-dark);
+  transition: background .2s, color .2s, transform .15s;
+}
+
+.calendar-day.has-slot:hover { background: var(--p3); transform: scale(1.08); }
+
+.calendar-day.has-slot.is-full {
+  background: #ece4e7;
+  color: var(--text-muted);
+}
+
+.calendar-day.has-slot.is-selected {
+  background: var(--p5);
+  color: #fff;
+}
+
+.slot-detail-card {
   background: #fff;
   border-radius: var(--r);
   padding: 18px 20px;
@@ -1156,33 +1253,35 @@ footer { background: var(--p6); padding: 48px 24px 28px; }
   gap: 4px;
 }
 
-.slot-card.is-full {
+.slot-detail-card + .slot-detail-card { margin-top: 14px; }
+
+.slot-detail-card.is-full {
   border-top-color: #ddd0d6;
   opacity: .65;
 }
 
-.slot-card-date {
+.slot-detail-date {
   font-family: var(--font-h);
   font-weight: 600;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   color: var(--text);
 }
 
-.slot-card-time, .slot-card-address {
+.slot-detail-time, .slot-detail-address, .slot-detail-note {
   font-size: .85rem;
   color: var(--text-muted);
 }
 
-.slot-card-capacity {
+.slot-detail-capacity {
   font-size: .82rem;
   color: var(--p5);
   font-weight: 600;
   margin: 8px 0 12px;
 }
 
-.slot-card.is-full .slot-card-capacity { color: var(--text-muted); }
+.slot-detail-card.is-full .slot-detail-capacity { color: var(--text-muted); }
 
-.slot-card button { align-self: flex-start; }
+.slot-detail-card button { align-self: flex-start; }
 
 .booking-form {
   max-width: 640px;
@@ -1249,8 +1348,9 @@ footer { background: var(--p6); padding: 48px 24px 28px; }
 
 @media (max-width: 768px) {
   .rezervace-kurzu { padding: 56px 0 64px; }
-  .course-slots { gap: 12px; margin: 32px 0 28px; }
-  .slot-card { padding: 14px 16px; }
+  .course-calendar-wrap { margin: 32px auto 28px; gap: 14px; }
+  .calendar-card { padding: 16px 16px 20px; }
+  .slot-detail-card { padding: 14px 16px; }
   .booking-form { padding: 18px; gap: 12px; }
   .attendance-option { padding: 10px 12px; font-size: .84rem; }
   .booking-form .form-group input,
