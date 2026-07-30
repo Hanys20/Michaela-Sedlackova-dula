@@ -166,6 +166,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const daysInMonth = new Date(year, month + 1, 0).getDate();
         const todayIso = toLocalIso(new Date());
 
+        // Termín trvající víc dní má na sousedících dnech stejné id –
+        // podle toho spojíme kolečka do jednoho oválu.
+        function sharesMultiDaySlot(daySlots, neighborSlots) {
+          if (!daySlots || !neighborSlots) return false;
+          return daySlots.some((s) => s.end_date && s.end_date !== s.start_date
+            && neighborSlots.some((n) => n.id === s.id));
+        }
+
         let html = '';
         for (let i = 0; i < leadingBlanks; i++) html += '<span class="calendar-day is-empty"></span>';
         for (let day = 1; day <= daysInMonth; day++) {
@@ -174,6 +182,13 @@ document.addEventListener('DOMContentLoaded', () => {
           const classes = ['calendar-day'];
           if (daySlots) {
             classes.push('has-slot');
+            const prevIso = toLocalIso(new Date(year, month, day - 1));
+            const nextIso = toLocalIso(new Date(year, month, day + 1));
+            const connectedLeft = sharesMultiDaySlot(daySlots, dateMap.get(prevIso));
+            const connectedRight = sharesMultiDaySlot(daySlots, dateMap.get(nextIso));
+            if (connectedLeft && connectedRight) classes.push('range-middle');
+            else if (connectedRight) classes.push('range-start');
+            else if (connectedLeft) classes.push('range-end');
             if (daySlots.every((s) => s.remaining <= 0)) classes.push('is-full');
           }
           if (iso === todayIso) classes.push('is-today');
@@ -184,7 +199,11 @@ document.addEventListener('DOMContentLoaded', () => {
         daysEl.querySelectorAll('.calendar-day.has-slot').forEach((btn) => {
           btn.addEventListener('click', () => {
             daysEl.querySelectorAll('.calendar-day.is-selected').forEach((el) => el.classList.remove('is-selected'));
-            btn.classList.add('is-selected');
+            const clickedIds = new Set((dateMap.get(btn.dataset.iso) || []).map((s) => s.id));
+            daysEl.querySelectorAll('.calendar-day.has-slot').forEach((el) => {
+              const ids = (dateMap.get(el.dataset.iso) || []).map((s) => s.id);
+              if (ids.some((id) => clickedIds.has(id))) el.classList.add('is-selected');
+            });
             showDetail(btn.dataset.iso);
           });
         });
