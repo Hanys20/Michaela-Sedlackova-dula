@@ -9,6 +9,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const addSlotError = document.getElementById('add-slot-error');
   const passwordForm = document.getElementById('password-form');
   const passwordMessage = document.getElementById('password-message');
+  const tabButtons = document.querySelectorAll('.admin-tab');
+  const tabPanels = document.querySelectorAll('.admin-tab-panel');
+
+  tabButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.tab;
+      tabButtons.forEach((b) => {
+        b.classList.toggle('is-active', b === btn);
+        b.setAttribute('aria-selected', b === btn ? 'true' : 'false');
+      });
+      tabPanels.forEach((panel) => {
+        panel.hidden = panel.dataset.tabPanel !== target;
+      });
+    });
+  });
 
   function showError(el, message) {
     el.textContent = message;

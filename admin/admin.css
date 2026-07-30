@@ -55,6 +55,40 @@ body {
 }
 .admin-card-narrow { max-width: 480px; }
 .admin-card-head { margin-bottom: 18px; }
+
+#dashboard-view {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.admin-tabs {
+  display: flex;
+  gap: 6px;
+  border-bottom: 1px solid #e4d4dc;
+}
+.admin-tab {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 10px 18px;
+  font-family: var(--font-b);
+  font-size: .82rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color .2s, border-color .2s;
+}
+.admin-tab:hover { color: var(--p5); }
+.admin-tab.is-active { color: var(--p5); border-bottom-color: var(--p5); }
+
+.admin-tab-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
 .admin-card h2 { margin: 0; font-family: var(--font-h); font-size: 1.3rem; color: var(--text); }
 .admin-card h3 { margin: 0; font-family: var(--font-h); font-size: 1.1rem; color: var(--text); font-weight: 600; }
 
