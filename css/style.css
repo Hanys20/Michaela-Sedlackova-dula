@@ -226,7 +226,7 @@ p  { line-height: 1.7; }
 ============================================= */
 .hero {
   position: relative;
-  min-height: 100vh;
+  min-height: 92vh;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -257,7 +257,7 @@ p  { line-height: 1.7; }
   position: relative; z-index: 2;
   width: 100%; max-width: var(--max);
   margin: 0 auto;
-  padding: clamp(80px,10vw,130px) clamp(24px,5vw,80px);
+  padding: clamp(60px,8vw,110px) clamp(24px,5vw,80px);
 }
 .hero-content .eyebrow { color: rgba(255,255,255,.68); margin-bottom: 16px; }
 .hero-content h1 { color: #fff; margin-bottom: 20px; }
@@ -829,6 +829,10 @@ footer { background: var(--p6); padding: 48px 24px 28px; }
 /* =============================================
    RESPONSIVE
 ============================================= */
+@media (min-width: 1025px) and (max-height: 800px) {
+  .hero { min-height: 84vh; }
+  .hero-content { padding-block: clamp(40px,6vw,70px); }
+}
 @media (max-width: 1024px) {
   .pillars-grid { grid-template-columns: 1fr; }
   .cenik-grid { grid-template-columns: 1fr; }
