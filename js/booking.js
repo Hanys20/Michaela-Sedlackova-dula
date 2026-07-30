@@ -114,11 +114,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const prevBtn = slotsContainer.querySelector('#cal-prev');
       const nextBtn = slotsContainer.querySelector('#cal-next');
 
-      const sortedDates = [...dateMap.keys()].sort();
-      const firstMonth = new Date(sortedDates[0] + 'T00:00:00');
-      const lastMonth = new Date(sortedDates[sortedDates.length - 1] + 'T00:00:00');
-      const minMonth = new Date(firstMonth.getFullYear(), firstMonth.getMonth(), 1);
-      const maxMonth = new Date(lastMonth.getFullYear(), lastMonth.getMonth(), 1);
+      const today = new Date();
+      const minMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+      const maxMonth = new Date(minMonth.getFullYear(), minMonth.getMonth() + 6, 1);
       let current = new Date(minMonth);
 
       function showDetail(iso) {
@@ -192,14 +190,21 @@ document.addEventListener('DOMContentLoaded', () => {
             if (daySlots.every((s) => s.remaining <= 0)) classes.push('is-full');
           }
           if (iso === todayIso) classes.push('is-today');
-          html += `<button type="button" class="${classes.join(' ')}" data-iso="${iso}" ${daySlots ? '' : 'disabled tabindex="-1"'}>${day}</button>`;
+          html += `<button type="button" class="${classes.join(' ')}" data-iso="${iso}">${day}</button>`;
         }
         daysEl.innerHTML = html;
 
-        daysEl.querySelectorAll('.calendar-day.has-slot').forEach((btn) => {
+        daysEl.querySelectorAll('.calendar-day:not(.is-empty)').forEach((btn) => {
           btn.addEventListener('click', () => {
             daysEl.querySelectorAll('.calendar-day.is-selected').forEach((el) => el.classList.remove('is-selected'));
-            const clickedIds = new Set((dateMap.get(btn.dataset.iso) || []).map((s) => s.id));
+
+            const clickedSlots = dateMap.get(btn.dataset.iso) || [];
+            if (!clickedSlots.length) {
+              detailEl.hidden = true;
+              return;
+            }
+
+            const clickedIds = new Set(clickedSlots.map((s) => s.id));
             daysEl.querySelectorAll('.calendar-day.has-slot').forEach((el) => {
               const ids = (dateMap.get(el.dataset.iso) || []).map((s) => s.id);
               if (ids.some((id) => clickedIds.has(id))) el.classList.add('is-selected');

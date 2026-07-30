@@ -1217,10 +1217,13 @@ footer { background: var(--p6); padding: 48px 24px 28px; }
   font-family: var(--font-b);
   font-size: .85rem;
   color: var(--text);
-  cursor: default;
+  cursor: pointer;
+  transition: background .2s;
 }
 
-.calendar-day.is-empty { visibility: hidden; }
+.calendar-day.is-empty { visibility: hidden; cursor: default; }
+
+.calendar-day:not(.is-empty):not(.has-slot):hover { background: var(--p2); border-radius: 999px; }
 
 .calendar-day.is-today { font-weight: 700; color: var(--p5); }
 
