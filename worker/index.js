@@ -307,6 +307,17 @@ export default {
     // s diakritikou v cestě (např. „predporodní-pece.html“ – nekonečný
     // redirect na rozbité dvojitě zakódované URL). String forma tomuto
     // internímu přepisování obchází a soubor vrátí přímo.
-    return env.ASSETS.fetch(new URL(assetPath, url.origin).toString());
+    const response = await env.ASSETS.fetch(new URL(assetPath, url.origin).toString());
+
+    // Admin panel se nesmí nikde cachovat (edge ani prohlížeč) – jinak po
+    // každém nasazení hrozí, že se ještě chvíli servíruje stará/rozbitá
+    // verze místo aktuální (viz historie: favicon i /admin fallback bug).
+    if (assetPath.startsWith('/admin')) {
+      const noCacheResponse = new Response(response.body, response);
+      noCacheResponse.headers.set('Cache-Control', 'no-store');
+      return noCacheResponse;
+    }
+
+    return response;
   },
 };
