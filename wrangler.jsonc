@@ -1,0 +1,20 @@
+{
+  "name": "msedlackova-admin",
+  "compatibility_date": "2025-06-05",
+  "main": "worker/index.js",
+  "assets": {
+    "directory": "admin",
+    "binding": "ASSETS"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "msedlackova-booking",
+      "database_id": "bbbed9c7-28f4-4b94-aad3-e61d80590bc0"
+    }
+  ],
+  "routes": [
+    { "pattern": "michaelasedlackova.info/admin*", "zone_name": "michaelasedlackova.info" },
+    { "pattern": "michaelasedlackova.info/api/*", "zone_name": "michaelasedlackova.info" }
+  ]
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Administrace termínů — Michaela Sedláčková</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<header class="admin-header">
+  <h1>Administrace kurzu</h1>
+  <button id="logout-btn" class="btn btn-ghost" hidden>Odhlásit se</button>
+</header>
+
+<main class="admin-main">
+
+  <!-- Přihlášení -->
+  <section id="login-view" class="admin-card">
+    <h2>Přihlášení</h2>
+    <form id="login-form">
+      <div class="form-group">
+        <label for="login-username">Uživatelské jméno</label>
+        <input type="text" id="login-username" name="username" autocomplete="username" required>
+      </div>
+      <div class="form-group">
+        <label for="login-password">Heslo</label>
+        <input type="password" id="login-password" name="password" autocomplete="current-password" required>
+      </div>
+      <p id="login-error" class="admin-error" hidden></p>
+      <button type="submit" class="btn btn-primary">Přihlásit se</button>
+    </form>
+  </section>
+
+  <!-- Dashboard -->
+  <section id="dashboard-view" hidden>
+
+    <div class="admin-card">
+      <h2>Termíny kurzu</h2>
+      <div id="slots-list" class="slots-list"></div>
+    </div>
+
+    <div class="admin-card">
+      <h3>Přidat nový termín</h3>
+      <form id="add-slot-form" class="admin-form-row">
+        <div class="form-group">
+          <label for="new-date">Datum</label>
+          <input type="date" id="new-date" name="date" required>
+        </div>
+        <div class="form-group">
+          <label for="new-time">Čas (volitelně)</label>
+          <input type="text" id="new-time" name="time_label" placeholder="9:00–17:00">
+        </div>
+        <div class="form-group">
+          <label for="new-capacity">Kapacita</label>
+          <input type="number" id="new-capacity" name="capacity" min="1" value="10" required>
+        </div>
+        <div class="form-group">
+          <label for="new-note">Poznámka (volitelně)</label>
+          <input type="text" id="new-note" name="note" placeholder="např. místo konání">
+        </div>
+        <button type="submit" class="btn btn-primary">Přidat termín</button>
+      </form>
+      <p id="add-slot-error" class="admin-error" hidden></p>
+    </div>
+
+    <div class="admin-card">
+      <h3>Změna hesla</h3>
+      <form id="password-form" class="admin-form-row">
+        <div class="form-group">
+          <label for="current-password">Současné heslo</label>
+          <input type="password" id="current-password" name="currentPassword" autocomplete="current-password" required>
+        </div>
+        <div class="form-group">
+          <label for="new-password">Nové heslo</label>
+          <input type="password" id="new-password" name="newPassword" autocomplete="new-password" minlength="8" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Změnit heslo</button>
+      </form>
+      <p id="password-message" class="admin-error" hidden></p>
+    </div>
+
+  </section>
+
+</main>
+
+<script src="admin.js"></script>
+</body>
+</html>

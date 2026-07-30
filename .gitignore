@@ -1,2 +1,5 @@
 # Originální podklady – pouze lokálně, nepushovat (1.4 GB)
 PODKLADY/
+
+# Wrangler lokální cache/build (Cloudflare Worker deploy)
+.wrangler/
