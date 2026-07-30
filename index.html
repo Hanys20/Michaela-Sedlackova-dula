@@ -229,9 +229,9 @@
             <div class="cert-text"><strong>Máma 5 dětí</strong><span>osobní zkušenost</span></div>
           </div>
         </div>
-
-        <a href="#kontakt" class="btn btn-primary" style="margin-top: 32px; display: inline-flex;">Pojďme se poznat</a>
       </div>
+
+      <a href="#kontakt" class="btn btn-primary about-cta">Pojďme se poznat</a>
 
     </div>
   </div>
@@ -479,7 +479,7 @@
       <div class="attendance-toggle">
         <label class="attendance-option">
           <input type="radio" name="attendance_type" value="individual" checked>
-          <span>Přijdu sám/sama <strong>3 950 Kč</strong></span>
+          <span>Přijdu sama <strong>3 950 Kč</strong></span>
         </label>
         <label class="attendance-option">
           <input type="radio" name="attendance_type" value="pair">
@@ -489,11 +489,11 @@
       <div class="form-row">
         <div class="form-group">
           <label for="booking-jmeno">Jméno a příjmení</label>
-          <input type="text" id="booking-jmeno" name="name" required>
+          <input type="text" id="booking-jmeno" name="name" placeholder="Jana Nováková" required>
         </div>
         <div class="form-group">
           <label for="booking-email">E-mail</label>
-          <input type="email" id="booking-email" name="email" required>
+          <input type="email" id="booking-email" name="email" placeholder="jana@email.cz" required>
         </div>
       </div>
       <div class="form-row">
@@ -512,7 +512,7 @@
       </div>
       <input type="text" name="website" class="hp-field" tabindex="-1" autocomplete="off">
       <p class="form-privacy">Odesláním souhlasíte se <a href="zasady-ochrany-osobnich-udaju.html">zpracováním osobních údajů</a>.</p>
-      <button type="submit" class="btn btn-primary">Rezervovat termín — <span id="booking-price">3 950 Kč</span></button>
+      <button type="submit" class="btn btn-primary btn-stacked">Rezervovat termín<span class="btn-sub">s povinností platby</span></button>
       <p id="booking-message" class="booking-message" hidden></p>
     </form>
   </div>

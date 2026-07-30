@@ -3,12 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const bookingForm = document.getElementById('booking-form');
   if (!slotsContainer || !bookingForm) return;
 
-  const PRICES = { individual: 3950, pair: 4950 };
-
   const terminSelect = document.getElementById('booking-termin');
   const bookingMessage = document.getElementById('booking-message');
-  const priceLabel = document.getElementById('booking-price');
-  const attendanceInputs = bookingForm.querySelectorAll('input[name="attendance_type"]');
 
   function formatDate(iso) {
     const d = new Date(iso + 'T00:00:00');
@@ -28,18 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     return days;
   }
-
-  function selectedPrice() {
-    const checked = bookingForm.querySelector('input[name="attendance_type"]:checked');
-    return PRICES[checked ? checked.value : 'individual'];
-  }
-
-  function updatePriceLabel() {
-    priceLabel.textContent = `${selectedPrice().toLocaleString('cs-CZ')} Kč`;
-  }
-
-  attendanceInputs.forEach((input) => input.addEventListener('change', updatePriceLabel));
-  updatePriceLabel();
 
   async function loadSlots() {
     try {
@@ -129,7 +113,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!res.ok) throw new Error(data.error || 'Rezervaci se nepodařilo odeslat.');
 
       bookingForm.reset();
-      updatePriceLabel();
       bookingMessage.textContent = 'Děkuji za rezervaci! Zkontrolujte prosím e-mail, poslali jsme vám potvrzení.';
       bookingMessage.className = 'booking-message booking-message-ok';
       bookingMessage.hidden = false;

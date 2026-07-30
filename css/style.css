@@ -289,6 +289,7 @@ p  { line-height: 1.7; }
   background: rgba(255,255,255,.12);
   border-color: #fff;
 }
+.btn-stacked { flex-direction: column; gap: 2px; }
 .btn-sub {
   display: block; font-size: .62rem; font-weight: 400;
   letter-spacing: .08em; text-transform: lowercase;
@@ -551,10 +552,12 @@ p  { line-height: 1.7; }
 }
 .about-grid {
   display: grid; grid-template-columns: 360px 1fr;
-  gap: 72px; align-items: center;
+  grid-template-areas: "photo text" "photo cta";
+  column-gap: 72px; row-gap: 18px; align-items: start;
   max-width: var(--max); margin: 0 auto;
 }
-.about-img-wrap { position: relative; }
+.about-img-wrap { position: relative; grid-area: photo; align-self: center; }
+.about-text { grid-area: text; }
 
 /* jednoduchý obdélník – žádná složitá radiusová asymetrie */
 .about-img {
@@ -582,6 +585,8 @@ p  { line-height: 1.7; }
 .about-text p { font-size: .925rem; color: var(--text-muted); margin-bottom: 14px; }
 .about-extra { display: none; }
 .about-extra.open { display: block; }
+
+.about-cta { grid-area: cta; display: inline-flex; align-self: start; }
 
 .cert-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 26px; }
 .cert-badge {
@@ -735,8 +740,8 @@ p  { line-height: 1.7; }
 .contact-right { display: flex; flex-direction: column; gap: 22px; }
 
 .contact-form { display: flex; flex-direction: column; gap: 14px; }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.form-group { display: flex; flex-direction: column; gap: 5px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; min-width: 0; }
+.form-group { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
 .form-group label {
   font-size: .7rem; text-transform: uppercase;
   letter-spacing: .08em; color: var(--text-muted); font-weight: 600;
@@ -744,11 +749,15 @@ p  { line-height: 1.7; }
 .form-group input,
 .form-group textarea,
 .form-group select {
+  width: 100%; min-width: 0; max-width: 100%;
   padding: 12px 16px;
   font-family: var(--font-b); font-size: .875rem; color: var(--text);
   background: #fff; border: 1px solid #ddd0d6;
   border-radius: 10px; outline: none; transition: border-color .2s;
   appearance: none;
+}
+.form-group select {
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 .form-group input:focus,
 .form-group textarea:focus,
@@ -803,7 +812,7 @@ footer { background: var(--p6); padding: 48px 24px 28px; }
 @media (max-width: 1024px) {
   .pillars-grid { grid-template-columns: 1fr; }
   .cenik-grid { grid-template-columns: 1fr; }
-  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .about-grid { grid-template-columns: 1fr; grid-template-areas: "photo" "text" "cta"; gap: 40px; row-gap: 40px; }
   .about-img { aspect-ratio: 3/2; }
   .contact-grid { grid-template-columns: 1fr; gap: 48px; }
   .footer-top { grid-template-columns: 1fr; text-align: center; gap: 24px; }
@@ -833,6 +842,13 @@ footer { background: var(--p6); padding: 48px 24px 28px; }
   .carousel-wrapper { gap: 10px; }
   .cert-grid { grid-template-columns: repeat(2,1fr); }
   .form-row { grid-template-columns: 1fr; }
+
+  /* O mně: na telefonu nejdřív text, foto menší a v původním poměru stran, CTA až pod fotkou */
+  .about-grid { grid-template-areas: "text" "photo" "cta"; row-gap: 20px; }
+  .about-img-wrap { max-width: 220px; margin: 0 auto; }
+  .about-img { aspect-ratio: auto; }
+  .about-accent-circle { display: none; }
+  .about-cta { display: flex; width: fit-content; margin-inline: auto; margin-top: 4px; }
 }
 @media (max-width: 480px) {
   .cert-badge { flex-direction: column; align-items: center; text-align: center; padding: 16px 10px; }
@@ -1113,7 +1129,7 @@ footer { background: var(--p6); padding: 48px 24px 28px; }
 ============================================= */
 .rezervace-kurzu {
   padding: 88px 0 96px;
-  background: var(--p1);
+  background: #fff;
 }
 
 .course-slots {

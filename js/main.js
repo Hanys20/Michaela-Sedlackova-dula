@@ -155,6 +155,9 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ─── KONTAKTNÍ FORMULÁŘ: základní validace ─── */
   const form = document.querySelector('.contact-form');
   if (form) {
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const submitBtnLabel = submitBtn ? submitBtn.textContent : '';
+
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const jmeno = form.querySelector('#jmeno').value.trim();
@@ -164,8 +167,15 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
       /* TODO: napojit na backend / Formspree / EmailJS */
-      alert('Děkuji za zprávu! Ozvu se vám co nejdříve.');
       form.reset();
+      if (submitBtn) {
+        submitBtn.textContent = 'Děkuji vám za zprávu';
+        submitBtn.disabled = true;
+        setTimeout(() => {
+          submitBtn.textContent = submitBtnLabel;
+          submitBtn.disabled = false;
+        }, 4000);
+      }
     });
   }
 
