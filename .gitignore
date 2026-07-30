@@ -3,3 +3,6 @@ PODKLADY/
 
 # Wrangler lokální cache/build (Cloudflare Worker deploy)
 .wrangler/
+
+# Node závislosti (qrcode-generator pro Worker)
+node_modules/

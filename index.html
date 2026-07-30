@@ -458,6 +458,67 @@
   </div>
 </section>
 
+
+<!-- ═══════════════════════════════
+     REZERVACE KURZU
+═══════════════════════════════ -->
+<section id="rezervace-kurzu" class="rezervace-kurzu">
+  <div class="container">
+    <header class="section-header">
+      <p class="eyebrow">Víkendová předporodní příprava</p>
+      <h2>Vypsané <em>termíny</em> a rezervace</h2>
+      <div class="divider"></div>
+      <p>Vyberte si termín, zvolte, zda přijdete sami nebo v páru, a rezervujte si místo.</p>
+    </header>
+
+    <div id="course-slots" class="course-slots">
+      <p class="course-slots-status">Načítám termíny…</p>
+    </div>
+
+    <form id="booking-form" class="booking-form" novalidate>
+      <div class="attendance-toggle">
+        <label class="attendance-option">
+          <input type="radio" name="attendance_type" value="individual" checked>
+          <span>Přijdu sám/sama <strong>3 950 Kč</strong></span>
+        </label>
+        <label class="attendance-option">
+          <input type="radio" name="attendance_type" value="pair">
+          <span>Přijdu v páru <strong>4 950 Kč</strong></span>
+        </label>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="booking-jmeno">Jméno a příjmení</label>
+          <input type="text" id="booking-jmeno" name="name" required>
+        </div>
+        <div class="form-group">
+          <label for="booking-email">E-mail</label>
+          <input type="email" id="booking-email" name="email" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="booking-telefon">Telefon</label>
+          <input type="tel" id="booking-telefon" name="phone" placeholder="+420 777 000 000">
+        </div>
+        <div class="form-group">
+          <label for="booking-termin">Vybraný termín</label>
+          <select id="booking-termin" name="slot_id" required></select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="booking-zprava">Zpráva</label>
+        <textarea id="booking-zprava" name="message" rows="3" placeholder="Cokoliv, co bych měla vědět předem…"></textarea>
+      </div>
+      <input type="text" name="website" class="hp-field" tabindex="-1" autocomplete="off">
+      <p class="form-privacy">Odesláním souhlasíte se <a href="zasady-ochrany-osobnich-udaju.html">zpracováním osobních údajů</a>.</p>
+      <button type="submit" class="btn btn-primary">Rezervovat termín — <span id="booking-price">3 950 Kč</span></button>
+      <p id="booking-message" class="booking-message" hidden></p>
+    </form>
+  </div>
+</section>
+
+
 <!-- ═══════════════════════════════
      FOOTER
 ═══════════════════════════════ -->
@@ -491,5 +552,6 @@
 </footer>
 
 <script src="js/main.js"></script>
+<script src="js/booking.js"></script>
 </body>
 </html>
