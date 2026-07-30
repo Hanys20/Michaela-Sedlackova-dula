@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
               ${slot.address ? `<div class="slot-detail-address">📍 ${slot.address}</div>` : ''}
               ${slot.note ? `<div class="slot-detail-note">${slot.note}</div>` : ''}
               <div class="slot-detail-capacity">${isFull ? 'Obsazeno' : `${slot.remaining} z ${slot.capacity} míst volných`}</div>
-              <button type="button" class="btn btn-primary btn-sm" ${isFull ? 'disabled' : ''}>Rezervovat termín</button>
+              <button type="button" class="btn btn-primary btn-sm" ${isFull ? 'disabled' : ''}>Vybrat termín</button>
             </div>
           `;
         }).join('');
@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (slot.remaining <= 0) return;
           card.querySelector('button').addEventListener('click', () => {
             terminSelect.value = String(slot.id);
-            bookingForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            document.getElementById('booking-jmeno').scrollIntoView({ behavior: 'smooth', block: 'center' });
           });
         });
       }
