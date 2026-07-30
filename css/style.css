@@ -1132,12 +1132,28 @@ footer { background: var(--p6); padding: 48px 24px 28px; }
   background: #fff;
 }
 
+.rezervace-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  align-items: start;
+  margin-top: 48px;
+}
+
+@media (min-width: 960px) {
+  .rezervace-layout { grid-template-columns: 420px 1fr; gap: 40px; }
+}
+
 .course-calendar-wrap {
   max-width: 420px;
-  margin: 48px auto 40px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 18px;
+}
+
+@media (min-width: 960px) {
+  .course-calendar-wrap { margin: 0; }
 }
 
 .course-slots-status {
@@ -1267,14 +1283,21 @@ footer { background: var(--p6); padding: 48px 24px 28px; }
   display: flex;
   flex-direction: column;
   gap: 4px;
+  cursor: pointer;
+  transition: box-shadow .2s;
 }
+
+.slot-detail-card:hover { box-shadow: 0 10px 30px rgba(100,88,104,.18); }
 
 .slot-detail-card + .slot-detail-card { margin-top: 14px; }
 
 .slot-detail-card.is-full {
   border-top-color: #ddd0d6;
   opacity: .65;
+  cursor: default;
 }
+
+.slot-detail-card.is-full:hover { box-shadow: var(--shadow); }
 
 .slot-detail-date {
   font-family: var(--font-h);
@@ -1297,7 +1320,12 @@ footer { background: var(--p6); padding: 48px 24px 28px; }
 
 .slot-detail-card.is-full .slot-detail-capacity { color: var(--text-muted); }
 
-.slot-detail-card button { align-self: flex-start; }
+.calendar-empty-month {
+  margin-top: 14px;
+  font-size: .82rem;
+  color: var(--text-muted);
+  text-align: center;
+}
 
 .booking-form {
   max-width: 640px;

@@ -63,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
         <div class="calendar-weekdays">${WEEKDAYS.map((w) => `<span>${w}</span>`).join('')}</div>
         <div class="calendar-days" id="cal-days"></div>
+        <p class="calendar-empty-month" id="cal-empty-msg" hidden>V tomto měsíci není vypsaný kurz.</p>
       </div>
       <div class="slot-detail" id="slot-detail" hidden></div>
     `;
@@ -110,6 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
       buildCalendarMarkup();
       const monthLabelEl = slotsContainer.querySelector('#cal-month-label');
       const daysEl = slotsContainer.querySelector('#cal-days');
+      const emptyMonthEl = slotsContainer.querySelector('#cal-empty-msg');
       const detailEl = slotsContainer.querySelector('#slot-detail');
       const prevBtn = slotsContainer.querySelector('#cal-prev');
       const nextBtn = slotsContainer.querySelector('#cal-next');
@@ -136,7 +138,6 @@ document.addEventListener('DOMContentLoaded', () => {
               ${slot.address ? `<div class="slot-detail-address">📍 ${slot.address}</div>` : ''}
               ${slot.note ? `<div class="slot-detail-note">${slot.note}</div>` : ''}
               <div class="slot-detail-capacity">${isFull ? 'Obsazeno' : `${slot.remaining} z ${slot.capacity} míst volných`}</div>
-              <button type="button" class="btn btn-primary btn-sm" ${isFull ? 'disabled' : ''}>Vybrat termín</button>
             </div>
           `;
         }).join('');
@@ -144,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
         detailEl.querySelectorAll('.slot-detail-card').forEach((card, i) => {
           const slot = daySlots[i];
           if (slot.remaining <= 0) return;
-          card.querySelector('button').addEventListener('click', () => {
+          card.addEventListener('click', () => {
             terminSelect.value = String(slot.id);
             document.getElementById('booking-jmeno').scrollIntoView({ behavior: 'smooth', block: 'center' });
           });
@@ -173,12 +174,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         let html = '';
+        let monthHasSlots = false;
         for (let i = 0; i < leadingBlanks; i++) html += '<span class="calendar-day is-empty"></span>';
         for (let day = 1; day <= daysInMonth; day++) {
           const iso = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
           const daySlots = dateMap.get(iso);
           const classes = ['calendar-day'];
           if (daySlots) {
+            monthHasSlots = true;
             classes.push('has-slot');
             const prevIso = toLocalIso(new Date(year, month, day - 1));
             const nextIso = toLocalIso(new Date(year, month, day + 1));
@@ -193,6 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
           html += `<button type="button" class="${classes.join(' ')}" data-iso="${iso}">${day}</button>`;
         }
         daysEl.innerHTML = html;
+        emptyMonthEl.hidden = monthHasSlots;
 
         daysEl.querySelectorAll('.calendar-day:not(.is-empty)').forEach((btn) => {
           btn.addEventListener('click', () => {
