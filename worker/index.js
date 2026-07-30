@@ -149,13 +149,18 @@ export default {
       }
     }
 
-    // Admin stránka je servírovaná Workerem jen pod /admin* – URL prefix
-    // je potřeba odstranit, protože assets binding servíruje soubory
-    // relativně ke kořeni admin/ složky. Assets jsou vždy jen GET, proto
-    // stačí předat samotnou URL (ne nový Request) – jinak to Cloudflare
-    // vyhodnotí jako subrequest na jiný Worker ve stejné zóně (chyba 1042).
-    let assetPath = url.pathname.replace(/^\/admin/, '');
-    if (assetPath === '' || assetPath === '/') assetPath = '/index.html';
+    // assets.directory je kořen repozitáře, takže cesty (/, /admin,
+    // /css/style.css…) sedí přímo. /admin a /admin/ normalizujeme na
+    // admin/index.html ručně – bez toho spadne na not_found_handling
+    // (single-page-application) a omylem vrátí hlavní stránku webu.
+    let assetPath = url.pathname;
+    if (assetPath === '/admin' || assetPath === '/admin/') assetPath = '/admin/index.html';
+
+    // Předáváme URL jako string, ne Request objekt: Workers Assets aplikuje
+    // na Request objekty vlastní html-handling přesměrování, které má bug
+    // s diakritikou v cestě (např. „predporodní-pece.html“ – nekonečný
+    // redirect na rozbité dvojitě zakódované URL). String forma tomuto
+    // internímu přepisování obchází a soubor vrátí přímo.
     return env.ASSETS.fetch(new URL(assetPath, url.origin).toString());
   },
 };
