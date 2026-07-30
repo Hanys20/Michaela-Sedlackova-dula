@@ -534,6 +534,13 @@
   margin-top: 10px;
 }
 
+.sp-dop-note {
+  text-align: center;
+  font-size: .82rem;
+  color: var(--text-muted);
+  margin-top: 24px;
+}
+
 
 /* ─── INLINE CENÍK ─── */
 .sp-cenik {
