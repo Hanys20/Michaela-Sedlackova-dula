@@ -1148,7 +1148,7 @@ footer { background: var(--p6); padding: 48px 24px 28px; }
 .slot-card {
   background: #fff;
   border-radius: var(--r);
-  padding: 22px 24px;
+  padding: 18px 20px;
   box-shadow: var(--shadow);
   border-top: 4px solid var(--p3);
   display: flex;
@@ -1188,7 +1188,7 @@ footer { background: var(--p6); padding: 48px 24px 28px; }
   max-width: 640px;
   margin: 0 auto;
   background: #fff;
-  padding: 32px;
+  padding: 28px;
   border-radius: var(--r);
   box-shadow: var(--shadow);
   display: flex;
@@ -1207,7 +1207,7 @@ footer { background: var(--p6); padding: 48px 24px 28px; }
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 14px 16px;
+  padding: 12px 14px;
   border: 2px solid var(--p1);
   border-radius: 12px;
   cursor: pointer;
@@ -1245,4 +1245,15 @@ footer { background: var(--p6); padding: 48px 24px 28px; }
 
 @media (max-width: 520px) {
   .attendance-toggle { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .rezervace-kurzu { padding: 56px 0 64px; }
+  .course-slots { gap: 12px; margin: 32px 0 28px; }
+  .slot-card { padding: 14px 16px; }
+  .booking-form { padding: 18px; gap: 12px; }
+  .attendance-option { padding: 10px 12px; font-size: .84rem; }
+  .booking-form .form-group input,
+  .booking-form .form-group textarea,
+  .booking-form .form-group select { padding: 10px 12px; }
 }
