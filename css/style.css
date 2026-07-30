@@ -734,39 +734,6 @@ p  { line-height: 1.7; }
 
 .contact-right { display: flex; flex-direction: column; gap: 22px; }
 
-/* Reenio rezervační sekce pod kontaktem */
-.reenio-section {
-  background: #fff;
-  padding: clamp(60px,8vw,100px) 24px;
-}
-.reenio-header {
-  text-align: center; margin-bottom: 28px;
-}
-.reenio-header h3 {
-  font-family: var(--font-h); font-size: clamp(1.3rem,2.5vw,1.7rem);
-  color: var(--text); margin-bottom: 10px;
-}
-.reenio-header p {
-  font-size: .95rem; color: var(--text-muted);
-  max-width: 540px; margin: 0 auto;
-}
-.reenio-iframe {
-  position: relative;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 10px 48px rgba(100,88,104,.15);
-}
-.reenio-iframe::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 70px;
-  background: #f6ecef;
-  z-index: 10;
-  pointer-events: none;
-  border-radius: 0 0 14px 14px;
-}
-
 .contact-form { display: flex; flex-direction: column; gap: 14px; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .form-group { display: flex; flex-direction: column; gap: 5px; }
@@ -852,7 +819,7 @@ footer { background: var(--p6); padding: 48px 24px 28px; }
   .hero .jz-badge { bottom: 20px; right: 20px; width: 56px; height: 56px; padding: 9px; }
   .nav-links { display: none; }
   .container { padding-inline: 15px; }
-  #nabidka, #cenik, #o-mne, #reference, #kontakt, .reenio-section { padding-inline: 0; }
+  #nabidka, #cenik, #o-mne, #reference, #kontakt { padding-inline: 0; }
   .nav-inner { padding-inline: 15px; gap: 24px; }
   .nav-logo img { height: 30px; }
   .hamburger { flex-shrink: 0; }
@@ -866,14 +833,6 @@ footer { background: var(--p6); padding: 48px 24px 28px; }
   .carousel-wrapper { gap: 10px; }
   .cert-grid { grid-template-columns: repeat(2,1fr); }
   .form-row { grid-template-columns: 1fr; }
-}
-@media (min-width: 529px) and (max-width: 864px) {
-  .reenio-iframe { zoom: 0.65; }
-  .reenio-iframe::after { height: 70px; }
-}
-@media (min-width: 481px) and (max-width: 528px) {
-  .reenio-iframe { zoom: 0.65; }
-  .reenio-iframe::after { height: 150px; }
 }
 @media (max-width: 480px) {
   .cert-badge { flex-direction: column; align-items: center; text-align: center; padding: 16px 10px; }
@@ -892,8 +851,6 @@ footer { background: var(--p6); padding: 48px 24px 28px; }
   .sp-item:first-child { align-items: center; text-align: center; }
   .sp-number { font-size: 2.2rem; }
   .sp-label { font-size: .7rem; }
-  .reenio-iframe { zoom: 0.58; }
-  .reenio-iframe::after { height: 150px; }
 }
 
 /* ─── HERO ENTRY ANIMATIONS ─── */
