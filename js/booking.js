@@ -11,6 +11,16 @@ document.addEventListener('DOMContentLoaded', () => {
     return d.toLocaleDateString('cs-CZ', { day: 'numeric', month: 'numeric', year: 'numeric', weekday: 'short' });
   }
 
+  // Skládá ISO datum z lokálních složek Date objektu – toISOString() by
+  // datum posunul o den zpět, protože převádí do UTC (v létě je ČR UTC+2,
+  // takže lokální půlnoc vychází v UTC ještě na předchozí den).
+  function toLocalIso(d) {
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+  }
+
   function dateRangeLines(slot) {
     if (!slot.end_date || slot.end_date === slot.start_date) {
       return [`${formatDate(slot.start_date)}${slot.time_label ? ', ' + slot.time_label : ''}`];
@@ -19,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let cur = new Date(slot.start_date + 'T00:00:00');
     const end = new Date(slot.end_date + 'T00:00:00');
     while (cur <= end) {
-      days.push(`${formatDate(cur.toISOString().slice(0, 10))}${slot.time_label ? ', ' + slot.time_label : ''}`);
+      days.push(`${formatDate(toLocalIso(cur))}${slot.time_label ? ', ' + slot.time_label : ''}`);
       cur.setDate(cur.getDate() + 1);
     }
     return days;
