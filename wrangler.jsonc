@@ -6,7 +6,11 @@
     "directory": ".",
     "binding": "ASSETS",
     "html_handling": "none",
-    "not_found_handling": "single-page-application"
+    "not_found_handling": "single-page-application",
+    // /admin* a /api/* musí vždy obsloužit Worker – bez toho je může
+    // asset vrstva zachytit dřív (a přes not_found_handling vrátit
+    // homepage) nebo je zacachovat na edge se špatným obsahem.
+    "run_worker_first": ["/admin", "/admin/*", "/api/*"]
   },
   "d1_databases": [
     {
