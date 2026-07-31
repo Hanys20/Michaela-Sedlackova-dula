@@ -692,8 +692,7 @@ p  { line-height: 1.7; }
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0; font-size: .8rem; font-weight: 700; color: #fff;
 }
-.rev-name { font-size: .875rem; font-weight: 600; color: var(--text); }
-.rev-stars { font-size: .8rem; color: var(--p4); letter-spacing: 2px; }
+.rev-name { font-size: 1rem; font-weight: 600; color: var(--text); }
 
 /* =============================================
    KONTAKT
