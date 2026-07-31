@@ -774,8 +774,8 @@ footer { background: var(--p6); padding: 64px 24px 28px; }
 .footer-grid {
   max-width: var(--max); margin: 0 auto;
   display: grid;
-  grid-template-columns: 1.6fr 1fr 1fr 1fr;
-  gap: 40px;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr;
+  gap: 32px;
   padding-bottom: 40px;
   border-bottom: 1px solid rgba(255,255,255,.1);
 }
@@ -811,13 +811,9 @@ footer { background: var(--p6); padding: 64px 24px 28px; }
 
 .footer-bottom {
   max-width: var(--max); margin: 0 auto;
-  padding-top: 22px;
-  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px 20px;
+  padding-top: 22px; text-align: center;
   font-size: .72rem; color: rgba(255,255,255,.35);
 }
-.footer-legal { display: flex; flex-wrap: wrap; gap: 4px 18px; }
-.footer-legal a { color: rgba(255,255,255,.45); font-size: .72rem; transition: color .2s; }
-.footer-legal a:hover { color: rgba(255,255,255,.8); }
 
 /* =============================================
    RESPONSIVE
@@ -836,7 +832,6 @@ footer { background: var(--p6); padding: 64px 24px 28px; }
   .footer-brand { grid-column: 1 / -1; }
   .footer-brand p { margin-inline: auto; }
   .footer-social { justify-content: center; }
-  .footer-bottom { justify-content: center; text-align: center; }
   .hamburger { display: flex; }
   .nav-links a:not(.btn) { display: none; }
   .nav-social { display: none; }
@@ -887,7 +882,16 @@ footer { background: var(--p6); padding: 64px 24px 28px; }
   .sp-item:first-child { align-items: center; text-align: center; }
   .sp-number { font-size: 2.2rem; }
   .sp-label { font-size: .7rem; }
-  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+
+  /* Patička: kompaktnější 2×2 mřížka místo jednoho sloupce */
+  footer { padding: 40px 15px 20px; }
+  .footer-grid { gap: 24px 16px; padding-bottom: 24px; }
+  .footer-brand-logo { height: 32px; margin-bottom: 12px; }
+  .footer-brand p { font-size: .8rem; margin-bottom: 16px; }
+  .footer-col h4 { font-size: .68rem; margin-bottom: 10px; }
+  .footer-col ul { gap: 8px; }
+  .footer-col a, .footer-contact li { font-size: .8rem; }
+  .footer-bottom { padding-top: 16px; }
 }
 
 /* ─── HERO ENTRY ANIMATIONS ─── */
