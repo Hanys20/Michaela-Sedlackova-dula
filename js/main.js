@@ -129,20 +129,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
     prevBtn.addEventListener('click', () => { goTo(currentPage - 1); resetAuto(); });
     nextBtn.addEventListener('click', () => { goTo(currentPage + 1); resetAuto(); });
+    let lastWidth = window.innerWidth;
     window.addEventListener('resize', () => {
+      /* na mobilu mění výšku i schovávání/zobrazování lišty prohlížeče při scrollu –
+         reagujeme jen na skutečnou změnu šířky, jinak by se carousel za jízdy resetoval */
+      if (window.innerWidth === lastWidth) return;
+      lastWidth = window.innerWidth;
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(init, 150);
     });
 
     /* ─── TOUCH / SWIPE ─── */
     let touchStartX = 0;
+    let touchStartY = 0;
     carouselTrack.addEventListener('touchstart', e => {
       touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
     }, { passive: true });
     carouselTrack.addEventListener('touchend', e => {
-      const diff = touchStartX - e.changedTouches[0].clientX;
-      if (Math.abs(diff) > 40) {
-        goTo(currentPage + (diff > 0 ? 1 : -1));
+      const diffX = touchStartX - e.changedTouches[0].clientX;
+      const diffY = touchStartY - e.changedTouches[0].clientY;
+      /* ignorovat svislé gesto (scroll stránky), reagovat jen na vodorovné swipe */
+      if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+        goTo(currentPage + (diffX > 0 ? 1 : -1));
         resetAuto();
       }
     }, { passive: true });

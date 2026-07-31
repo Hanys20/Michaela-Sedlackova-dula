@@ -625,6 +625,7 @@ p  { line-height: 1.7; }
   display: flex;
   transition: transform .42s cubic-bezier(.4,0,.2,1);
   will-change: transform;
+  touch-action: pan-y;
 }
 .carousel-track .review-card {
   flex: 0 0 100%; min-width: 100%;
@@ -823,6 +824,7 @@ footer { background: var(--p6); padding: 48px 24px 28px; }
 }
 @media (max-width: 768px) {
   .hero { min-height: 70vh; }
+  .hero::before { background-position: 30% center; }
   .hero-content { padding: 48px 15px; }
   .hero .jz-badge { bottom: 20px; right: 20px; width: 56px; height: 56px; padding: 9px; }
   .nav-links { display: none; }
