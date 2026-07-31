@@ -146,6 +146,8 @@
   display: block;
 }
 
+.sp-img-embrace { object-position: center; }
+
 
 /* ─── MAIN SERVICES ─── */
 .sp-services {
@@ -552,7 +554,12 @@
 /* ─── RESPONSIVE ─── */
 @media (max-width: 900px) {
   .sp-intro-grid { grid-template-columns: 1fr; gap: 40px; }
-  .sp-intro-img { aspect-ratio: 4/3; order: -1; }
+  .sp-intro-text { order: 1; }
+  .sp-intro-img { aspect-ratio: 4/3; order: 2; }
+
+  .sp-img-focus-book { object-position: center 40%; }
+  .sp-img-embrace { object-position: 30% center; }
+  .sp-img-focus-cards { object-position: 30% 55%; }
 
   .sp-dop-inner { grid-template-columns: 1fr; gap: 36px; }
 
