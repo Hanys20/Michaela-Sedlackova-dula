@@ -41,6 +41,13 @@ function randomToken() {
   return [...bytes].map((b) => b.toString(16).padStart(2, '0')).join('');
 }
 
+// Variabilní symbol platby: 2 čísla roku rezervace + 6místné pořadové číslo
+// (např. 26000007) – smysluplnější a lépe dohledatelné než holé ID.
+function buildVariableSymbol(reg) {
+  const year = (reg.created_at || new Date().toISOString()).slice(2, 4);
+  return `${year}${String(reg.id).padStart(6, '0')}`;
+}
+
 async function handleLogin(request, env) {
   const body = await request.json().catch(() => ({}));
   const { username, password } = body;
@@ -78,7 +85,7 @@ async function handleQrImage(env, token) {
   const spd = buildSpdString({
     iban: env.BANK_IBAN,
     amount: reg.price,
-    variableSymbol: reg.id,
+    variableSymbol: buildVariableSymbol(reg),
     message: `Predporodni kurz ${slot ? slot.start_date : ''}`,
   });
   const gif = renderQrGif(spd);
@@ -88,19 +95,56 @@ async function handleQrImage(env, token) {
 function bookingConfirmationHtml({ reg, slot, iban }) {
   const attendanceLabel = reg.attendance_type === 'pair' ? 'v páru' : 'sám/sama';
   const qrBlock = iban
-    ? `<p>Pro rychlou úhradu naskenujte tento QR kód ve vaší bankovní aplikaci:</p>
+    ? `<p>Pro potvrzení rezervace prosím uhraďte kurz pomocí přiloženého QR kódu.</p>
        <img src="https://michaelasedlackova.info/api/qr/${reg.qr_token}.gif" alt="QR platba" width="220" height="220">
-       <p>Variabilní symbol: <strong>${reg.id}</strong></p>`
+       <p>Variabilní symbol: <strong>${buildVariableSymbol(reg)}</strong></p>`
     : `<p>Platební údaje vám pošleme samostatně.</p>`;
 
   return `
-    <div style="font-family:sans-serif; color:#3a3038;">
-      <h2>Děkujeme za rezervaci, ${reg.name}!</h2>
+    <div style="font-family:sans-serif; color:#3a3038; max-width:560px; margin:0 auto;">
+      <h2>Děkuji za rezervaci předporodního kurzu! 🤍</h2>
+
+      <p>Dobrý den,</p>
+      <p>jsem moc ráda, že jste si rezervovali místo na mém předporodním kurzu. Těším se, že vás provedu přípravou na porod, šestinedělím i prvními dny s miminkem a pomohu vám získat jistotu i klid před tímto výjimečným obdobím.</p>
+
+      <h3>Shrnutí rezervace</h3>
       <p>Termín: <strong>${slotDateRangeLabel(slot)}</strong>${slot.time_label ? `, ${slot.time_label}` : ''}</p>
-      ${slot.address ? `<p>Místo konání: ${slot.address}</p>` : ''}
-      <p>Účast: <strong>${attendanceLabel}</strong> · Cena: <strong>${reg.price} Kč</strong></p>
+      ${slot.address ? `<p>Místo konání:<br>${slot.address}</p>` : ''}
+      <p>Účast: <strong>${attendanceLabel}</strong></p>
+      <p>Cena: <strong>${reg.price} Kč</strong></p>
+
+      <hr style="border:none; border-top:1px solid #eec4d4; margin:20px 0;">
+      <h3>Platba</h3>
       ${qrBlock}
-      <p>Těšíme se na vás!<br>Michaela Sedláčková</p>
+      <p>Po přijetí platby je vaše rezervace závazně potvrzena.</p>
+
+      <hr style="border:none; border-top:1px solid #eec4d4; margin:20px 0;">
+      <h3>Co si vzít s sebou?</h3>
+      <ul>
+        <li>pohodlné oblečení</li>
+        <li>přezůvky nebo teplé ponožky</li>
+      </ul>
+      <p>O všechno ostatní bude postaráno a vše potřebné bude na místě připravené.</p>
+
+      <hr style="border:none; border-top:1px solid #eec4d4; margin:20px 0;">
+      <h3>Jak se ke mně dostanete?</h3>
+      <p>📍 Parkování v okolí je možné, o víkendu zde není zpoplatněno.</p>
+      <p>Po příchodu prosím zazvoňte na zvonek „Krajinou duše“.</p>
+      <p>Pokud byste nemohli zvonek najít nebo potřebovali pomoc, neváhejte mi zavolat na +420&nbsp;775&nbsp;645&nbsp;743.</p>
+
+      <hr style="border:none; border-top:1px solid #eec4d4; margin:20px 0;">
+      <h3>Máte otázky?</h3>
+      <p>Pokud budete potřebovat cokoliv upřesnit nebo se na něco zeptat, budu ráda, když se mi ozvete.</p>
+      <p>Více informací a kontaktní údaje najdete také na webových stránkách: <a href="https://michaelasedlackova.info" style="color:#9e5a6e;">www.michaelasedlackova.info</a></p>
+
+      <hr style="border:none; border-top:1px solid #eec4d4; margin:20px 0;">
+      <h3>Těším se na vás</h3>
+      <p>Přeji vám klidné dny plné těšení na vaše miminko a budu se na vás těšit osobně na kurzu.</p>
+
+      <p>S přáním všeho dobrého,</p>
+      <img src="https://michaelasedlackova.info/images/logo/Logo%20M%C3%AD%C5%A1a.svg" alt="Michaela Sedláčková" height="40" style="margin-bottom:8px;"><br>
+      <strong>Michaela Sedláčková</strong><br>
+      porodní asistentka a dula
     </div>
   `;
 }
@@ -140,7 +184,7 @@ async function handleBook(request, env) {
     .bind(headcount, slot_id)
     .run();
 
-  const reg = { id: result.meta.last_row_id, name, email, attendance_type, price, qr_token: qrToken };
+  const reg = { id: result.meta.last_row_id, name, email, attendance_type, price, qr_token: qrToken, created_at: new Date().toISOString() };
 
   if (env.RESEND_API_KEY) {
     const from = env.EMAIL_FROM || 'onboarding@resend.dev';
@@ -149,7 +193,7 @@ async function handleBook(request, env) {
         apiKey: env.RESEND_API_KEY,
         from,
         to: email,
-        subject: 'Potvrzení rezervace – Předporodní kurz',
+        subject: 'Rezervace potvrzena – Předporodní kurz',
         html: bookingConfirmationHtml({ reg, slot, iban: env.BANK_IBAN }),
       });
       await sendEmail({
