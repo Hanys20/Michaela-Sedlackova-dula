@@ -1,0 +1,41 @@
+/* =============================================
+   LEGAL PAGES – sdílené styly
+   zásady ochrany osobních údajů / obchodní podmínky / cookies
+============================================= */
+.legal-wrap {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: clamp(60px,8vw,100px) 24px;
+}
+.legal-wrap h1 {
+  font-size: clamp(1.8rem,3vw,2.4rem);
+  margin-bottom: 8px;
+}
+.legal-wrap .updated {
+  font-size: .8rem;
+  color: var(--text-muted);
+  margin-bottom: 48px;
+  display: block;
+}
+.legal-wrap h2 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 36px 0 10px;
+  color: var(--text);
+}
+.legal-wrap p, .legal-wrap li {
+  font-size: .95rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 10px;
+}
+.legal-wrap ul { padding-left: 20px; margin-bottom: 10px; }
+.legal-wrap a { color: var(--p5); }
+.legal-wrap a:hover { text-decoration: underline; }
+.legal-back {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-bottom: 40px;
+  font-size: .85rem; color: var(--p5);
+  transition: color .2s;
+}
+.legal-back:hover { color: var(--p5-dark); }
