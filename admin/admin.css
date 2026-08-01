@@ -13,6 +13,7 @@
 }
 
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 
 body {
   margin: 0;
@@ -89,7 +90,6 @@ body {
   flex-direction: column;
   gap: 26px;
 }
-.admin-tab-panel[hidden] { display: none; }
 .admin-card h2 { margin: 0; font-family: var(--font-h); font-size: 1.3rem; color: var(--text); }
 .admin-card h3 { margin: 0; font-family: var(--font-h); font-size: 1.1rem; color: var(--text); font-weight: 600; }
 
