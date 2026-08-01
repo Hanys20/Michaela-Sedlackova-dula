@@ -58,6 +58,16 @@ document.addEventListener('DOMContentLoaded', () => {
     return `${formatDate(slot.start_date)} – ${formatDate(slot.end_date)}`;
   }
 
+  async function deleteRegistration(id) {
+    const res = await fetch(`/api/admin/registrations/${id}`, { method: 'DELETE' });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      alert(data.error || 'Účastníka se nepodařilo smazat.');
+      return false;
+    }
+    return true;
+  }
+
   async function loadRegistrations(slotId, container) {
     container.innerHTML = '<p class="registration-meta">Načítám…</p>';
     const res = await fetch(`/api/admin/slots/${slotId}/registrations`);
@@ -77,10 +87,19 @@ document.addEventListener('DOMContentLoaded', () => {
           <span class="registration-name">${r.name}</span>
           <span class="registration-meta">${r.attendance_type === 'pair' ? 'pár' : 'jednotlivec'} · ${r.price} Kč</span>
           <span class="registration-meta">${r.email}${r.phone ? ' · ' + r.phone : ''}</span>
+          <button type="button" class="btn btn-sm btn-danger reg-delete-btn" data-id="${r.id}">Smazat</button>
         </div>`
       )
       .join('');
   }
+
+  slotsList.addEventListener('click', async (e) => {
+    const btn = e.target.closest('.reg-delete-btn');
+    if (!btn) return;
+    if (!confirm('Opravdu chcete smazat tohoto účastníka?')) return;
+    const ok = await deleteRegistration(btn.dataset.id);
+    if (ok) loadSlots();
+  });
 
   let allRegistrations = [];
 
@@ -125,6 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <span class="registration-name">${r.name}</span>
               <span class="registration-meta">${attendanceLabel(r.attendance_type)} · ${r.price} Kč</span>
               <span class="registration-meta">${r.email}${r.phone ? ' · ' + r.phone : ''}</span>
+              <button type="button" class="btn btn-sm btn-danger reg-delete-btn" data-id="${r.id}">Smazat</button>
             </div>`
             )
             .join('')}
@@ -133,6 +153,14 @@ document.addEventListener('DOMContentLoaded', () => {
       registrationsList.appendChild(group);
     });
   }
+
+  registrationsList.addEventListener('click', async (e) => {
+    const btn = e.target.closest('.reg-delete-btn');
+    if (!btn) return;
+    if (!confirm('Opravdu chcete smazat tohoto účastníka?')) return;
+    const ok = await deleteRegistration(btn.dataset.id);
+    if (ok) loadAllRegistrations();
+  });
 
   async function loadAllRegistrations() {
     registrationsList.innerHTML = '<p class="registration-meta">Načítám…</p>';
