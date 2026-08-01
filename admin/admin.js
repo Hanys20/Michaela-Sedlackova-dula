@@ -68,39 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
     return true;
   }
 
-  async function loadRegistrations(slotId, container) {
-    container.innerHTML = '<p class="registration-meta">Načítám…</p>';
-    const res = await fetch(`/api/admin/slots/${slotId}/registrations`);
-    if (!res.ok) {
-      container.innerHTML = '<p class="registration-meta">Nepodařilo se načíst.</p>';
-      return;
-    }
-    const { registrations } = await res.json();
-    if (!registrations.length) {
-      container.innerHTML = '<p class="registration-meta">Zatím žádné rezervace.</p>';
-      return;
-    }
-    container.innerHTML = registrations
-      .map(
-        (r) => `
-        <div class="registration-row">
-          <span class="registration-name">${r.name}</span>
-          <span class="registration-meta">${r.attendance_type === 'pair' ? 'pár' : 'jednotlivec'} · ${r.price} Kč</span>
-          <span class="registration-meta">${r.email}${r.phone ? ' · ' + r.phone : ''}</span>
-          <button type="button" class="btn btn-sm btn-danger reg-delete-btn" data-id="${r.id}">Smazat</button>
-        </div>`
-      )
-      .join('');
-  }
-
-  slotsList.addEventListener('click', async (e) => {
-    const btn = e.target.closest('.reg-delete-btn');
-    if (!btn) return;
-    if (!confirm('Opravdu chcete smazat tohoto účastníka?')) return;
-    const ok = await deleteRegistration(btn.dataset.id);
-    if (ok) loadSlots();
-  });
-
   let allRegistrations = [];
 
   function attendanceLabel(type) {
@@ -202,7 +169,6 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="slot-card-meta">${slot.time_label || ''}${slot.address ? ' · ' + slot.address : ''}${slot.note ? ' · ' + slot.note : ''}</div>
           </div>
           <div class="slot-card-actions">
-            <button type="button" class="btn btn-sm btn-ghost registrations-toggle">Přihlášení</button>
             <button type="button" class="btn btn-sm btn-ghost edit-toggle">Upravit</button>
             <button type="button" class="btn btn-sm btn-danger delete-btn">Smazat</button>
           </div>
@@ -220,20 +186,12 @@ document.addEventListener('DOMContentLoaded', () => {
           <label>Poznámka <input type="text" class="e-note" value="${slot.note || ''}"></label>
           <button type="button" class="btn btn-sm btn-primary save-btn">Uložit</button>
         </div>
-
-        <div class="slot-registrations"></div>
       `;
 
       const editRow = card.querySelector('.slot-edit-row');
-      const registrationsBox = card.querySelector('.slot-registrations');
 
       card.querySelector('.edit-toggle').addEventListener('click', () => {
         editRow.hidden = !editRow.hidden;
-      });
-
-      card.querySelector('.registrations-toggle').addEventListener('click', () => {
-        const isOpen = registrationsBox.classList.toggle('is-open');
-        if (isOpen) loadRegistrations(slot.id, registrationsBox);
       });
 
       card.querySelector('.save-btn').addEventListener('click', async () => {
