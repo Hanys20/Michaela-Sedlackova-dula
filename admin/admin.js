@@ -11,6 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const passwordMessage = document.getElementById('password-message');
   const tabButtons = document.querySelectorAll('.admin-tab');
   const tabPanels = document.querySelectorAll('.admin-tab-panel');
+  const registrationsList = document.getElementById('registrations-list');
+  const registrationsSearch = document.getElementById('registrations-search');
 
   tabButtons.forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -22,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
       tabPanels.forEach((panel) => {
         panel.hidden = panel.dataset.tabPanel !== target;
       });
+      if (target === 'prihlaseni') loadAllRegistrations();
     });
   });
 
@@ -78,6 +81,72 @@ document.addEventListener('DOMContentLoaded', () => {
       )
       .join('');
   }
+
+  let allRegistrations = [];
+
+  function attendanceLabel(type) {
+    return type === 'pair' ? 'pár' : 'jednotlivec';
+  }
+
+  function renderRegistrations(filter) {
+    const q = (filter || '').trim().toLowerCase();
+    const bySlot = new Map();
+    allRegistrations.forEach((r) => {
+      if (q && !`${r.name} ${r.email}`.toLowerCase().includes(q)) return;
+      if (!bySlot.has(r.slot_id)) bySlot.set(r.slot_id, []);
+      bySlot.get(r.slot_id).push(r);
+    });
+
+    if (!bySlot.size) {
+      registrationsList.innerHTML = `<p class="slots-empty">${
+        allRegistrations.length ? 'Nikdo nevyhovuje hledání.' : 'Zatím nejsou žádní přihlášení účastníci.'
+      }</p>`;
+      return;
+    }
+
+    registrationsList.innerHTML = '';
+    bySlot.forEach((regs) => {
+      const first = regs[0];
+      const group = document.createElement('div');
+      group.className = 'slot-card';
+      group.innerHTML = `
+        <div class="slot-card-top">
+          <div>
+            <div class="slot-card-date">${dateRangeLabel(first)}</div>
+            <div class="slot-card-meta">${first.time_label || ''}${first.address ? ' · ' + first.address : ''}</div>
+          </div>
+          <div class="slot-card-meta">${regs.length} ${regs.length === 1 ? 'přihlášený' : 'přihlášených'}</div>
+        </div>
+        <div class="slot-registrations is-open">
+          ${regs
+            .map(
+              (r) => `
+            <div class="registration-row">
+              <span class="registration-name">${r.name}</span>
+              <span class="registration-meta">${attendanceLabel(r.attendance_type)} · ${r.price} Kč</span>
+              <span class="registration-meta">${r.email}${r.phone ? ' · ' + r.phone : ''}</span>
+            </div>`
+            )
+            .join('')}
+        </div>
+      `;
+      registrationsList.appendChild(group);
+    });
+  }
+
+  async function loadAllRegistrations() {
+    registrationsList.innerHTML = '<p class="registration-meta">Načítám…</p>';
+    const res = await fetch('/api/admin/registrations');
+    if (!res.ok) {
+      registrationsList.innerHTML = '<p class="registration-meta">Nepodařilo se načíst.</p>';
+      return;
+    }
+    const data = await res.json();
+    allRegistrations = data.registrations;
+    renderRegistrations(registrationsSearch.value);
+  }
+
+  registrationsSearch.addEventListener('input', () => renderRegistrations(registrationsSearch.value));
 
   async function loadSlots() {
     const res = await fetch('/api/admin/slots');

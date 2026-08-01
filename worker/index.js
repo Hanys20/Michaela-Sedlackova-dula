@@ -238,6 +238,17 @@ async function handleAdminApi(request, env, url, session) {
     return json({ ok: true, id: result.meta.last_row_id });
   }
 
+  if (pathname === '/api/admin/registrations' && method === 'GET') {
+    const { results } = await env.DB.prepare(
+      `SELECT r.id, r.slot_id, r.name, r.email, r.phone, r.attendance_type, r.headcount, r.price, r.message, r.created_at,
+              s.start_date, s.end_date, s.time_label, s.address
+       FROM course_registrations r
+       JOIN course_slots s ON s.id = r.slot_id
+       ORDER BY s.start_date DESC, r.created_at ASC`
+    ).all();
+    return json({ registrations: results });
+  }
+
   const slotMatch = pathname.match(/^\/api\/admin\/slots\/(\d+)$/);
   const slotRegistrationsMatch = pathname.match(/^\/api\/admin\/slots\/(\d+)\/registrations$/);
 
