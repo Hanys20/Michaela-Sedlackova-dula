@@ -89,15 +89,18 @@ body {
   flex-direction: column;
   gap: 26px;
 }
+.admin-tab-panel[hidden] { display: none; }
 .admin-card h2 { margin: 0; font-family: var(--font-h); font-size: 1.3rem; color: var(--text); }
 .admin-card h3 { margin: 0; font-family: var(--font-h); font-size: 1.1rem; color: var(--text); font-weight: 600; }
 
-.form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; min-width: 0; }
 .form-group label {
   font-size: .72rem; text-transform: uppercase; letter-spacing: .07em;
   color: var(--text-muted); font-weight: 600;
 }
 .form-group input {
+  width: 100%;
+  min-width: 0;
   padding: 11px 14px;
   font-family: var(--font-b); font-size: .9rem; color: var(--text);
   background: #fdfbfc; border: 1px solid #e2d2da;
@@ -177,9 +180,12 @@ body {
 }
 .slot-edit-row label {
   display: flex; flex-direction: column; gap: 4px;
+  min-width: 0;
   font-size: .68rem; text-transform: uppercase; letter-spacing: .05em; color: var(--text-muted); font-weight: 600;
 }
 .slot-edit-row input {
+  width: 100%;
+  min-width: 0;
   padding: 8px 10px; border: 1px solid #e2d2da; border-radius: 8px; font-size: .85rem; font-family: var(--font-b);
 }
 
@@ -195,11 +201,15 @@ body {
   font-size: .82rem; padding: 8px 0; border-bottom: 1px solid #f4eaee;
 }
 .registration-row:last-child { border-bottom: none; }
-.registration-name { font-weight: 600; }
-.registration-meta { color: var(--text-muted); }
+.registration-name { font-weight: 600; overflow-wrap: anywhere; word-break: break-word; }
+.registration-meta { color: var(--text-muted); overflow-wrap: anywhere; word-break: break-word; }
 
 @media (max-width: 640px) {
   .admin-form-grid { grid-template-columns: 1fr; }
   .admin-header { padding: 14px 18px; }
   .admin-card { padding: 22px 18px; }
+  .admin-tabs { flex-wrap: wrap; }
+  .slot-card-actions { flex-wrap: wrap; }
+  .slot-edit-row { grid-template-columns: 1fr; }
+  .registration-row { flex-direction: column; align-items: flex-start; gap: 2px; }
 }
