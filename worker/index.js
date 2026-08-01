@@ -265,17 +265,6 @@ async function handleAdminApi(request, env, url, session) {
   }
 
   const slotMatch = pathname.match(/^\/api\/admin\/slots\/(\d+)$/);
-  const slotRegistrationsMatch = pathname.match(/^\/api\/admin\/slots\/(\d+)\/registrations$/);
-
-  if (slotRegistrationsMatch && method === 'GET') {
-    const id = Number(slotRegistrationsMatch[1]);
-    const { results } = await env.DB.prepare(
-      'SELECT id, name, email, phone, attendance_type, price, message, created_at FROM course_registrations WHERE slot_id = ? ORDER BY created_at ASC'
-    )
-      .bind(id)
-      .all();
-    return json({ registrations: results });
-  }
 
   if (slotMatch && method === 'PATCH') {
     const id = Number(slotMatch[1]);
