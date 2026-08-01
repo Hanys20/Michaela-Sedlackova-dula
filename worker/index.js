@@ -1,7 +1,5 @@
 import {
-  hashPassword,
   verifyPassword,
-  generateSalt,
   createSessionToken,
   buildSessionCookie,
   clearSessionCookie,
@@ -293,25 +291,6 @@ async function handleAdminApi(request, env, url, session) {
       return json({ error: `Termín má ${count} rezervací, nelze ho smazat. Nejdřív upravte kapacitu na 0, nebo termín ponechte.` }, 409);
     }
     await env.DB.prepare('DELETE FROM course_slots WHERE id = ?').bind(id).run();
-    return json({ ok: true });
-  }
-
-  if (pathname === '/api/admin/password' && method === 'POST') {
-    const body = await request.json().catch(() => ({}));
-    const { currentPassword, newPassword } = body;
-    if (!currentPassword || !newPassword || newPassword.length < 8) {
-      return json({ error: 'Nové heslo musí mít alespoň 8 znaků.' }, 400);
-    }
-    const user = await env.DB.prepare('SELECT * FROM admin_users WHERE username = ?').bind(session.username).first();
-    const ok = await verifyPassword(currentPassword, user.password_salt, user.password_hash);
-    if (!ok) return json({ error: 'Současné heslo není správné.' }, 401);
-    const salt = generateSalt();
-    const hash = await hashPassword(newPassword, salt);
-    await env.DB.prepare(
-      "UPDATE admin_users SET password_hash = ?, password_salt = ?, updated_at = datetime('now') WHERE username = ?"
-    )
-      .bind(hash, salt, session.username)
-      .run();
     return json({ ok: true });
   }
 

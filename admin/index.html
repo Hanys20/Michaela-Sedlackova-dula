@@ -50,7 +50,6 @@
       <button type="button" class="admin-tab is-active" data-tab="terminy" role="tab" aria-selected="true">Termíny</button>
       <button type="button" class="admin-tab" data-tab="vypsat" role="tab" aria-selected="false">Vypsat termín</button>
       <button type="button" class="admin-tab" data-tab="prihlaseni" role="tab" aria-selected="false">Přihlášení</button>
-      <button type="button" class="admin-tab" data-tab="heslo" role="tab" aria-selected="false">Heslo</button>
     </nav>
 
     <div class="admin-tab-panel" data-tab-panel="terminy">
@@ -113,28 +112,6 @@
           <input type="text" id="registrations-search" placeholder="Jana Nováková…">
         </div>
         <div id="registrations-list"></div>
-      </div>
-
-    </div>
-
-    <div class="admin-tab-panel" data-tab-panel="heslo" hidden>
-
-      <div class="admin-card admin-card-narrow">
-        <div class="admin-card-head">
-          <h3>Změna hesla</h3>
-        </div>
-        <form id="password-form" class="admin-form-grid">
-          <div class="form-group">
-            <label for="current-password">Současné heslo</label>
-            <input type="password" id="current-password" name="currentPassword" autocomplete="current-password" required>
-          </div>
-          <div class="form-group">
-            <label for="new-password">Nové heslo</label>
-            <input type="password" id="new-password" name="newPassword" autocomplete="new-password" minlength="8" required>
-          </div>
-          <button type="submit" class="btn btn-primary">Změnit heslo</button>
-        </form>
-        <p id="password-message" class="admin-error" hidden></p>
       </div>
 
     </div>
