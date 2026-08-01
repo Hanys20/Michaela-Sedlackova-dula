@@ -27,6 +27,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px 20px;
   padding: 18px 32px;
   background: linear-gradient(105deg, #fff, var(--p1));
   border-bottom: 1px solid #e4d4dc;
@@ -36,7 +38,7 @@ body {
 }
 .admin-header-brand { display: flex; align-items: center; gap: 14px; }
 .admin-header-logo { width: 36px; height: 36px; flex-shrink: 0; }
-.admin-header h1 { margin: 0; font-family: var(--font-h); font-size: 1.3rem; font-weight: 600; color: var(--p5); }
+.admin-header h1 { margin: 0; font-family: var(--font-h); font-size: 1.3rem; font-weight: 600; color: var(--p5); white-space: nowrap; }
 .admin-header-sub { margin: 0; font-size: .78rem; color: var(--text-muted); letter-spacing: .03em; }
 
 .admin-main {
@@ -123,6 +125,7 @@ body {
   display: inline-flex; align-items: center; justify-content: center;
   padding: 12px 26px; font-size: .8rem; font-weight: 700;
   letter-spacing: .06em; text-transform: uppercase;
+  white-space: nowrap;
   border-radius: 50px; border: 2px solid transparent;
   cursor: pointer; transition: all .2s;
 }
