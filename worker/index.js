@@ -249,6 +249,21 @@ async function handleAdminApi(request, env, url, session) {
     return json({ registrations: results });
   }
 
+  const registrationMatch = pathname.match(/^\/api\/admin\/registrations\/(\d+)$/);
+
+  if (registrationMatch && method === 'DELETE') {
+    const id = Number(registrationMatch[1]);
+    const reg = await env.DB.prepare('SELECT slot_id, headcount FROM course_registrations WHERE id = ?').bind(id).first();
+    if (!reg) return json({ error: 'Rezervace nenalezena.' }, 404);
+    await env.DB.prepare('DELETE FROM course_registrations WHERE id = ?').bind(id).run();
+    await env.DB.prepare(
+      "UPDATE course_slots SET booked_count = MAX(0, booked_count - ?), updated_at = datetime('now') WHERE id = ?"
+    )
+      .bind(reg.headcount, reg.slot_id)
+      .run();
+    return json({ ok: true });
+  }
+
   const slotMatch = pathname.match(/^\/api\/admin\/slots\/(\d+)$/);
   const slotRegistrationsMatch = pathname.match(/^\/api\/admin\/slots\/(\d+)\/registrations$/);
 
