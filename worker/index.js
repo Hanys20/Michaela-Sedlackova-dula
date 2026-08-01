@@ -219,7 +219,7 @@ async function handleAdminApi(request, env, url, session) {
 
   if (pathname === '/api/admin/slots' && method === 'GET') {
     const { results } = await env.DB.prepare(
-      'SELECT id, start_date, end_date, time_label, address, capacity, booked_count, note FROM course_slots ORDER BY start_date DESC'
+      'SELECT id, start_date, end_date, time_label, address, capacity, booked_count, note FROM course_slots ORDER BY start_date ASC'
     ).all();
     return json({ slots: results });
   }
@@ -242,7 +242,7 @@ async function handleAdminApi(request, env, url, session) {
               s.start_date, s.end_date, s.time_label, s.address
        FROM course_registrations r
        JOIN course_slots s ON s.id = r.slot_id
-       ORDER BY s.start_date DESC, r.created_at ASC`
+       ORDER BY s.start_date ASC, r.created_at ASC`
     ).all();
     return json({ registrations: results });
   }
