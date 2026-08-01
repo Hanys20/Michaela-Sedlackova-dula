@@ -7,8 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const slotsList = document.getElementById('slots-list');
   const addSlotForm = document.getElementById('add-slot-form');
   const addSlotError = document.getElementById('add-slot-error');
-  const passwordForm = document.getElementById('password-form');
-  const passwordMessage = document.getElementById('password-message');
   const tabButtons = document.querySelectorAll('.admin-tab');
   const tabPanels = document.querySelectorAll('.admin-tab-panel');
   const registrationsList = document.getElementById('registrations-list');
@@ -32,11 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
     el.textContent = message;
     el.hidden = false;
     el.className = 'admin-error';
-  }
-  function showSuccess(el, message) {
-    el.textContent = message;
-    el.hidden = false;
-    el.className = 'admin-success';
   }
   function hideMessage(el) {
     el.hidden = true;
@@ -283,25 +276,6 @@ document.addEventListener('DOMContentLoaded', () => {
     addSlotForm.reset();
     document.getElementById('new-capacity').value = 10;
     loadSlots();
-  });
-
-  passwordForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    hideMessage(passwordMessage);
-    const currentPassword = document.getElementById('current-password').value;
-    const newPassword = document.getElementById('new-password').value;
-    const res = await fetch('/api/admin/password', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ currentPassword, newPassword }),
-    });
-    const data = await res.json().catch(() => ({}));
-    if (!res.ok) {
-      showError(passwordMessage, data.error || 'Heslo se nepodařilo změnit.');
-      return;
-    }
-    passwordForm.reset();
-    showSuccess(passwordMessage, 'Heslo bylo úspěšně změněno.');
   });
 
   checkSession();
