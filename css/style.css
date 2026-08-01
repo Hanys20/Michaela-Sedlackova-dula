@@ -830,6 +830,7 @@ footer { background: var(--p6); padding: 64px 24px 28px; }
   .contact-grid { grid-template-columns: 1fr; gap: 48px; }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px 24px; text-align: center; }
   .footer-brand { grid-column: 1 / -1; }
+  .footer-brand-logo { margin-inline: auto; }
   .footer-brand p { margin-inline: auto; }
   .footer-social { justify-content: center; }
   .hamburger { display: flex; }
