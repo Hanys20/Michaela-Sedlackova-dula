@@ -69,12 +69,15 @@ body {
   display: flex;
   gap: 6px;
   border-bottom: 1px solid #e4d4dc;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .admin-tab {
   background: none;
   border: none;
   border-bottom: 2px solid transparent;
   padding: 10px 18px;
+  white-space: nowrap;
   font-family: var(--font-b);
   font-size: .82rem;
   font-weight: 600;
@@ -212,7 +215,7 @@ body {
   .admin-form-grid { grid-template-columns: 1fr; }
   .admin-header { padding: 14px 18px; }
   .admin-card { padding: 22px 18px; }
-  .admin-tabs { flex-wrap: wrap; }
+  .admin-tab { padding: 10px 10px; }
   .slot-card-actions { flex-wrap: wrap; flex-shrink: 1; width: 100%; }
   .slot-edit-row { grid-template-columns: 1fr; }
   .registration-row { flex-direction: column; align-items: flex-start; gap: 2px; }
