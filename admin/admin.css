@@ -100,7 +100,10 @@ body {
 }
 .form-group input {
   width: 100%;
+  max-width: 100%;
   min-width: 0;
+  -webkit-appearance: none;
+  appearance: none;
   padding: 11px 14px;
   font-family: var(--font-b); font-size: .9rem; color: var(--text);
   background: #fdfbfc; border: 1px solid #e2d2da;
@@ -185,7 +188,10 @@ body {
 }
 .slot-edit-row input {
   width: 100%;
+  max-width: 100%;
   min-width: 0;
+  -webkit-appearance: none;
+  appearance: none;
   padding: 8px 10px; border: 1px solid #e2d2da; border-radius: 8px; font-size: .85rem; font-family: var(--font-b);
 }
 
@@ -209,7 +215,7 @@ body {
   .admin-header { padding: 14px 18px; }
   .admin-card { padding: 22px 18px; }
   .admin-tabs { flex-wrap: wrap; }
-  .slot-card-actions { flex-wrap: wrap; }
+  .slot-card-actions { flex-wrap: wrap; flex-shrink: 1; width: 100%; }
   .slot-edit-row { grid-template-columns: 1fr; }
   .registration-row { flex-direction: column; align-items: flex-start; gap: 2px; }
 }
