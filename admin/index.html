@@ -48,6 +48,7 @@
 
     <nav class="admin-tabs" role="tablist">
       <button type="button" class="admin-tab is-active" data-tab="terminy" role="tab" aria-selected="true">Termíny</button>
+      <button type="button" class="admin-tab" data-tab="vypsat" role="tab" aria-selected="false">Vypsat termín</button>
       <button type="button" class="admin-tab" data-tab="prihlaseni" role="tab" aria-selected="false">Přihlášení</button>
       <button type="button" class="admin-tab" data-tab="heslo" role="tab" aria-selected="false">Heslo</button>
     </nav>
@@ -61,9 +62,13 @@
         <div id="slots-list" class="slots-list"></div>
       </div>
 
+    </div>
+
+    <div class="admin-tab-panel" data-tab-panel="vypsat" hidden>
+
       <div class="admin-card">
         <div class="admin-card-head">
-          <h3>Přidat nový termín</h3>
+          <h2>Přidat nový termín</h2>
         </div>
         <form id="add-slot-form" class="admin-form-grid">
           <div class="form-group">

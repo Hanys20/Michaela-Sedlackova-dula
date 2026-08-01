@@ -209,6 +209,7 @@ body {
 .registration-row:last-child { border-bottom: none; }
 .registration-name { font-weight: 600; overflow-wrap: anywhere; word-break: break-word; }
 .registration-meta { color: var(--text-muted); overflow-wrap: anywhere; word-break: break-word; }
+.reg-delete-btn { padding: 12px 26px; }
 
 @media (max-width: 640px) {
   .admin-form-grid { grid-template-columns: 1fr; }
