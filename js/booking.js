@@ -147,7 +147,8 @@ document.addEventListener('DOMContentLoaded', () => {
           if (slot.remaining <= 0) return;
           card.addEventListener('click', () => {
             terminSelect.value = String(slot.id);
-            document.getElementById('booking-jmeno').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            terminSelect.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            terminSelect.focus({ preventScroll: true });
           });
         });
       }
