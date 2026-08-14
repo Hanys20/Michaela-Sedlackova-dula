@@ -138,14 +138,14 @@ document.addEventListener('DOMContentLoaded', () => {
               ${slot.address ? `<div class="slot-detail-address">📍 ${slot.address}</div>` : ''}
               ${slot.note ? `<div class="slot-detail-note">${slot.note}</div>` : ''}
               <div class="slot-detail-capacity">${isFull ? 'Obsazeno' : `${slot.remaining} z ${slot.capacity} míst volných`}</div>
+              ${isFull ? '' : '<button type="button" class="btn btn-outline btn-sm slot-select-btn">Vybrat termín</button>'}
             </div>
           `;
         }).join('');
 
-        detailEl.querySelectorAll('.slot-detail-card').forEach((card, i) => {
-          const slot = daySlots[i];
-          if (slot.remaining <= 0) return;
-          card.addEventListener('click', () => {
+        detailEl.querySelectorAll('.slot-select-btn').forEach((btn, i) => {
+          const slot = daySlots.filter((s) => s.remaining > 0)[i];
+          btn.addEventListener('click', () => {
             terminSelect.value = String(slot.id);
             terminSelect.scrollIntoView({ behavior: 'smooth', block: 'center' });
             terminSelect.focus({ preventScroll: true });

@@ -1310,21 +1310,17 @@ footer { background: var(--p6); padding: 64px 24px 28px; }
   display: flex;
   flex-direction: column;
   gap: 4px;
-  cursor: pointer;
   transition: box-shadow .2s;
 }
-
-.slot-detail-card:hover { box-shadow: 0 10px 30px rgba(100,88,104,.18); }
 
 .slot-detail-card + .slot-detail-card { margin-top: 14px; }
 
 .slot-detail-card.is-full {
   border-top-color: #ddd0d6;
   opacity: .65;
-  cursor: default;
 }
 
-.slot-detail-card.is-full:hover { box-shadow: var(--shadow); }
+.slot-select-btn { align-self: flex-start; }
 
 .slot-detail-date {
   font-family: var(--font-h);
