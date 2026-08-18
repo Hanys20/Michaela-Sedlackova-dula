@@ -20,6 +20,7 @@
     }
   ],
   "routes": [
-    { "pattern": "michaelasedlackova.info/*", "zone_name": "michaelasedlackova.info" }
+    { "pattern": "michaelasedlackova.info/*", "zone_name": "michaelasedlackova.info" },
+    { "pattern": "www.michaelasedlackova.info/*", "zone_name": "michaelasedlackova.info" }
   ]
 }
