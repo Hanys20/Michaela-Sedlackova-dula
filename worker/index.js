@@ -63,15 +63,21 @@ async function handleLogin(request, env) {
 
 async function handlePublicSlots(env) {
   const today = todayISO();
+  // Kromě budoucích termínů vracíme i ty, které už v aktuálním měsíci proběhly –
+  // kalendář je pak umí zobrazit jako "již proběhlé" místo prázdného měsíce.
   const { results } = await env.DB.prepare(
     `SELECT id, start_date, end_date, time_label, address, capacity, booked_count, note
      FROM course_slots
-     WHERE COALESCE(end_date, start_date) >= ?
+     WHERE COALESCE(end_date, start_date) >= date(?, 'start of month')
      ORDER BY start_date ASC`
   )
     .bind(today)
     .all();
-  const slots = results.map((s) => ({ ...s, remaining: Math.max(0, s.capacity - s.booked_count) }));
+  const slots = results.map((s) => ({
+    ...s,
+    remaining: Math.max(0, s.capacity - s.booked_count),
+    is_past: (s.end_date || s.start_date) < today,
+  }));
   return json({ slots });
 }
 

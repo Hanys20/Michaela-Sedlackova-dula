@@ -85,9 +85,9 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // Naplní select ve formuláři (jen termíny s volným místem).
+      // Naplní select ve formuláři (jen budoucí termíny s volným místem).
       slots.forEach((slot) => {
-        if (slot.remaining <= 0) return;
+        if (slot.remaining <= 0 || slot.is_past) return;
         const opt = document.createElement('option');
         opt.value = String(slot.id);
         opt.textContent = `${dateRangeLines(slot).join(' / ')} – ${slot.remaining} volných míst`;
@@ -131,6 +131,15 @@ document.addEventListener('DOMContentLoaded', () => {
         detailEl.innerHTML = daySlots.map((slot) => {
           const isFull = slot.remaining <= 0;
           const lines = dateRangeLines(slot);
+          if (slot.is_past) {
+            return `
+              <div class="slot-detail-card is-past">
+                <div class="slot-detail-date">${lines[0]}</div>
+                ${lines.slice(1).map((line) => `<div class="slot-detail-time">${line}</div>`).join('')}
+                <div class="slot-detail-capacity">Tento kurz již proběhl.</div>
+              </div>
+            `;
+          }
           return `
             <div class="slot-detail-card${isFull ? ' is-full' : ''}">
               <div class="slot-detail-date">${lines[0]}</div>
@@ -144,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }).join('');
 
         detailEl.querySelectorAll('.slot-select-btn').forEach((btn, i) => {
-          const slot = daySlots.filter((s) => s.remaining > 0)[i];
+          const slot = daySlots.filter((s) => s.remaining > 0 && !s.is_past)[i];
           btn.addEventListener('click', () => {
             terminSelect.value = String(slot.id);
             terminSelect.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -191,7 +200,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (connectedLeft && connectedRight) classes.push('range-middle');
             else if (connectedRight) classes.push('range-start');
             else if (connectedLeft) classes.push('range-end');
-            if (daySlots.every((s) => s.remaining <= 0)) classes.push('is-full');
+            if (daySlots.every((s) => s.is_past)) classes.push('is-past');
+            else if (daySlots.every((s) => s.remaining <= 0)) classes.push('is-full');
           }
           if (iso === todayIso) classes.push('is-today');
           html += `<button type="button" class="${classes.join(' ')}" data-iso="${iso}">${day}</button>`;

@@ -1298,6 +1298,9 @@ footer { background: var(--p6); padding: 64px 24px 28px; }
 .calendar-day.has-slot.is-full::before { background: #c9b9c0; }
 .calendar-day.has-slot.is-full { color: var(--text-muted); }
 
+.calendar-day.has-slot.is-past::before { background: #ddd6d9; }
+.calendar-day.has-slot.is-past { color: var(--text-muted); }
+
 .calendar-day.has-slot.is-selected::before { background: var(--p5-dark); }
 .calendar-day.has-slot.is-selected { color: #fff; }
 
@@ -1321,6 +1324,16 @@ footer { background: var(--p6); padding: 64px 24px 28px; }
 }
 
 .slot-select-btn { align-self: flex-start; }
+
+.slot-detail-card.is-past {
+  border-top-color: #ddd6d9;
+  opacity: .65;
+  cursor: default;
+}
+
+.slot-detail-card.is-past:hover { box-shadow: var(--shadow); }
+
+.slot-detail-card.is-past .slot-detail-capacity { color: var(--text-muted); }
 
 .slot-detail-date {
   font-family: var(--font-h);
