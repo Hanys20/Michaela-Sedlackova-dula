@@ -175,16 +175,35 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('Vyplňte prosím jméno a e-mail.');
         return;
       }
-      /* TODO: napojit na backend / Formspree / EmailJS */
-      form.reset();
+
       if (submitBtn) {
-        submitBtn.textContent = 'Děkuji vám za zprávu';
         submitBtn.disabled = true;
-        setTimeout(() => {
-          submitBtn.textContent = submitBtnLabel;
-          submitBtn.disabled = false;
-        }, 4000);
+        submitBtn.textContent = 'Odesílám…';
       }
+
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      })
+        .then(response => {
+          if (!response.ok) throw new Error('Odeslání se nezdařilo');
+          form.reset();
+          if (submitBtn) {
+            submitBtn.textContent = 'Děkuji vám za zprávu';
+            setTimeout(() => {
+              submitBtn.textContent = submitBtnLabel;
+              submitBtn.disabled = false;
+            }, 4000);
+          }
+        })
+        .catch(() => {
+          alert('Zprávu se nepodařilo odeslat. Zkuste to prosím znovu, nebo mi napište přímo na e-mail.');
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = submitBtnLabel;
+          }
+        });
     });
   }
 
