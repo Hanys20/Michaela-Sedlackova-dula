@@ -183,6 +183,54 @@
   grid-column: 1 / -1;
 }
 
+.sp-insurance-note {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  max-width: 780px;
+  margin: 38px auto -14px;
+  padding: 20px 30px;
+  overflow: hidden;
+  border: 1px solid rgba(123, 72, 91, .2);
+  border-radius: 999px;
+  background: linear-gradient(120deg, rgba(255,255,255,.9), rgba(242,225,229,.82));
+  box-shadow: 0 12px 35px rgba(88, 50, 64, .09);
+  color: var(--p5);
+  text-align: center;
+}
+
+.sp-insurance-note p {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-family: var(--font-h);
+  font-size: clamp(1.1rem, 2vw, 1.45rem);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.sp-insurance-icon {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--p5);
+  box-shadow: 0 5px 14px rgba(88, 50, 64, .2);
+  color: #fff;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.predporodni-card-intensive { order: 3; }
+.predporodni-card-oneday { order: 4; }
+.predporodni-card-kastanek { order: 5; }
+
 @media (min-width: 769px) {
   .poporodni-card-navsteva { order: 3; }
   .poporodni-card-jizva { order: 4; }
@@ -280,6 +328,29 @@
   font-size: 1.08rem;
   color: var(--p5);
   font-weight: 700;
+}
+
+.sp-birth-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid var(--p1);
+}
+
+.sp-birth-option h4 {
+  margin-bottom: 10px;
+  color: var(--p5);
+  font-family: var(--font-h);
+  font-size: 1rem;
+}
+
+.sp-birth-option .sp-svc-bullets { margin-bottom: 12px; }
+
+.sp-birth-option strong {
+  color: var(--p5);
+  font-size: 1.08rem;
 }
 
 .sp-course-footer {
@@ -674,6 +745,18 @@
 }
 
 @media (max-width: 480px) {
+  .sp-birth-options { grid-template-columns: 1fr; }
+  .sp-insurance-note {
+    gap: 12px;
+    padding: 17px 20px;
+    border-radius: 24px;
+  }
+
+  .sp-insurance-icon {
+    flex-basis: 36px;
+    width: 36px;
+    height: 36px;
+  }
   .page-hero { height: clamp(320px, 50vh, 480px); }
   .page-hero-content { padding: 0 15px 44px; }
   .page-hero-content h1 { font-size: 1.8rem; }

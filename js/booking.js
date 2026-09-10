@@ -91,8 +91,8 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="calendar-weekdays">${WEEKDAYS.map((w) => `<span>${w}</span>`).join('')}</div>
         <div class="calendar-days" id="cal-days"></div>
         <div class="calendar-legend">
-          <span><i class="legend-dot course-complete"></i>Kompletní příprava</span>
-          <span><i class="legend-dot course-one-day"></i>Jednodenní příprava</span>
+          <span><i class="legend-dot course-complete"></i>Víkendový kurz</span>
+          <span><i class="legend-dot course-one-day"></i>Jednodenní kurz</span>
         </div>
         <p class="calendar-empty-month" id="cal-empty-msg" hidden>V tomto měsíci není vypsaný kurz.</p>
       </div>
@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (slot.remaining <= 0 || slot.is_past) return;
         const opt = document.createElement('option');
         opt.value = String(slot.id);
-        opt.textContent = `${courseLabel(slot)} · ${dateRangeLines(slot).join(' / ')} – ${slot.remaining} volných míst`;
+        opt.textContent = `${dateRangeLines(slot).join(' / ')} – ${slot.remaining} volných míst · ${courseLabel(slot)}`;
         terminSelect.appendChild(opt);
       });
       if (!terminSelect.options.length) {

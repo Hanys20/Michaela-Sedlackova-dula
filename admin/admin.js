@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const loginForm = document.getElementById('login-form');
   const loginError = document.getElementById('login-error');
   const slotsList = document.getElementById('slots-list');
+  const pastSlotsSection = document.getElementById('past-slots-section');
+  const pastSlotsList = document.getElementById('past-slots-list');
+  const pastSlotsCount = document.getElementById('past-slots-count');
   const addSlotForm = document.getElementById('add-slot-form');
   const addSlotError = document.getElementById('add-slot-error');
   const tabButtons = document.querySelectorAll('.admin-tab');
@@ -153,11 +156,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const { slots } = await res.json();
     const today = new Date().toISOString().slice(0, 10);
     slotsList.innerHTML = '';
+    pastSlotsList.innerHTML = '';
+    pastSlotsSection.hidden = true;
 
     if (!slots.length) {
       slotsList.innerHTML = '<p class="slots-empty">Zatím nejsou vypsané žádné termíny.</p>';
       return;
     }
+
+    let upcomingCount = 0;
+    let pastCount = 0;
 
     slots.forEach((slot) => {
       const isPast = (slot.end_date || slot.start_date) < today;
@@ -241,8 +249,23 @@ document.addEventListener('DOMContentLoaded', () => {
         loadSlots();
       });
 
-      slotsList.appendChild(card);
+      if (isPast) {
+        pastSlotsList.appendChild(card);
+        pastCount += 1;
+      } else {
+        slotsList.appendChild(card);
+        upcomingCount += 1;
+      }
     });
+
+    if (!upcomingCount) {
+      slotsList.innerHTML = '<p class="slots-empty">Nejsou vypsané žádné nadcházející termíny.</p>';
+    }
+
+    if (pastCount) {
+      pastSlotsCount.textContent = pastCount;
+      pastSlotsSection.hidden = false;
+    }
   }
 
   async function checkSession() {
