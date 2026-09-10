@@ -699,7 +699,7 @@ p  { line-height: 1.7; }
    KONTAKT
 ============================================= */
 #kontakt {
-  background: var(--p1);
+  background: #fff;
   padding: clamp(60px,8vw,100px) 24px;
 }
 .contact-grid {
@@ -729,12 +729,13 @@ p  { line-height: 1.7; }
 .contact-socials { display: flex; gap: 10px; margin-top: 4px; }
 .soc-btn {
   width: 40px; height: 40px; border-radius: 50%;
-  background: #fff; display: flex; align-items: center;
+  background: var(--p1); display: flex; align-items: center;
   justify-content: center; color: var(--p5);
   transition: all .2s;
 }
 .soc-btn svg { display: block; }
-.soc-btn:hover { background: var(--p5); color: #fff; }
+.soc-btn:hover,
+.soc-btn:focus-visible { background: var(--p5); color: #fff; }
 .footer-social a svg { display: block; }
 
 .contact-right { display: flex; flex-direction: column; gap: 22px; }
@@ -1155,7 +1156,7 @@ footer { background: var(--p6); padding: 64px 24px 28px; }
 ============================================= */
 .rezervace-kurzu {
   padding: 88px 0 96px;
-  background: #fff;
+  background: var(--p1);
 }
 
 .rezervace-layout {

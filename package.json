@@ -2,6 +2,9 @@
   "name": "msedlackova-web",
   "private": true,
   "type": "module",
+  "scripts": {
+    "dev": "node scripts/preview.mjs"
+  },
   "dependencies": {
     "qrcode-generator": "^2.0.4"
   }
