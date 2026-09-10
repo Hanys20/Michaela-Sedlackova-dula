@@ -1190,11 +1190,11 @@ footer { background: var(--p6); padding: 64px 24px 28px; }
 }
 
 .calendar-card {
-  background: var(--p1);
-  border: 1px solid var(--p2);
+  background: #fff;
+  border: 1px solid #eadde2;
   border-radius: var(--r);
   padding: 20px 22px 24px;
-  box-shadow: var(--shadow);
+  box-shadow: 0 10px 32px rgba(100, 88, 104, .09);
 }
 
 .calendar-head {
@@ -1216,8 +1216,8 @@ footer { background: var(--p6); padding: 64px 24px 28px; }
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  border: 1px solid var(--p2);
-  background: #fff;
+  border: 1px solid #e4cbd4;
+  background: #fdf6f8;
   color: var(--p5);
   font-size: 1.1rem;
   line-height: 1;
@@ -1267,7 +1267,7 @@ footer { background: var(--p6); padding: 64px 24px 28px; }
 
 .calendar-day.is-empty { visibility: hidden; cursor: default; }
 
-.calendar-day:not(.is-empty):not(.has-slot):hover { background: var(--p2); border-radius: 999px; }
+.calendar-day:not(.is-empty):not(.has-slot):hover { background: #f8e9ef; border-radius: 999px; }
 
 .calendar-day.is-today { font-weight: 700; color: var(--p5); }
 
@@ -1279,7 +1279,7 @@ footer { background: var(--p6); padding: 64px 24px 28px; }
   inset: 3px 0;
   z-index: -1;
   border-radius: 999px;
-  background: var(--p4);
+  background: var(--p5);
   transition: background .2s;
 }
 

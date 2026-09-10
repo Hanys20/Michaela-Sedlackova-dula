@@ -11,9 +11,9 @@ import { sendEmail } from './lib/email.js';
 
 const JSON_HEADERS = { 'Content-Type': 'application/json; charset=utf-8' };
 
-const PRICE_INDIVIDUAL = 3950;
-const PRICE_PAIR = 4950;
-const ADMIN_NOTIFY_EMAIL = 'misa.ms@seznam.cz';
+const PRICE_INDIVIDUAL = 4100;
+const PRICE_PAIR = 5190;
+const ADMIN_NOTIFY_EMAIL = 'michaela.jemnezrozeni@gmail.com';
 
 function json(data, status = 200, extraHeaders = {}) {
   return new Response(JSON.stringify(data), { status, headers: { ...JSON_HEADERS, ...extraHeaders } });
