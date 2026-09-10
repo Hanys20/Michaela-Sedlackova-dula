@@ -370,7 +370,7 @@
 <section id="rezervace-kurzu" class="rezervace-kurzu">
   <div class="container">
     <header class="section-header">
-      <p class="eyebrow">Kompletní předporodní příprava</p>
+      <p class="eyebrow">Předporodní kurzy s hypnoporodem</p>
       <h2><em>Termíny</em> a rezervace</h2>
       <div class="divider"></div>
       <p>Vyberte si termín, zvolte, zda přijdete sami nebo v páru, a rezervujte si místo. <a href="predporodní-pece.html#kurzy">Více informací o kurzu →</a></p>
@@ -383,14 +383,15 @@
     </div>
 
     <form id="booking-form" class="booking-form" novalidate>
+      <p id="booking-course-name" class="booking-course-name">Kompletní předporodní příprava s hypnoporodem</p>
       <div class="attendance-toggle">
         <label class="attendance-option">
           <input type="radio" name="attendance_type" value="individual" checked>
-          <span>Přijdu sama <strong>3 950 Kč</strong></span>
+          <span>Přijdu sama <strong id="booking-price-individual">4 100 Kč</strong></span>
         </label>
         <label class="attendance-option">
           <input type="radio" name="attendance_type" value="pair">
-          <span>Přijdu v páru <strong>4 950 Kč</strong></span>
+          <span>Přijdu v páru <strong id="booking-price-pair">5 190 Kč</strong></span>
         </label>
       </div>
       <div class="form-row">
@@ -418,7 +419,7 @@
         <textarea id="booking-zprava" name="message" rows="3" placeholder="Cokoliv, co bych měla vědět předem…"></textarea>
       </div>
       <input type="text" name="website" class="hp-field" tabindex="-1" autocomplete="off">
-      <p class="form-privacy">Odesláním souhlasíte s <a href="obchodni-podminky.html">obchodními podmínkami</a> a se <a href="zasady-ochrany-osobnich-udaju.html">zpracováním osobních údajů</a>.</p>
+      <p class="form-privacy">Odesláním souhlasíte s <a href="obchodni-podminky.html">obchodními podmínkami</a>, včetně <a href="https://jemnezrozeni.cz/obchodni-podminky/" target="_blank" rel="noopener noreferrer">podmínek Jemného zrození pro kurzy</a>, a se <a href="zasady-ochrany-osobnich-udaju.html">zpracováním osobních údajů</a>.</p>
       <button type="submit" class="btn btn-primary btn-stacked">Rezervovat termín<span class="btn-sub">s povinností platby</span></button>
       <p id="booking-message" class="booking-message" hidden></p>
     </form>

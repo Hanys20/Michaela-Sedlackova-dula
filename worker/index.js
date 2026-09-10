@@ -11,8 +11,18 @@ import { sendEmail } from './lib/email.js';
 
 const JSON_HEADERS = { 'Content-Type': 'application/json; charset=utf-8' };
 
-const PRICE_INDIVIDUAL = 4100;
-const PRICE_PAIR = 5190;
+const COURSE_TYPES = {
+  complete: {
+    label: 'Kompletní předporodní příprava s hypnoporodem',
+    individualPrice: 4100,
+    pairPrice: 5190,
+  },
+  one_day: {
+    label: 'Jednodenní předporodní příprava s hypnoporodem',
+    individualPrice: 3490,
+    pairPrice: 4190,
+  },
+};
 const ADMIN_NOTIFY_EMAIL = 'michaela.jemnezrozeni@gmail.com';
 
 function json(data, status = 200, extraHeaders = {}) {
@@ -31,6 +41,10 @@ function formatDateCz(iso) {
 function slotDateRangeLabel(slot) {
   if (!slot.end_date || slot.end_date === slot.start_date) return formatDateCz(slot.start_date);
   return `${formatDateCz(slot.start_date)} – ${formatDateCz(slot.end_date)}`;
+}
+
+function courseConfig(courseType) {
+  return COURSE_TYPES[courseType] || COURSE_TYPES.complete;
 }
 
 function randomToken() {
@@ -66,7 +80,7 @@ async function handlePublicSlots(env) {
   // Kromě budoucích termínů vracíme i ty, které už v aktuálním měsíci proběhly –
   // kalendář je pak umí zobrazit jako "již proběhlé" místo prázdného měsíce.
   const { results } = await env.DB.prepare(
-    `SELECT id, start_date, end_date, time_label, address, capacity, booked_count, note
+    `SELECT id, course_type, start_date, end_date, time_label, address, capacity, booked_count, note
      FROM course_slots
      WHERE COALESCE(end_date, start_date) >= date(?, 'start of month')
      ORDER BY start_date ASC`
@@ -75,6 +89,11 @@ async function handlePublicSlots(env) {
     .all();
   const slots = results.map((s) => ({
     ...s,
+    course_label: courseConfig(s.course_type).label,
+    prices: {
+      individual: courseConfig(s.course_type).individualPrice,
+      pair: courseConfig(s.course_type).pairPrice,
+    },
     remaining: Math.max(0, s.capacity - s.booked_count),
     is_past: (s.end_date || s.start_date) < today,
   }));
@@ -98,6 +117,7 @@ async function handleQrImage(env, token) {
 
 function bookingConfirmationHtml({ reg, slot, iban }) {
   const attendanceLabel = reg.attendance_type === 'pair' ? 'v páru' : 'sám/sama';
+  const course = courseConfig(slot.course_type);
   const qrBlock = iban
     ? `<p>Pro potvrzení rezervace prosím uhraďte kurz pomocí přiloženého QR kódu.</p>
        <img src="https://michaelasedlackova.info/api/qr/${reg.qr_token}.gif" alt="QR platba" width="220" height="220">
@@ -112,6 +132,7 @@ function bookingConfirmationHtml({ reg, slot, iban }) {
       <p>jsem moc ráda, že jste si rezervovali místo na mém předporodním kurzu. Těším se, že vás provedu přípravou na porod, šestinedělím i prvními dny s miminkem a pomohu vám získat jistotu i klid před tímto výjimečným obdobím.</p>
 
       <h3>Shrnutí rezervace</h3>
+      <p>Kurz: <strong>${course.label}</strong></p>
       <p>Termín: <strong>${slotDateRangeLabel(slot)}</strong>${slot.time_label ? `, ${slot.time_label}` : ''}</p>
       ${slot.address ? `<p>Místo konání:<br>${slot.address}</p>` : ''}
       <p>Účast: <strong>${attendanceLabel}</strong></p>
@@ -174,7 +195,8 @@ async function handleBook(request, env) {
   const remaining = slot.capacity - slot.booked_count;
   if (remaining < headcount) return json({ error: 'Bohužel je tento termín již obsazen.' }, 409);
 
-  const price = attendance_type === 'pair' ? PRICE_PAIR : PRICE_INDIVIDUAL;
+  const course = courseConfig(slot.course_type);
+  const price = attendance_type === 'pair' ? course.pairPrice : course.individualPrice;
   const qrToken = randomToken();
 
   const result = await env.DB.prepare(
@@ -197,7 +219,7 @@ async function handleBook(request, env) {
         apiKey: env.RESEND_API_KEY,
         from,
         to: email,
-        subject: 'Rezervace potvrzena – Předporodní kurz',
+        subject: `Rezervace potvrzena – ${course.label}`,
         html: bookingConfirmationHtml({ reg, slot, iban: env.BANK_IBAN }),
       });
       await sendEmail({
@@ -205,7 +227,7 @@ async function handleBook(request, env) {
         from,
         to: ADMIN_NOTIFY_EMAIL,
         subject: `Nová rezervace kurzu – ${name}`,
-        html: `<p>${name} (${email}${phone ? ', ' + phone : ''}) se přihlásil/a na termín ${slotDateRangeLabel(slot)} – ${attendance_type === 'pair' ? 'pár' : 'jednotlivec'}, ${price} Kč.</p>${message ? `<p>Zpráva: ${message}</p>` : ''}`,
+        html: `<p>${name} (${email}${phone ? ', ' + phone : ''}) se přihlásil/a na kurz ${course.label}, termín ${slotDateRangeLabel(slot)} – ${attendance_type === 'pair' ? 'pár' : 'jednotlivec'}, ${price} Kč.</p>${message ? `<p>Zpráva: ${message}</p>` : ''}`,
       });
     } catch (err) {
       // Rezervace je uložená a kapacita snížená i když se e-mail nepodaří odeslat.
@@ -225,19 +247,20 @@ async function handleAdminApi(request, env, url, session) {
 
   if (pathname === '/api/admin/slots' && method === 'GET') {
     const { results } = await env.DB.prepare(
-      'SELECT id, start_date, end_date, time_label, address, capacity, booked_count, note FROM course_slots ORDER BY start_date ASC'
+      'SELECT id, course_type, start_date, end_date, time_label, address, capacity, booked_count, note FROM course_slots ORDER BY start_date ASC'
     ).all();
     return json({ slots: results });
   }
 
   if (pathname === '/api/admin/slots' && method === 'POST') {
     const body = await request.json().catch(() => ({}));
-    const { start_date, end_date, time_label, address, capacity, note } = body;
+    const { course_type = 'complete', start_date, end_date, time_label, address, capacity, note } = body;
+    if (!COURSE_TYPES[course_type]) return json({ error: 'Neplatný typ kurzu.' }, 400);
     if (!start_date || !capacity) return json({ error: 'Chybí datum nebo kapacita.' }, 400);
     const result = await env.DB.prepare(
-      'INSERT INTO course_slots (start_date, end_date, time_label, address, capacity, note) VALUES (?, ?, ?, ?, ?, ?)'
+      'INSERT INTO course_slots (course_type, start_date, end_date, time_label, address, capacity, note) VALUES (?, ?, ?, ?, ?, ?, ?)'
     )
-      .bind(start_date, end_date || null, time_label || null, address || null, Number(capacity), note || null)
+      .bind(course_type, start_date, end_date || null, time_label || null, address || null, Number(capacity), note || null)
       .run();
     return json({ ok: true, id: result.meta.last_row_id });
   }
@@ -245,7 +268,7 @@ async function handleAdminApi(request, env, url, session) {
   if (pathname === '/api/admin/registrations' && method === 'GET') {
     const { results } = await env.DB.prepare(
       `SELECT r.id, r.slot_id, r.name, r.email, r.phone, r.attendance_type, r.headcount, r.price, r.message, r.created_at,
-              s.start_date, s.end_date, s.time_label, s.address
+              s.course_type, s.start_date, s.end_date, s.time_label, s.address
        FROM course_registrations r
        JOIN course_slots s ON s.id = r.slot_id
        ORDER BY s.start_date ASC, r.created_at ASC`
@@ -275,7 +298,10 @@ async function handleAdminApi(request, env, url, session) {
     const body = await request.json().catch(() => ({}));
     const fields = [];
     const values = [];
-    for (const key of ['start_date', 'end_date', 'time_label', 'address', 'capacity', 'booked_count', 'note']) {
+    if (body.course_type !== undefined && !COURSE_TYPES[body.course_type]) {
+      return json({ error: 'Neplatný typ kurzu.' }, 400);
+    }
+    for (const key of ['course_type', 'start_date', 'end_date', 'time_label', 'address', 'capacity', 'booked_count', 'note']) {
       if (body[key] !== undefined) {
         fields.push(`${key} = ?`);
         values.push(body[key]);

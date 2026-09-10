@@ -32,6 +32,19 @@
 .legal-wrap ul { padding-left: 20px; margin-bottom: 10px; }
 .legal-wrap a { color: var(--p5); }
 .legal-wrap a:hover { text-decoration: underline; }
+.legal-notice {
+  margin: 0 0 36px;
+  padding: 20px 22px;
+  background: var(--p1);
+  border-left: 4px solid var(--p5);
+  border-radius: var(--r);
+}
+.legal-notice > strong {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--text);
+}
+.legal-notice p { margin-bottom: 0; }
 .legal-back {
   display: inline-flex; align-items: center; gap: 8px;
   margin-bottom: 40px;

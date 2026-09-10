@@ -5,12 +5,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const terminSelect = document.getElementById('booking-termin');
   const bookingMessage = document.getElementById('booking-message');
+  const courseNameEl = document.getElementById('booking-course-name');
+  const individualPriceEl = document.getElementById('booking-price-individual');
+  const pairPriceEl = document.getElementById('booking-price-pair');
 
   const WEEKDAYS = ['Po', 'Út', 'St', 'Čt', 'Pá', 'So', 'Ne'];
   const MONTHS = [
     'Leden', 'Únor', 'Březen', 'Duben', 'Květen', 'Červen',
     'Červenec', 'Srpen', 'Září', 'Říjen', 'Listopad', 'Prosinec',
   ];
+
+  const COURSE_LABELS = {
+    complete: 'Kompletní předporodní příprava s hypnoporodem',
+    one_day: 'Jednodenní předporodní příprava s hypnoporodem',
+  };
+
+  function courseLabel(slot) {
+    return slot.course_label || COURSE_LABELS[slot.course_type] || COURSE_LABELS.complete;
+  }
+
+  function courseClass(slot) {
+    return slot.course_type === 'one_day' ? 'course-one-day' : 'course-complete';
+  }
+
+  function formatPrice(price) {
+    return `${Number(price).toLocaleString('cs-CZ')} Kč`;
+  }
+
+  function updateBookingPrices(slot) {
+    if (!slot) return;
+    courseNameEl.textContent = courseLabel(slot);
+    individualPriceEl.textContent = formatPrice(slot.prices.individual);
+    pairPriceEl.textContent = formatPrice(slot.prices.pair);
+  }
 
   function formatDate(iso) {
     const d = new Date(iso + 'T00:00:00');
@@ -63,6 +90,10 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
         <div class="calendar-weekdays">${WEEKDAYS.map((w) => `<span>${w}</span>`).join('')}</div>
         <div class="calendar-days" id="cal-days"></div>
+        <div class="calendar-legend">
+          <span><i class="legend-dot course-complete"></i>Kompletní příprava</span>
+          <span><i class="legend-dot course-one-day"></i>Jednodenní příprava</span>
+        </div>
         <p class="calendar-empty-month" id="cal-empty-msg" hidden>V tomto měsíci není vypsaný kurz.</p>
       </div>
       <div class="slot-detail" id="slot-detail" hidden></div>
@@ -74,6 +105,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const res = await fetch('/api/slots');
       if (!res.ok) throw new Error('request failed');
       const { slots } = await res.json();
+      const slotsById = new Map(slots.map((slot) => [String(slot.id), slot]));
+
+      function selectSlot(slot) {
+        if (!slot || slot.remaining <= 0 || slot.is_past) return;
+        terminSelect.value = String(slot.id);
+        updateBookingPrices(slot);
+      }
 
       terminSelect.innerHTML = '';
 
@@ -90,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (slot.remaining <= 0 || slot.is_past) return;
         const opt = document.createElement('option');
         opt.value = String(slot.id);
-        opt.textContent = `${dateRangeLines(slot).join(' / ')} – ${slot.remaining} volných míst`;
+        opt.textContent = `${courseLabel(slot)} · ${dateRangeLines(slot).join(' / ')} – ${slot.remaining} volných míst`;
         terminSelect.appendChild(opt);
       });
       if (!terminSelect.options.length) {
@@ -98,6 +136,8 @@ document.addEventListener('DOMContentLoaded', () => {
         opt.textContent = 'Všechny termíny jsou obsazené – napište mi';
         terminSelect.appendChild(opt);
       }
+      terminSelect.onchange = () => updateBookingPrices(slotsById.get(terminSelect.value));
+      if (terminSelect.value) updateBookingPrices(slotsById.get(terminSelect.value));
 
       // Mapa ISO datum → termíny, které ten den pokrývají (pro vykreslení kalendáře).
       const dateMap = new Map();
@@ -134,6 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (slot.is_past) {
             return `
               <div class="slot-detail-card is-past">
+                <div class="slot-detail-course ${courseClass(slot)}">${courseLabel(slot)}</div>
                 <div class="slot-detail-date">${lines[0]}</div>
                 ${lines.slice(1).map((line) => `<div class="slot-detail-time">${line}</div>`).join('')}
                 <div class="slot-detail-capacity">Tento kurz již proběhl.</div>
@@ -141,21 +182,22 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
           }
           return `
-            <div class="slot-detail-card${isFull ? ' is-full' : ''}">
+            <div class="slot-detail-card ${courseClass(slot)}${isFull ? ' is-full' : ''}">
+              <div class="slot-detail-course">${courseLabel(slot)}</div>
               <div class="slot-detail-date">${lines[0]}</div>
               ${lines.slice(1).map((line) => `<div class="slot-detail-time">${line}</div>`).join('')}
               ${slot.address ? `<div class="slot-detail-address">📍 ${slot.address}</div>` : ''}
               ${slot.note ? `<div class="slot-detail-note">${slot.note}</div>` : ''}
               <div class="slot-detail-capacity">${isFull ? 'Obsazeno' : `${slot.remaining} z ${slot.capacity} míst volných`}</div>
-              ${isFull ? '' : '<button type="button" class="btn btn-outline btn-sm slot-select-btn">Vybrat termín</button>'}
+              ${isFull ? '' : `<button type="button" class="btn btn-outline btn-sm slot-select-btn" data-slot-id="${slot.id}">Vybrat termín</button>`}
             </div>
           `;
         }).join('');
 
-        detailEl.querySelectorAll('.slot-select-btn').forEach((btn, i) => {
-          const slot = daySlots.filter((s) => s.remaining > 0 && !s.is_past)[i];
+        detailEl.querySelectorAll('.slot-select-btn').forEach((btn) => {
           btn.addEventListener('click', () => {
-            terminSelect.value = String(slot.id);
+            const slot = slotsById.get(btn.dataset.slotId);
+            selectSlot(slot);
             terminSelect.scrollIntoView({ behavior: 'smooth', block: 'center' });
             terminSelect.focus({ preventScroll: true });
           });
@@ -193,6 +235,8 @@ document.addEventListener('DOMContentLoaded', () => {
           if (daySlots) {
             monthHasSlots = true;
             classes.push('has-slot');
+            const courseTypes = new Set(daySlots.map((slot) => slot.course_type || 'complete'));
+            classes.push(courseTypes.size > 1 ? 'course-mixed' : courseClass(daySlots[0]));
             const prevIso = toLocalIso(new Date(year, month, day - 1));
             const nextIso = toLocalIso(new Date(year, month, day + 1));
             const connectedLeft = sharesMultiDaySlot(daySlots, dateMap.get(prevIso));
@@ -218,6 +262,9 @@ document.addEventListener('DOMContentLoaded', () => {
               detailEl.hidden = true;
               return;
             }
+
+            const firstAvailableSlot = clickedSlots.find((slot) => slot.remaining > 0 && !slot.is_past);
+            if (firstAvailableSlot) selectSlot(firstAvailableSlot);
 
             const clickedIds = new Set(clickedSlots.map((s) => s.id));
             daysEl.querySelectorAll('.calendar-day.has-slot').forEach((el) => {

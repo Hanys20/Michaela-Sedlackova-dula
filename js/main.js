@@ -81,7 +81,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const cards    = Array.from(carouselTrack.children);
     const total    = cards.length;
     let currentPage = 0;
-    let autoTimer;
     let resizeTimer;
 
     const getPerPage      = () => window.innerWidth >= 1025 ? 3 : window.innerWidth >= 768 ? 2 : 1;
@@ -93,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `<button class="carousel-dot${i === 0 ? ' active' : ''}" aria-label="Recenze ${i + 1}"></button>`
       ).join('');
       dotsContainer.querySelectorAll('.carousel-dot').forEach((dot, i) => {
-        dot.addEventListener('click', () => { goTo(i); resetAuto(); });
+        dot.addEventListener('click', () => goTo(i));
       });
     };
 
@@ -122,13 +121,8 @@ document.addEventListener('DOMContentLoaded', () => {
       carouselTrack.style.transform = 'translateX(0)';
     };
 
-    const resetAuto = () => {
-      clearInterval(autoTimer);
-      autoTimer = setInterval(() => goTo(currentPage + 1), 6000);
-    };
-
-    prevBtn.addEventListener('click', () => { goTo(currentPage - 1); resetAuto(); });
-    nextBtn.addEventListener('click', () => { goTo(currentPage + 1); resetAuto(); });
+    prevBtn.addEventListener('click', () => goTo(currentPage - 1));
+    nextBtn.addEventListener('click', () => goTo(currentPage + 1));
     let lastWidth = window.innerWidth;
     window.addEventListener('resize', () => {
       /* na mobilu mění výšku i schovávání/zobrazování lišty prohlížeče při scrollu –
@@ -152,12 +146,10 @@ document.addEventListener('DOMContentLoaded', () => {
       /* ignorovat svislé gesto (scroll stránky), reagovat jen na vodorovné swipe */
       if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
         goTo(currentPage + (diffX > 0 ? 1 : -1));
-        resetAuto();
       }
     }, { passive: true });
 
     init();
-    resetAuto();
   }
 
 

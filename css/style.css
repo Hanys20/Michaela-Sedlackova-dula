@@ -1296,6 +1296,16 @@ footer { background: var(--p6); padding: 64px 24px 28px; }
 
 .calendar-day.has-slot:hover::before { background: var(--p5-dark); }
 
+.calendar-day.has-slot.course-complete::before { background: var(--p5); }
+.calendar-day.has-slot.course-one-day::before { background: #5f8881; }
+.calendar-day.has-slot.course-mixed::before {
+  background: linear-gradient(135deg, var(--p5) 0 50%, #5f8881 50% 100%);
+}
+.calendar-day.has-slot.course-one-day:hover::before,
+.calendar-day.has-slot.course-one-day.is-selected::before { background: #416a64; }
+.calendar-day.has-slot.course-complete:hover::before,
+.calendar-day.has-slot.course-complete.is-selected::before { background: var(--p5-dark); }
+
 .calendar-day.has-slot.is-full::before { background: #c9b9c0; }
 .calendar-day.has-slot.is-full { color: var(--text-muted); }
 
@@ -1323,6 +1333,20 @@ footer { background: var(--p6); padding: 64px 24px 28px; }
   border-top-color: #ddd0d6;
   opacity: .65;
 }
+
+.slot-detail-card.course-one-day { border-top-color: #5f8881; }
+
+.slot-detail-course {
+  margin-bottom: 3px;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--p5);
+}
+
+.slot-detail-card.course-one-day .slot-detail-course,
+.slot-detail-course.course-one-day { color: #4d756f; }
 
 .slot-select-btn { align-self: flex-start; }
 
@@ -1364,6 +1388,23 @@ footer { background: var(--p6); padding: 64px 24px 28px; }
   text-align: center;
 }
 
+.calendar-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 16px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid #f0e5e9;
+  font-size: .72rem;
+  color: var(--text-muted);
+}
+
+.calendar-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend-dot { width: 9px; height: 9px; border-radius: 50%; }
+.legend-dot.course-complete { background: var(--p5); }
+.legend-dot.course-one-day { background: #5f8881; }
+
 .booking-form {
   max-width: 640px;
   margin: 0 auto;
@@ -1374,6 +1415,14 @@ footer { background: var(--p6); padding: 64px 24px 28px; }
   display: flex;
   flex-direction: column;
   gap: 14px;
+}
+
+.booking-course-name {
+  margin: 0 0 2px;
+  color: var(--p5);
+  font-family: var(--font-h);
+  font-size: 1.15rem;
+  font-weight: 600;
 }
 
 .attendance-toggle {

@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS admin_users (
 
 CREATE TABLE IF NOT EXISTS course_slots (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
+  course_type TEXT NOT NULL DEFAULT 'complete' CHECK (course_type IN ('complete','one_day')),
   start_date TEXT NOT NULL,
   end_date TEXT,
   time_label TEXT,

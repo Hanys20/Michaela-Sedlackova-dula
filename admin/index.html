@@ -70,6 +70,13 @@
           <h2>Přidat nový termín</h2>
         </div>
         <form id="add-slot-form" class="admin-form-grid">
+          <div class="form-group form-group-wide">
+            <label for="new-course-type">Typ kurzu</label>
+            <select id="new-course-type" name="course_type" required>
+              <option value="complete">Kompletní předporodní příprava</option>
+              <option value="one_day">Jednodenní předporodní příprava</option>
+            </select>
+          </div>
           <div class="form-group">
             <label for="new-start">Od</label>
             <input type="date" id="new-start" name="start_date" required>
@@ -80,7 +87,7 @@
           </div>
           <div class="form-group">
             <label for="new-time">Čas</label>
-            <input type="text" id="new-time" name="time_label" value="9-17h">
+            <input type="text" id="new-time" name="time_label" value="9–17 h">
           </div>
           <div class="form-group">
             <label for="new-capacity">Kapacita (počet osob)</label>

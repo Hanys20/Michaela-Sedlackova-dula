@@ -103,7 +103,8 @@ body {
   font-size: .72rem; text-transform: uppercase; letter-spacing: .07em;
   color: var(--text-muted); font-weight: 600;
 }
-.form-group input {
+.form-group input,
+.form-group select {
   width: 100%;
   max-width: 100%;
   min-width: 0;
@@ -114,7 +115,8 @@ body {
   background: #fdfbfc; border: 1px solid #e2d2da;
   border-radius: 10px; outline: none; transition: border-color .2s, background .2s;
 }
-.form-group input:focus { border-color: var(--p5); background: #fff; }
+.form-group input:focus,
+.form-group select:focus { border-color: var(--p5); background: #fff; }
 
 .admin-form-grid {
   display: grid;
@@ -164,6 +166,21 @@ body {
   margin-bottom: 12px;
 }
 .slot-card-date { font-family: var(--font-h); font-weight: 600; font-size: 1.1rem; color: var(--text); }
+.course-type-badge {
+  display: inline-block;
+  margin: 0 9px 5px 0;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-family: var(--font-b);
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: #fff;
+  vertical-align: middle;
+}
+.course-type-badge.course-complete { background: var(--p5); }
+.course-type-badge.course-one-day { background: #5f8881; }
 .slot-card-meta { font-size: .82rem; color: var(--text-muted); margin-top: 2px; }
 .slot-card-actions { display: flex; gap: 8px; flex-shrink: 0; }
 
@@ -186,7 +203,8 @@ body {
   min-width: 0;
   font-size: .68rem; text-transform: uppercase; letter-spacing: .05em; color: var(--text-muted); font-weight: 600;
 }
-.slot-edit-row input {
+.slot-edit-row input,
+.slot-edit-row select {
   width: 100%;
   max-width: 100%;
   min-width: 0;

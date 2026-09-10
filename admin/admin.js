@@ -11,6 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const tabPanels = document.querySelectorAll('.admin-tab-panel');
   const registrationsList = document.getElementById('registrations-list');
   const registrationsSearch = document.getElementById('registrations-search');
+  const newCourseType = document.getElementById('new-course-type');
+  const newEnd = document.getElementById('new-end');
+  const newTime = document.getElementById('new-time');
 
   tabButtons.forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -49,6 +52,14 @@ document.addEventListener('DOMContentLoaded', () => {
   function dateRangeLabel(slot) {
     if (!slot.end_date || slot.end_date === slot.start_date) return formatDate(slot.start_date);
     return `${formatDate(slot.start_date)} – ${formatDate(slot.end_date)}`;
+  }
+
+  function courseLabel(type) {
+    return type === 'one_day' ? 'Jednodenní příprava' : 'Kompletní příprava';
+  }
+
+  function courseClass(type) {
+    return type === 'one_day' ? 'course-one-day' : 'course-complete';
   }
 
   async function deleteRegistration(id) {
@@ -91,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
       group.innerHTML = `
         <div class="slot-card-top">
           <div>
-            <div class="slot-card-date">${dateRangeLabel(first)}</div>
+            <div class="slot-card-date"><span class="course-type-badge ${courseClass(first.course_type)}">${courseLabel(first.course_type)}</span>${dateRangeLabel(first)}</div>
             <div class="slot-card-meta">${first.time_label || ''}${first.address ? ' · ' + first.address : ''}</div>
           </div>
           <div class="slot-card-meta">${regs.length} ${regs.length === 1 ? 'přihlášený' : 'přihlášených'}</div>
@@ -158,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
       card.innerHTML = `
         <div class="slot-card-top">
           <div>
-            <div class="slot-card-date">${dateRangeLabel(slot)}</div>
+            <div class="slot-card-date"><span class="course-type-badge ${courseClass(slot.course_type)}">${courseLabel(slot.course_type)}</span>${dateRangeLabel(slot)}</div>
             <div class="slot-card-meta">${slot.time_label || ''}${slot.address ? ' · ' + slot.address : ''}${slot.note ? ' · ' + slot.note : ''}</div>
           </div>
           <div class="slot-card-actions">
@@ -170,6 +181,12 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="slot-capacity-label">${slot.booked_count} z ${slot.capacity} obsazeno · ${remaining} volných</div>
 
         <div class="slot-edit-row" hidden>
+          <label>Typ
+            <select class="e-course-type">
+              <option value="complete"${(slot.course_type || 'complete') === 'complete' ? ' selected' : ''}>Kompletní</option>
+              <option value="one_day"${slot.course_type === 'one_day' ? ' selected' : ''}>Jednodenní</option>
+            </select>
+          </label>
           <label>Od <input type="date" class="e-start" value="${slot.start_date}"></label>
           <label>Do <input type="date" class="e-end" value="${slot.end_date || ''}"></label>
           <label>Čas <input type="text" class="e-time" value="${slot.time_label || ''}"></label>
@@ -182,9 +199,17 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
 
       const editRow = card.querySelector('.slot-edit-row');
+      const editCourseType = card.querySelector('.e-course-type');
 
       card.querySelector('.edit-toggle').addEventListener('click', () => {
         editRow.hidden = !editRow.hidden;
+      });
+
+      editCourseType.addEventListener('change', () => {
+        if (editCourseType.value === 'one_day') {
+          card.querySelector('.e-end').value = '';
+          card.querySelector('.e-time').value = '9–19 h';
+        }
       });
 
       card.querySelector('.save-btn').addEventListener('click', async () => {
@@ -192,6 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
+            course_type: card.querySelector('.e-course-type').value,
             start_date: card.querySelector('.e-start').value,
             end_date: card.querySelector('.e-end').value || null,
             time_label: card.querySelector('.e-time').value,
@@ -254,11 +280,21 @@ document.addEventListener('DOMContentLoaded', () => {
     showDashboard(false);
   });
 
+  newCourseType.addEventListener('change', () => {
+    if (newCourseType.value === 'one_day') {
+      newEnd.value = '';
+      newTime.value = '9–19 h';
+    } else {
+      newTime.value = '9–17 h';
+    }
+  });
+
   addSlotForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     hideMessage(addSlotError);
     const start_date = document.getElementById('new-start').value;
     const end_date = document.getElementById('new-end').value;
+    const course_type = newCourseType.value;
     const time_label = document.getElementById('new-time').value.trim();
     const address = document.getElementById('new-address').value.trim();
     const capacity = Number(document.getElementById('new-capacity').value);
@@ -266,7 +302,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const res = await fetch('/api/admin/slots', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ start_date, end_date: end_date || null, time_label, address, capacity, note }),
+      body: JSON.stringify({ course_type, start_date, end_date: end_date || null, time_label, address, capacity, note }),
     });
     if (!res.ok) {
       const data = await res.json().catch(() => ({}));
@@ -274,6 +310,8 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
     addSlotForm.reset();
+    newCourseType.value = 'complete';
+    newTime.value = '9–17 h';
     document.getElementById('new-capacity').value = 10;
     loadSlots();
   });

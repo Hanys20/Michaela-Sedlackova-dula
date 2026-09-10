@@ -147,6 +147,7 @@
 }
 
 .sp-img-embrace { object-position: center; }
+.sp-img-focus-aroma { object-position: center 45%; }
 
 
 /* ─── MAIN SERVICES ─── */
@@ -651,6 +652,7 @@
   .sp-img-focus-book { object-position: center 40%; }
   .sp-img-embrace { object-position: 30% center; }
   .sp-img-focus-cards { object-position: 30% 55%; }
+  .sp-img-focus-aroma { object-position: center 48%; }
 
   .sp-dop-inner { grid-template-columns: 1fr; gap: 36px; }
 
