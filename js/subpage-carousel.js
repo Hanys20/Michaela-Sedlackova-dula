@@ -7,7 +7,7 @@
   var total = imgs.length;
   var dots = outer.querySelectorAll('.sp-car-dot');
   var cur = 0;
-  var GAP = 4;
+  var GAP = 2;
 
   function getVisible() {
     return window.innerWidth >= 1024 ? 4 : 3;
