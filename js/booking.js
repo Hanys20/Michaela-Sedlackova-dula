@@ -291,13 +291,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  let bookingPending = false;
+  const bookingSubmitButton = bookingForm.querySelector('button[type="submit"]');
+
   bookingForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+    if (bookingPending) return;
     bookingMessage.hidden = true;
+    if (!bookingForm.reportValidity()) return;
 
     const slotId = Number(terminSelect.value);
     if (!slotId) {
       bookingMessage.textContent = 'Vyberte prosím platný termín.';
+      bookingMessage.className = 'booking-message booking-message-error';
+      bookingMessage.hidden = false;
+      return;
+    }
+
+    const billingStreet = document.getElementById('booking-ulice').value.trim();
+    const billingCity = document.getElementById('booking-mesto').value.trim();
+    const billingPostalCode = document.getElementById('booking-psc').value.trim();
+    if (!billingStreet || !billingCity || !billingPostalCode) {
+      bookingMessage.textContent = 'Vyplňte prosím ulici a číslo, město a PSČ.';
       bookingMessage.className = 'booking-message booking-message-error';
       bookingMessage.hidden = false;
       return;
@@ -308,11 +323,15 @@ document.addEventListener('DOMContentLoaded', () => {
       name: document.getElementById('booking-jmeno').value.trim(),
       email: document.getElementById('booking-email').value.trim(),
       phone: document.getElementById('booking-telefon').value.trim(),
+      billing_address: `${billingStreet}\n${billingPostalCode} ${billingCity}`,
       attendance_type: bookingForm.querySelector('input[name="attendance_type"]:checked').value,
       message: document.getElementById('booking-zprava').value.trim(),
       website: bookingForm.querySelector('input[name="website"]').value,
     };
 
+    bookingPending = true;
+    bookingSubmitButton.disabled = true;
+    bookingForm.setAttribute('aria-busy', 'true');
     try {
       const res = await fetch('/api/book', {
         method: 'POST',
@@ -323,7 +342,11 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!res.ok) throw new Error(data.error || 'Rezervaci se nepodařilo odeslat.');
 
       bookingForm.reset();
-      bookingMessage.textContent = 'Děkuji za rezervaci! Zkontrolujte prosím e-mail, poslali jsme vám potvrzení.';
+      bookingMessage.textContent = data.duplicate
+        ? 'Tuto rezervaci už evidujeme. Další místa jsme neobsadili ani neposlali nový e-mail. Potvrzení hledejte v původní zprávě. Pro případné změny nebo pokud potvrzení nedorazilo mě prosím kontaktujte.'
+        : data.confirmation_email_sent === false
+          ? 'Rezervaci evidujeme, ale potvrzovací e-mail se nepodařilo odeslat. Pro potvrzení a platební údaje mě prosím kontaktujte. Formulář není potřeba odesílat znovu.'
+          : 'Děkuji za rezervaci! Zkontrolujte prosím e-mail, poslali jsme vám potvrzení.';
       bookingMessage.className = 'booking-message booking-message-ok';
       bookingMessage.hidden = false;
       loadSlots();
@@ -331,6 +354,10 @@ document.addEventListener('DOMContentLoaded', () => {
       bookingMessage.textContent = err.message || 'Rezervaci se nepodařilo odeslat. Zkuste to prosím znovu, nebo mi napište přímo.';
       bookingMessage.className = 'booking-message booking-message-error';
       bookingMessage.hidden = false;
+    } finally {
+      bookingPending = false;
+      bookingSubmitButton.disabled = false;
+      bookingForm.removeAttribute('aria-busy');
     }
   });
 

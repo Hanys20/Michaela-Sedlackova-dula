@@ -8,6 +8,7 @@ import {
 import { buildSpdString } from './lib/spd.js';
 import { renderQrGif } from './lib/qrcode.js';
 import { sendEmail } from './lib/email.js';
+import { bookingConfirmationHtml, adminNotificationHtml } from './lib/email-templates.js';
 
 const JSON_HEADERS = { 'Content-Type': 'application/json; charset=utf-8' };
 
@@ -115,126 +116,139 @@ async function handleQrImage(env, token) {
   return new Response(gif, { headers: { 'Content-Type': 'image/gif', 'Cache-Control': 'private, max-age=3600' } });
 }
 
-function bookingConfirmationHtml({ reg, slot, iban }) {
-  const attendanceLabel = reg.attendance_type === 'pair' ? 'v páru' : 'sám/sama';
-  const course = courseConfig(slot.course_type);
-  const qrBlock = iban
-    ? `<p>Pro potvrzení rezervace prosím uhraďte kurz pomocí přiloženého QR kódu.</p>
-       <img src="https://michaelasedlackova.info/api/qr/${reg.qr_token}.gif" alt="QR platba" width="220" height="220">
-       <p>Variabilní symbol: <strong>${buildVariableSymbol(reg)}</strong></p>`
-    : `<p>Platební údaje vám pošleme samostatně.</p>`;
+// The time window is measured against database time, not the visitor's clock.
+const BOOKING_DUPLICATE_WINDOW = '-24 hours';
 
-  return `
-    <div style="font-family:sans-serif; color:#3a3038; max-width:560px; margin:0 auto;">
-      <h2>Děkuji za rezervaci předporodního kurzu! 🤍</h2>
+function normalizedBookingName(name) {
+  return name.normalize('NFC').trim().replace(/\s+/gu, ' ').toLowerCase();
+}
 
-      <p>Dobrý den,</p>
-      <p>jsem moc ráda, že jste si rezervovali místo na mém předporodním kurzu. Těším se, že vás provedu přípravou na porod, šestinedělím i prvními dny s miminkem a pomohu vám získat jistotu i klid před tímto výjimečným obdobím.</p>
+async function recentBooking(db, { slotId, email, name, identity }) {
+  const { results } = await db.prepare(
+    `SELECT id, name, attendance_type FROM course_registrations
+     WHERE slot_id = ? AND datetime(created_at) >= datetime('now', ?)
+       AND (booking_identity = ? OR (booking_identity IS NULL AND lower(trim(email)) = ?))
+     ORDER BY id DESC`
+  ).bind(slotId, BOOKING_DUPLICATE_WINDOW, identity, email).all();
+  // Legacy registrations have no identity. Compare their names in JavaScript
+  // because SQLite's lower() does not fold Czech accented uppercase letters.
+  return results.find((registration) => normalizedBookingName(registration.name) === normalizedBookingName(name));
+}
 
-      <h3>Shrnutí rezervace</h3>
-      <p>Kurz: <strong>${course.label}</strong></p>
-      <p>Termín: <strong>${slotDateRangeLabel(slot)}</strong>${slot.time_label ? `, ${slot.time_label}` : ''}</p>
-      ${slot.address ? `<p>Místo konání:<br>${slot.address}</p>` : ''}
-      <p>Účast: <strong>${attendanceLabel}</strong></p>
-      <p>Cena: <strong>${reg.price} Kč</strong></p>
-
-      <hr style="border:none; border-top:1px solid #eec4d4; margin:20px 0;">
-      <h3>Platba</h3>
-      ${qrBlock}
-      <p>Po přijetí platby je vaše rezervace závazně potvrzena.</p>
-
-      <hr style="border:none; border-top:1px solid #eec4d4; margin:20px 0;">
-      <h3>Co si vzít s sebou?</h3>
-      <ul>
-        <li>pohodlné oblečení</li>
-        <li>přezůvky nebo teplé ponožky</li>
-      </ul>
-      <p>O všechno ostatní bude postaráno a vše potřebné bude na místě připravené.</p>
-
-      <hr style="border:none; border-top:1px solid #eec4d4; margin:20px 0;">
-      <h3>Jak se ke mně dostanete?</h3>
-      <p>📍 Parkování v okolí je možné, o víkendu zde není zpoplatněno.</p>
-      <p>Po příchodu prosím zazvoňte na zvonek „Krajinou duše“.</p>
-      <p>Pokud byste nemohli zvonek najít nebo potřebovali pomoc, neváhejte mi zavolat na +420&nbsp;775&nbsp;645&nbsp;743.</p>
-
-      <hr style="border:none; border-top:1px solid #eec4d4; margin:20px 0;">
-      <h3>Máte otázky?</h3>
-      <p>Pokud budete potřebovat cokoliv upřesnit nebo se na něco zeptat, budu ráda, když se mi ozvete.</p>
-      <p>Více informací a kontaktní údaje najdete také na webových stránkách: <a href="https://michaelasedlackova.info" style="color:#9e5a6e;">www.michaelasedlackova.info</a></p>
-
-      <hr style="border:none; border-top:1px solid #eec4d4; margin:20px 0;">
-      <h3>Těším se na vás</h3>
-      <p>Přeji vám klidné dny plné těšení na vaše miminko a budu se na vás těšit osobně na kurzu.</p>
-
-      <p>S přáním všeho dobrého,</p>
-      <img src="https://michaelasedlackova.info/images/logo/Logo%20M%C3%AD%C5%A1a.svg" alt="Michaela Sedláčková" height="40" style="margin-bottom:8px;"><br>
-      <strong>Michaela Sedláčková</strong><br>
-      porodní asistentka a dula
-    </div>
-  `;
+function duplicateBookingResponse(registration, attendanceType) {
+  if (registration.attendance_type !== attendanceType) {
+    return json({ error: 'Pro tento termín už evidujeme vaši rezervaci s jiným typem účasti. Pro změnu účasti mě prosím kontaktujte.' }, 409);
+  }
+  return json({ ok: true, duplicate: true });
 }
 
 async function handleBook(request, env) {
   const body = await request.json().catch(() => ({}));
-  const { slot_id, name, email, phone, attendance_type, message, website } = body;
+  if (!body || typeof body !== 'object' || Array.isArray(body)) return json({ error: 'Neplatné údaje rezervace.' }, 400);
+  const { slot_id, phone, attendance_type, message, website } = body;
 
   // Honeypot: skryté pole ve formuláři, které vyplní jen boti.
   if (website) return json({ ok: true });
 
-  if (!slot_id || !name || !email || !attendance_type) {
+  if (typeof body.billing_address !== 'string' || !body.billing_address.trim()) {
+    return json({ error: 'Vyplňte prosím fakturační adresu včetně města a PSČ.' }, 400);
+  }
+  const billing_address = body.billing_address.trim();
+  if (billing_address.length > 1000) {
+    return json({ error: 'Fakturační adresa může mít nejvýše 1000 znaků.' }, 400);
+  }
+
+  const slotId = Number(slot_id);
+  if (!Number.isSafeInteger(slotId) || slotId < 1 || typeof body.name !== 'string' || !body.name.trim()
+    || typeof body.email !== 'string' || !body.email.trim() || !attendance_type) {
     return json({ error: 'Vyplňte prosím jméno, e-mail a vyberte termín.' }, 400);
+  }
+  const name = body.name.normalize('NFC').trim().replace(/\s+/gu, ' ');
+  const email = body.email.trim().toLowerCase();
+  if (name.length > 200 || email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/u.test(email)) {
+    return json({ error: 'Zkontrolujte prosím jméno a e-mailovou adresu.' }, 400);
   }
   if (!['individual', 'pair'].includes(attendance_type)) {
     return json({ error: 'Neplatný typ účasti.' }, 400);
   }
 
-  const slot = await env.DB.prepare('SELECT * FROM course_slots WHERE id = ?').bind(slot_id).first();
+  const identity = JSON.stringify([email, normalizedBookingName(name)]);
+  const duplicateLookup = { slotId, email, name, identity };
+  const previous = await recentBooking(env.DB, duplicateLookup);
+  if (previous) return duplicateBookingResponse(previous, attendance_type);
+
+  const slot = await env.DB.prepare('SELECT * FROM course_slots WHERE id = ?').bind(slotId).first();
   if (!slot) return json({ error: 'Termín nenalezen.' }, 404);
 
   const headcount = attendance_type === 'pair' ? 2 : 1;
-  const remaining = slot.capacity - slot.booked_count;
-  if (remaining < headcount) return json({ error: 'Bohužel je tento termín již obsazen.' }, 409);
-
   const course = courseConfig(slot.course_type);
   const price = attendance_type === 'pair' ? course.pairPrice : course.individualPrice;
   const qrToken = randomToken();
 
-  const result = await env.DB.prepare(
-    `INSERT INTO course_registrations (slot_id, name, email, phone, attendance_type, headcount, price, message, qr_token)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
-  )
-    .bind(slot_id, name, email, phone || null, attendance_type, headcount, price, message || null, qrToken)
-    .run();
+  // D1 batch is one transaction. The INSERT rechecks duplicates and capacity
+  // inside the write, so even simultaneous requests can only claim places once.
+  const [insertResult] = await env.DB.batch([
+    env.DB.prepare(
+      `INSERT INTO course_registrations (slot_id, name, email, phone, attendance_type, headcount, price, message, qr_token, billing_address, booking_identity)
+       SELECT ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+       FROM course_slots s
+       WHERE s.id = ? AND s.booked_count + ? <= s.capacity
+         AND NOT EXISTS (
+           SELECT 1 FROM course_registrations r
+           WHERE r.slot_id = s.id AND datetime(r.created_at) >= datetime('now', ?)
+             AND (r.booking_identity = ? OR (r.booking_identity IS NULL AND lower(trim(r.email)) = ? AND lower(trim(r.name)) = lower(?)))
+         )
+       RETURNING id, created_at`
+    ).bind(slotId, name, email, phone || null, attendance_type, headcount, price, message || null, qrToken, billing_address, identity,
+      slotId, headcount, BOOKING_DUPLICATE_WINDOW, identity, email, name),
+    env.DB.prepare(
+      `UPDATE course_slots SET booked_count = booked_count + ?, updated_at = datetime('now')
+       WHERE id = ? AND EXISTS (SELECT 1 FROM course_registrations WHERE qr_token = ? AND slot_id = ?)`
+    ).bind(headcount, slotId, qrToken, slotId),
+  ]);
 
-  await env.DB.prepare('UPDATE course_slots SET booked_count = booked_count + ?, updated_at = datetime(\'now\') WHERE id = ?')
-    .bind(headcount, slot_id)
-    .run();
+  const inserted = insertResult.results[0];
+  if (!inserted) {
+    const duplicate = await recentBooking(env.DB, duplicateLookup);
+    if (duplicate) return duplicateBookingResponse(duplicate, attendance_type);
+    return json({ error: 'Bohužel je tento termín již obsazen.' }, 409);
+  }
 
-  const reg = { id: result.meta.last_row_id, name, email, attendance_type, price, qr_token: qrToken, created_at: new Date().toISOString() };
+  const reg = { ...inserted, name, email, attendance_type, price, qr_token: qrToken };
+  let confirmationEmailSent = false;
 
   if (env.RESEND_API_KEY) {
     const from = env.EMAIL_FROM || 'onboarding@resend.dev';
-    try {
-      await sendEmail({
+    const notifications = await Promise.allSettled([
+      sendEmail({
         apiKey: env.RESEND_API_KEY,
         from,
         to: email,
         subject: `Rezervace potvrzena – ${course.label}`,
-        html: bookingConfirmationHtml({ reg, slot, iban: env.BANK_IBAN }),
-      });
-      await sendEmail({
+        idempotencyKey: `course-registration/${reg.id}/participant`,
+        html: bookingConfirmationHtml({
+          reg, slot, course,
+          dateLabel: slotDateRangeLabel(slot),
+          variableSymbol: buildVariableSymbol(reg),
+          qrImageUrl: env.BANK_IBAN ? `https://michaelasedlackova.info/api/qr/${reg.qr_token}.gif` : null,
+        }),
+      }),
+      sendEmail({
         apiKey: env.RESEND_API_KEY,
         from,
         to: ADMIN_NOTIFY_EMAIL,
         subject: `Nová rezervace kurzu – ${name}`,
-        html: `<p>${name} (${email}${phone ? ', ' + phone : ''}) se přihlásil/a na kurz ${course.label}, termín ${slotDateRangeLabel(slot)} – ${attendance_type === 'pair' ? 'pár' : 'jednotlivec'}, ${price} Kč.</p>${message ? `<p>Zpráva: ${message}</p>` : ''}`,
-      });
-    } catch (err) {
-      // Rezervace je uložená a kapacita snížená i když se e-mail nepodaří odeslat.
-    }
+        idempotencyKey: `course-registration/${reg.id}/admin`,
+        html: adminNotificationHtml({
+          name, email, phone, billing_address, message, attendance_type, price, course, slot,
+          dateLabel: slotDateRangeLabel(slot),
+        }),
+      }),
+    ]);
+    confirmationEmailSent = notifications[0].status === 'fulfilled';
   }
 
-  return json({ ok: true });
+  return json({ ok: true, confirmation_email_sent: confirmationEmailSent });
 }
 
 async function handleAdminApi(request, env, url, session) {
@@ -267,7 +281,7 @@ async function handleAdminApi(request, env, url, session) {
 
   if (pathname === '/api/admin/registrations' && method === 'GET') {
     const { results } = await env.DB.prepare(
-      `SELECT r.id, r.slot_id, r.name, r.email, r.phone, r.attendance_type, r.headcount, r.price, r.message, r.created_at,
+      `SELECT r.id, r.slot_id, r.name, r.email, r.phone, r.billing_address, r.attendance_type, r.headcount, r.price, r.message, r.created_at,
               s.course_type, s.start_date, s.end_date, s.time_label, s.address
        FROM course_registrations r
        JOIN course_slots s ON s.id = r.slot_id
@@ -280,14 +294,15 @@ async function handleAdminApi(request, env, url, session) {
 
   if (registrationMatch && method === 'DELETE') {
     const id = Number(registrationMatch[1]);
-    const reg = await env.DB.prepare('SELECT slot_id, headcount FROM course_registrations WHERE id = ?').bind(id).first();
-    if (!reg) return json({ error: 'Rezervace nenalezena.' }, 404);
-    await env.DB.prepare('DELETE FROM course_registrations WHERE id = ?').bind(id).run();
-    await env.DB.prepare(
-      "UPDATE course_slots SET booked_count = MAX(0, booked_count - ?), updated_at = datetime('now') WHERE id = ?"
-    )
-      .bind(reg.headcount, reg.slot_id)
-      .run();
+    const [, deleted] = await env.DB.batch([
+      env.DB.prepare(
+        `UPDATE course_slots
+         SET booked_count = MAX(0, booked_count - (SELECT headcount FROM course_registrations WHERE id = ?)), updated_at = datetime('now')
+         WHERE id = (SELECT slot_id FROM course_registrations WHERE id = ?)`
+      ).bind(id, id),
+      env.DB.prepare('DELETE FROM course_registrations WHERE id = ?').bind(id),
+    ]);
+    if (!deleted.meta.changes) return json({ error: 'Rezervace nenalezena.' }, 404);
     return json({ ok: true });
   }
 

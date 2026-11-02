@@ -161,6 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
+      if (!form.reportValidity()) return;
       const jmeno = form.querySelector('#jmeno').value.trim();
       const email = form.querySelector('#email').value.trim();
       if (!jmeno || !email) {

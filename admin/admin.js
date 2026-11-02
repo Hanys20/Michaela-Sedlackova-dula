@@ -81,6 +81,12 @@ document.addEventListener('DOMContentLoaded', () => {
     return type === 'pair' ? 'pár' : 'jednotlivec';
   }
 
+  function escapeHtml(value) {
+    return String(value ?? '').replace(/[&<>"']/g, (char) => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+    })[char]);
+  }
+
   function renderRegistrations(filter) {
     const q = (filter || '').trim().toLowerCase();
     const bySlot = new Map();
@@ -115,10 +121,11 @@ document.addEventListener('DOMContentLoaded', () => {
             .map(
               (r) => `
             <div class="registration-row">
-              <span class="registration-name">${r.name}</span>
+              <span class="registration-name">${escapeHtml(r.name)}</span>
               <span class="registration-meta">${attendanceLabel(r.attendance_type)} · ${r.price} Kč</span>
-              <span class="registration-meta">${r.email}${r.phone ? ' · ' + r.phone : ''}</span>
+              <span class="registration-meta">${escapeHtml(r.email)}${r.phone ? ' · ' + escapeHtml(r.phone) : ''}</span>
               <button type="button" class="btn btn-sm btn-danger reg-delete-btn" data-id="${r.id}">Smazat</button>
+              <div class="registration-billing"><strong>Fakturační adresa</strong><span>${r.billing_address ? escapeHtml(r.billing_address) : 'Neuvedena'}</span></div>
             </div>`
             )
             .join('')}

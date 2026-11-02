@@ -382,7 +382,7 @@
       <p class="course-slots-status">Načítám termíny…</p>
     </div>
 
-    <form id="booking-form" class="booking-form" novalidate>
+    <form id="booking-form" class="booking-form" autocomplete="on">
       <p id="booking-course-name" class="booking-course-name">Kompletní předporodní příprava s hypnoporodem</p>
       <div class="attendance-toggle">
         <label class="attendance-option">
@@ -397,23 +397,41 @@
       <div class="form-row">
         <div class="form-group">
           <label for="booking-jmeno">Jméno a příjmení</label>
-          <input type="text" id="booking-jmeno" name="name" autocomplete="name" placeholder="Jana Nováková" required>
+          <input type="text" id="booking-jmeno" name="name" autocomplete="section-course billing name" placeholder="Jana Nováková" required>
         </div>
         <div class="form-group">
           <label for="booking-email">E-mail</label>
-          <input type="email" id="booking-email" name="email" autocomplete="email" placeholder="jana@email.cz" required>
+          <input type="email" id="booking-email" name="email" autocomplete="section-course billing email" placeholder="jana@email.cz" required>
         </div>
       </div>
       <div class="form-row">
         <div class="form-group">
           <label for="booking-telefon">Telefon</label>
-          <input type="tel" id="booking-telefon" name="phone" autocomplete="tel" placeholder="+420 777 000 000">
+          <input type="tel" id="booking-telefon" name="phone" autocomplete="section-course billing tel" placeholder="+420 777 000 000">
         </div>
         <div class="form-group">
           <label for="booking-termin">Vybraný termín</label>
           <select id="booking-termin" name="slot_id" required></select>
         </div>
       </div>
+      <fieldset class="billing-fields" aria-describedby="billing-address-help">
+        <legend>Fakturační adresa *</legend>
+        <div class="form-group">
+          <label for="booking-ulice">Ulice a číslo</label>
+          <input type="text" id="booking-ulice" name="billing_street" autocomplete="section-course billing address-line1" maxlength="500" placeholder="Dlouhá 123/4" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="booking-mesto">Město</label>
+            <input type="text" id="booking-mesto" name="billing_city" autocomplete="section-course billing address-level2" maxlength="300" placeholder="Opava" required>
+          </div>
+          <div class="form-group">
+            <label for="booking-psc">PSČ</label>
+            <input type="text" id="booking-psc" name="billing_postal_code" autocomplete="section-course billing postal-code" inputmode="numeric" maxlength="20" placeholder="746 01" required>
+          </div>
+        </div>
+        <p id="billing-address-help" class="form-help">Údaje pro vystavení faktury. Vyplňte prosím všechna tři pole.</p>
+      </fieldset>
       <div class="form-group">
         <label for="booking-zprava">Zpráva</label>
         <textarea id="booking-zprava" name="message" rows="3" placeholder="Cokoliv, co bych měla vědět předem…"></textarea>
@@ -478,21 +496,21 @@
 
       <div class="contact-right">
 
-        <form class="contact-form" action="https://formspree.io/f/xkjnyjnb" method="post" novalidate>
+        <form class="contact-form" action="https://formspree.io/f/xkjnyjnb" method="post" autocomplete="on">
           <div class="form-row">
             <div class="form-group">
               <label for="jmeno">Jméno a příjmení</label>
-              <input type="text" id="jmeno" name="jmeno" autocomplete="name" placeholder="Jana Nováková" required>
+              <input type="text" id="jmeno" name="jmeno" autocomplete="section-contact name" placeholder="Jana Nováková" required>
             </div>
             <div class="form-group">
               <label for="email">E-mail</label>
-              <input type="email" id="email" name="email" autocomplete="email" placeholder="jana@email.cz" required>
+              <input type="email" id="email" name="email" autocomplete="section-contact email" placeholder="jana@email.cz" required>
             </div>
           </div>
           <div class="form-row">
             <div class="form-group">
               <label for="telefon">Telefon</label>
-              <input type="tel" id="telefon" name="telefon" autocomplete="tel" placeholder="+420 777 000 000">
+              <input type="tel" id="telefon" name="telefon" autocomplete="section-contact tel" placeholder="+420 777 000 000">
             </div>
             <div class="form-group">
               <label for="sluzba">Zájem o službu</label>

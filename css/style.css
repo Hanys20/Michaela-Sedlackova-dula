@@ -764,6 +764,11 @@ p  { line-height: 1.7; }
 .form-group textarea:focus,
 .form-group select:focus { border-color: var(--p4); }
 .form-group textarea { height: 200px; resize: vertical; }
+.billing-fields { min-width: 0; margin: 0; padding: 0; border: 0; }
+.billing-fields legend { padding: 0; margin-bottom: 12px; font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; color: var(--p6); font-weight: 600; }
+.billing-fields > .form-group { margin-bottom: 14px; }
+.billing-fields .form-row { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
+.form-help { margin: 2px 0 0; font-size: .75rem; line-height: 1.5; color: var(--p6); }
 .form-privacy { font-size: .72rem; color: var(--text-muted); }
 .form-privacy a { color: var(--p5); }
 

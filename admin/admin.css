@@ -277,6 +277,9 @@ body {
 .registration-row:last-child { border-bottom: none; }
 .registration-name { font-weight: 600; overflow-wrap: anywhere; word-break: break-word; }
 .registration-meta { color: var(--text-muted); overflow-wrap: anywhere; word-break: break-word; }
+.registration-billing { flex-basis: 100%; width: 100%; padding: 6px 0; overflow-wrap: anywhere; }
+.registration-billing strong { display: block; margin-bottom: 4px; color: var(--text-muted); font-size: .75rem; }
+.registration-billing span { white-space: pre-wrap; user-select: text; }
 .reg-delete-btn { padding: 12px 26px; }
 
 @media (max-width: 640px) {

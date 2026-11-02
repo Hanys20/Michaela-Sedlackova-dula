@@ -26,12 +26,15 @@ CREATE TABLE IF NOT EXISTS course_registrations (
   name TEXT NOT NULL,
   email TEXT NOT NULL,
   phone TEXT,
+  billing_address TEXT,
   attendance_type TEXT NOT NULL CHECK (attendance_type IN ('individual','pair')),
   headcount INTEGER NOT NULL,
   price INTEGER NOT NULL,
   message TEXT,
   qr_token TEXT,
+  booking_identity TEXT,
   created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
 
 CREATE UNIQUE INDEX IF NOT EXISTS idx_registrations_qr_token ON course_registrations(qr_token);
+CREATE INDEX IF NOT EXISTS idx_registrations_identity ON course_registrations(slot_id, booking_identity, created_at);
