@@ -414,8 +414,7 @@
           <select id="booking-termin" name="slot_id" required></select>
         </div>
       </div>
-      <fieldset class="billing-fields" aria-describedby="billing-address-help">
-        <legend>Fakturační adresa *</legend>
+      <fieldset class="billing-fields" aria-label="Fakturační adresa">
         <div class="form-group">
           <label for="booking-ulice">Ulice a číslo</label>
           <input type="text" id="booking-ulice" name="billing_street" autocomplete="section-course billing address-line1" maxlength="500" placeholder="Dlouhá 123/4" required>
@@ -430,7 +429,6 @@
             <input type="text" id="booking-psc" name="billing_postal_code" autocomplete="section-course billing postal-code" inputmode="numeric" maxlength="20" placeholder="746 01" required>
           </div>
         </div>
-        <p id="billing-address-help" class="form-help">Údaje pro vystavení faktury. Vyplňte prosím všechna tři pole.</p>
       </fieldset>
       <div class="form-group">
         <label for="booking-zprava">Zpráva</label>
